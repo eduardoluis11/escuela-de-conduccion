@@ -13,9 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+""" Con incluir la biblioteca "include", y agregar el path a la carpeta "app" (o "app_horarios"), y podré redirigir al
+usuario a las páginas incluidas en la carpeta "template". Así, ya no me aparecerá la página del cohete que me sale por 
+defecto en Django.
+"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('app_horarios.urls'))
 ]

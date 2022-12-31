@@ -77,3 +77,10 @@ npm-debug.log*
 node_modules
 
 /client/build
+/.idea/dbnavigator.xml
+/.idea/escuela-de-conduccion.iml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/modules.xml
