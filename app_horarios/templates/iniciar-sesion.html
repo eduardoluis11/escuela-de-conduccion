@@ -5,6 +5,11 @@
 
     <p>Inserte su nombre de usuario y contraseña para iniciar sesión.</p>
 
+    <!-- Est imprimirá un mensaje de error si el usuario inserta un nombre de usuario o contraseña incorrecta -->
+    {% if mensaje %}
+        <div style="color: red">{{ mensaje }}</div>
+        <br>
+    {% endif %}
 
     <div>
         <form action="{% url 'iniciar_sesion' %}" method="post">
