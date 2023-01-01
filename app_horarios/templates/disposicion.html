@@ -32,10 +32,19 @@ contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bo
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a>
-        </li>
+        <ul class="navbar-nav">
+            <!-- Esto renderiza el enlace para cerrar sesión si has iniciado sesión -->
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cerrar Sesión</a>
+                </li>
+            {% else %}
+                <!-- Enlace para iniciar sesión, el cual aparece si no la has iniciado -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a>
+                </li>
+            {% endif %}
+
       </ul>
     </div>
   </div>

@@ -5,14 +5,25 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
 {% block body %}
     <h1>Horarios de la Escuela de Conducción</h1>
 
-    <p>Bienvenido al sistema.</p>
+    <!-- Página de inicio que le aparece a los usuarios que han iniciado sesión -->
+    {% if user.is_authenticated %}
+        <div>
+            <p>
+                Bienvenido, {{user.username}}!
+            </p>
+        </div>
+    <!-- Página de inicio que le aparece al usuario si no ha iniciado sesión  -->
+    {% else %}
 
-    <p>Para poder usar los servicios de esta aplicación web, por favor, <a href="{% url 'iniciar_sesion' %}">
-        inicie sesión.
-    </a></p>
+        <p>Bienvenido al sistema.</p>
 
-    <p>Si no tiene cuenta, contacte al administrador del sitio web para que le cree una y pueda iniciar sesión.</p>
+        <p>Para poder usar los servicios de esta aplicación web, por favor, <a href="{% url 'iniciar_sesion' %}">
+            inicie sesión.
+        </a></p>
 
-    <p><b>Aviso:</b> este sitio web usa cookies, las cuales toman su información privada.</p>
+        <p>Si no tiene cuenta, contacte al administrador del sitio web para que le cree una y pueda iniciar sesión.</p>
+
+        <p><b>Aviso:</b> este sitio web usa cookies, las cuales toman su información privada.</p>
+    {% endif %}
 
 {% endblock %}
