@@ -18,7 +18,10 @@
 <!--        }-->
     </style>
 </head>
-<body>
+<!-- Esto me debería mantener el footer de Bootstrap al fondo de la página, independientemente de que haya mucho o poco
+contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bootstrap-footer-at-the-bottom-of-the-page
+.)  -->
+<body class="d-flex flex-column min-vh-100">
 
 <!-- Barra de navegación -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -40,11 +43,15 @@
 
 <!-- Esto me permitirá insertar footer, la barra de navegación, y todo el código de este archivo en el resto
   de las páginas de la aplicación web -->
-{% block body%}
+<div class="container-fluid">
+    {% block body%}
 
-{% endblock %}
+    {% endblock %}
+</div>
 
-<footer>
+<!-- "mt-auto" o "margin top auto" me mantendrá el pie de la página al fondo de la página, independientemente
+ de que haya mucho o poco contenido en la página -->
+<footer class="mt-auto">
     <!-- Aviso de copyright. El script que agregué va a actualizar el año automáticamente cada año (fuente:
     https://kerstinmartin.com/blog/copyright-notice ). -->
   <span class="mb-3 mb-md-0 text-muted">
