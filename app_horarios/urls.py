@@ -7,4 +7,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('iniciar-sesion', views.iniciar_sesion, name='iniciar_sesion'),
 ]

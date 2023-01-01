@@ -1,0 +1,24 @@
+{% extends "disposicion.html" %}
+
+{% block body %}
+    <h1>Inicie Sesión</h1>
+
+    <p>Inserte su nombre de usuario y contraseña para iniciar sesión.</p>
+
+
+    <div>
+        <form action="{% url 'iniciar_sesion' %}" method="post">
+            {% csrf_token %}
+
+            <!-- Formulario de Inicio de Sesión -->
+            {{formulario.as_p}}
+
+            <!-- Submit button -->
+            <input class="btn btn-primary" type="submit" value="Iniciar Sesión">
+        </form>
+    </div>
+
+    <p>
+        ¿No tiene cuenta? Póngase en contacto con el administrador de la aplicación web.
+    </p>
+{% endblock %}
