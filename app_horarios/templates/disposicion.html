@@ -36,7 +36,7 @@ contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bo
             <!-- Esto renderiza el enlace para cerrar sesión si has iniciado sesión -->
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cerrar Sesión</a>
+                    <a class="nav-link" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
                 </li>
             {% else %}
                 <!-- Enlace para iniciar sesión, el cual aparece si no la has iniciado -->

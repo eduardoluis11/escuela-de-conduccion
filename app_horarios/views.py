@@ -70,3 +70,17 @@ def iniciar_sesion(request):
         return render(request, 'iniciar-sesion.html', {
             "formulario": formulario
         })
+
+""" Vista para Cerrar la Sesión de un usuario.
+
+Para activar esta vista, el usuario debe haber iniciado sesión. Por lo tanto, puse el decorator de que el usuario debió
+haber iniciado sesión.
+"""
+@login_required
+def cerrar_sesion(request):
+
+    # Esto cierra la sesión del usuario
+    logout(request)
+
+    # Esto envía al usuario a la página de inicio
+    return HttpResponseRedirect(reverse("index"))
