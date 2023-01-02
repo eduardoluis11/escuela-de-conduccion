@@ -123,6 +123,9 @@ problemas al largo plazo. Mientras tanto, si lo dejo com “timeField”, el usu
 “Blank = true” significa que, si estuviera en un formulario, que está permitido que ese campo en el formulario del 
 front end de la web app estuviera vacio. Sin embargo, lo que yo quería, es decir, que el campo pueda ser NULL, requiere 
 que ponga ewl atributo “Null=true”.
+
+Tengo que agregar “f{self.columna}” dentro de un “def __str__(self)” para cambiarle el nombre al título de los campos 
+de una tabla en la bbdd en Django.
 """
 class Horario(models.Model):
 
@@ -176,5 +179,8 @@ class Horario(models.Model):
                                                                null=True)
     horario_de_fin_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.id_de_usuario}"
 
 
