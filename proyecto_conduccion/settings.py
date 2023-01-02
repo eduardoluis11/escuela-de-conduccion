@@ -81,6 +81,13 @@ DATABASES = {
     }
 }
 
+""" Esto me dejará usar el modelo "User" para poder agarrar los datos de los usuarios del modelo en donde se guardan
+los datos de los usuariso registrados por defecto en Django (fuente: 
+https://docs.djangoproject.com/en/4.1/topics/auth/customizing/ ).
+"""
+AUTH_USER_MODEL = "app_horarios.User"
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
