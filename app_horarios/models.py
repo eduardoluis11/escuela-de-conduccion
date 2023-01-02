@@ -74,3 +74,100 @@ class Secretario(models.Model):
 
     # Si el usuario es secretario (SIEMPRE DEJARLO EN "True")
     el_usuario_es_secretario = models.BooleanField(default=True)
+
+
+""" Modelo de Horarios.
+
+Los datos que pondré en la tabla de horarios son:
+•	ID del chofer (tomado como clave foránea de la tabla de Chofer)
+•	Horario de inicio Lunes (obligatorio).
+•	Horario de Fin Lunes (obligatorio).
+•	Horario de Inicio de Segundo Turno Lunes (opcional).
+•	Horario de Fin de Segundo Turno Lunes (opcional).
+•	Horario de inicio Martes
+•	Horario de Fin Martes
+•	Horario de Inicio de Segundo Turno Martes
+•	Horario de Fin de Segundo Turno Martes
+•	Horario de inicio Miercoles
+•	Horario de Fin Miercoles
+•	Horario de Inicio de Segundo Turno Miercoles
+•	Horario de Fin de Segundo Turno Miercoles
+•	Horario de inicio Jueves
+•	Horario de Fin Jueves
+•	Horario de Inicio de Segundo Turno Jueves
+•	Horario de Fin de Segundo Turno Jueves
+•	Horario de inicio Viernes
+•	Horario de Fin Viernes
+•	Horario de Inicio de Segundo Turno Viernes
+•	Horario de Fin de Segundo Turno Viernes
+•	Horario de inicio Sabado
+•	Horario de Fin Sabado
+•	Horario de Inicio de Segundo Turno Sabado
+•	Horario de Fin de Segundo Turno Sabado
+•	Horario de inicio Domingo
+•	Horario de Fin Domingo
+•	Horario de Inicio de Segundo Turno Domingo
+•	Horario de Fin de Segundo Turno Domingo
+
+    Pondré 2 horarios por cada día por si un profesor trabaja a "turno partido", es decir, si el profesor trabaja
+en la mañana, luego descansa, y leugo tiene que venir en la tarde a terminar su turno.
+
+    Todos los campos con el nombre "segundo turno" son opcionales.
+    
+    Si hay días en los que no hay clase (ejemplo: los fines de semana) pondré que el usuario deba poner 0:00 o algo así. 
+Otra forma de arreglarlo sería que el campo fuera “Varchar” para que el usuario insertara texto (para que insertara 
+algo como “N/A”). Sin embargo, por motivos de foolproofing, prefiero no hacer eso. ¿Por qué? Porque si pongo que el 
+usuario ponga texto, puede ser que escriba “1:00 pm”, o “13:00”, o “1 pm”, o “a la una”, y eso me va a dar un monton de 
+problemas al largo plazo. Mientras tanto, si lo dejo com “timeField”, el usuario solo podrá escribir números.
+"""
+class Horario(models.Model):
+
+    # ID del chofer (tomado como clave foranea)
+    id_de_usuario = models.ForeignKey("User", on_delete=models.CASCADE, related_name="id_de_chofer")
+
+    # Horarios iniciales de entrada y salida los lunes (obligatorio)
+    horario_de_inicio_lunes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_fin_lunes = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Segundos horarios de entrada y salida los lunes (opcional)
+    horario_de_inicio_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_fin_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+
+    # Martes
+    horario_de_inicio_martes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_fin_martes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_fin_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+
+    # Miércoles
+    horario_de_inicio_miercoles = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_fin_miercoles = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_fin_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+
+    # Jueves
+    horario_de_inicio_jueves = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_fin_jueves = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_fin_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+
+    # Viernes
+    horario_de_inicio_viernes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_fin_viernes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_fin_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+
+    # Sábado
+    horario_de_inicio_sabado = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_fin_sabado = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_fin_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+
+    # Domingo
+    horario_de_inicio_domingo = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_fin_domingo = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_fin_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+
+
+
