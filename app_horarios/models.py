@@ -39,9 +39,9 @@ class Chofer(models.Model):
     nombre = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     dni = models.CharField(max_length=20)
-    direccion = models.TextField(blank=True)
-    telefono = models.CharField(blank=True, max_length=20)
-    email = models.EmailField(blank=True, max_length=254)
+    direccion = models.TextField(blank=True, null=True)
+    telefono = models.CharField(blank=True, null=True, max_length=20)
+    email = models.EmailField(blank=True, null=True, max_length=254)
 
 
 """ Modelo de Secretarios/as 	
