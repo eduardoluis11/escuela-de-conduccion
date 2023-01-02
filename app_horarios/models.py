@@ -119,6 +119,10 @@ Otra forma de arreglarlo sería que el campo fuera “Varchar” para que el usu
 algo como “N/A”). Sin embargo, por motivos de foolproofing, prefiero no hacer eso. ¿Por qué? Porque si pongo que el 
 usuario ponga texto, puede ser que escriba “1:00 pm”, o “13:00”, o “1 pm”, o “a la una”, y eso me va a dar un monton de 
 problemas al largo plazo. Mientras tanto, si lo dejo com “timeField”, el usuario solo podrá escribir números.
+
+“Blank = true” significa que, si estuviera en un formulario, que está permitido que ese campo en el formulario del 
+front end de la web app estuviera vacio. Sin embargo, lo que yo quería, es decir, que el campo pueda ser NULL, requiere 
+que ponga ewl atributo “Null=true”.
 """
 class Horario(models.Model):
 
@@ -130,44 +134,47 @@ class Horario(models.Model):
     horario_de_fin_lunes = models.TimeField(auto_now=False, auto_now_add=False)
 
     # Segundos horarios de entrada y salida los lunes (opcional)
-    horario_de_inicio_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
-    horario_de_fin_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Martes
     horario_de_inicio_martes = models.TimeField(auto_now=False, auto_now_add=False)
     horario_de_fin_martes = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_inicio_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
-    horario_de_fin_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Miércoles
     horario_de_inicio_miercoles = models.TimeField(auto_now=False, auto_now_add=False)
     horario_de_fin_miercoles = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_inicio_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
-    horario_de_fin_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False,
+                                                                 null=True)
+    horario_de_fin_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Jueves
     horario_de_inicio_jueves = models.TimeField(auto_now=False, auto_now_add=False)
     horario_de_fin_jueves = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_inicio_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
-    horario_de_fin_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Viernes
     horario_de_inicio_viernes = models.TimeField(auto_now=False, auto_now_add=False)
     horario_de_fin_viernes = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_inicio_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
-    horario_de_fin_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False,
+                                                               null=True)
+    horario_de_fin_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Sábado
     horario_de_inicio_sabado = models.TimeField(auto_now=False, auto_now_add=False)
     horario_de_fin_sabado = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_inicio_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
-    horario_de_fin_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Domingo
     horario_de_inicio_domingo = models.TimeField(auto_now=False, auto_now_add=False)
     horario_de_fin_domingo = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_inicio_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
-    horario_de_fin_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False)
+    horario_de_inicio_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False,
+                                                               null=True)
+    horario_de_fin_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
 
 
