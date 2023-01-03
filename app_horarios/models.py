@@ -16,8 +16,11 @@ from django.contrib.auth.models import AbstractUser
 
 Esto me dejará tanto registrar usuarios, como dejarles iniciar sesión.
 """
+
+
 class User(AbstractUser):
     pass
+
 
 """ Modelo de los Choferes
 
@@ -31,8 +34,9 @@ Los datos serán:
 •	Codigo ID del usuario (clave foránea del usuario).
 
 """
-class Chofer(models.Model):
 
+
+class Chofer(models.Model):
     # ID del chofer (tomado como clave foranea)
     id_de_usuario = models.ForeignKey("User", on_delete=models.CASCADE, related_name="id_de_usuario_de_chofer")
 
@@ -74,6 +78,8 @@ convertirlo en secretario. Solo tendrá que escoger la ID del usuario al que qui
 Sí, si se puede usar un menú de selección para un modelo. Simplemente tengo que crear una lista de Python, usar 
 model.CharField, y meter el atributo “choices” dentro de ese CharField.
 """
+
+
 class Secretario(models.Model):
     OPCIONES_SI_O_NO = (
         ('Sí', 'Sí'),
@@ -173,8 +179,9 @@ secretarios ni administradores, , en el modelo de Horarios, solo le dejare al us
 los usuarios. Y lo mismo con las oficinas: solo se podrán asignar choferes a las oficinas, NO secretarios ni 
 administradores.
 """
-class Horario(models.Model):
 
+
+class Horario(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -236,6 +243,7 @@ class Horario(models.Model):
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
+
 """ Modelo de Oficinas.
 
 Los datos que necesito para el modelo de Oficinas son:
@@ -250,6 +258,8 @@ en una oficina pueden trabajar muchos choferes por lo que hay una relación de m
 oficinas. Entonces, tendré que usar un many-to-many relationship al crear el modelo. 
 
 """
+
+
 class Oficina(models.Model):
     nombre_de_oficina = models.CharField(max_length=255)
     direccion = models.TextField()
@@ -279,13 +289,38 @@ Para las Asistencias de cada día (el modelo), los datos que usaré son los sigu
 •	Fecha en la que se está tomando la asistencia.
 •	Si el chofer vino a trabajar (“sí” o “no”).
 •	Horas trabajadas por el chofer (en números).
-•	Fecha y hora en la que se registró esta asistencia (esto es automático).
+•	Fecha y hora en la que se registró esta asistencia (esto es automático) (Timestamp).
 
 """
 class Asistencia(models.Model):
+    # Esto lo usaré para decir si el chofer vino a trabajar o no
+    OPCIONES_SI_O_NO = (
+        ('Sí', 'Sí'),
+        ('No', 'No'),
+    )
 
+    # se le asigna un nombre al reporte para encontrar facilmente el reporte de la asistencia
     nombre_de_reporte_de_asistencia = models.CharField(max_length=255, default='')
 
+    # ID del chofer (tomado como clave foranea)
+    id_de_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_para_asistencia",
+                                     default=0)
+
+    # Fecha en la que se está tomando la asistencia
+    fecha = models.DateField(default=date.today)
+
+    # Si el chofer fue a trabajar o no
+    vino_a_trabajar = models.CharField(max_length=2, choices=OPCIONES_SI_O_NO, default='Sí')
+
+    # Horas trabajadas por el chofer
+    horas_trabajadas = models.IntegerField(default=0)
+
+    # Fecha y hora en la que se registró esta asistencia (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_asistencia = models.DateTimeField(auto_now_add=True)
+
+    # fecha_y_hora_en_la_que_se_registro_asistencia = models.DateTimeField(default=date.today)
+
     # Esto le cambiara el titulo a cada registro de la tabla
+
     def __str__(self):
         return f"{self.nombre_de_reporte_de_asistencia}"
