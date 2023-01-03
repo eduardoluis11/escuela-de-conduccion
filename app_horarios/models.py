@@ -157,6 +157,11 @@ primero que nada, hay posiblemente quienes no trabajen los fines de semana. Adem
 pero no trabaja los lunes, entonces no debería salir nada en “lunes”. Finalmente, como no puedo poner “N/A” al horario 
 de un dia en el que un chofer no venga a trabajar, me sale mejor dejar esos días como un campo vacío. Entonces, dejaré 
 todos los días como opcionales (Null=True).
+
+O, después de pensarlo mejor, dado a que los estudiantes solo les interesan los horarios de los choferes, y no de los 
+secretarios ni administradores, , en el modelo de Horarios, solo le dejare al usuario seleccionar choferes, NO a todos 
+los usuarios. Y lo mismo con las oficinas: solo se podrán asignar choferes a las oficinas, NO secretarios ni 
+administradores.
 """
 class Horario(models.Model):
 
@@ -164,7 +169,7 @@ class Horario(models.Model):
     nombre_del_horario = models.CharField(max_length=255, default='')
 
     # ID del chofer (tomado como clave foranea)
-    id_de_usuario = models.ForeignKey("User", on_delete=models.CASCADE, related_name="id_de_chofer")
+    id_de_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer", default=0)
 
     # Oficina a la que le pertenece este horario
     oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
