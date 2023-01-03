@@ -139,8 +139,15 @@ la oficina a la que le pertenece ese horario.
 
 Tengo que poner "default=0" en la clave foránea que agarra la oficina, porque mínimo se debe tener un número
 por defecto al crear una tabla que use una clave foránea.
+
+Creo que preferiría asignarle un nombre a los horarios, para así encontrarlos más fácilmente. No voy a dejar el nombre 
+de usuario como el nombre de usuario, porque el usuario “pedro” podría ser “Pedro Gonzales” o “Pedro Perez”, pero 
+“Horario de Pedro Pérez” es mucho más específico y me dice el nombre de la persona exacta.
 """
 class Horario(models.Model):
+
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
 
     # ID del chofer (tomado como clave foranea)
     id_de_usuario = models.ForeignKey("User", on_delete=models.CASCADE, related_name="id_de_chofer")
@@ -198,7 +205,7 @@ class Horario(models.Model):
 
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
-        return f"{self.id_de_usuario}"
+        return f"{self.nombre_del_horario}"
 
 """ Modelo de Oficinas.
 
@@ -220,6 +227,10 @@ class Oficina(models.Model):
 
     # Choferes que trabajan en esta oficina
     chofer = models.ManyToManyField(Chofer, blank=True, related_name="choferes_que_trabajan_en_oficina", default=[0])
+
+    # Esto le cambiara el titulo a cada registro de la tabla
+    def __str__(self):
+        return f"{self.nombre_de_oficina}"
 
     # # Horarios de los choferes de la oficina
     # horario = models.ForeignKey("Horario", on_delete=models.CASCADE, related_name="id_de_chofer")
