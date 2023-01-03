@@ -80,6 +80,7 @@ class Secretario(models.Model):
 
 Los datos que pondré en la tabla de horarios son:
 •	ID del chofer (tomado como clave foránea de la tabla de Chofer)
+•	Oficina a la que le pertenece este horario
 •	Horario de inicio Lunes (obligatorio).
 •	Horario de Fin Lunes (obligatorio).
 •	Horario de Inicio de Segundo Turno Lunes (opcional).
@@ -126,11 +127,27 @@ que ponga ewl atributo “Null=true”.
 
 Tengo que agregar “f{self.columna}” dentro de un “def __str__(self)” para cambiarle el nombre al título de los campos 
 de una tabla en la bbdd en Django.
+
+Va a haber una relación de uno a muchos entre los horarios y las oficinas, ya que un horario en 
+específico solo puede pertenecer a una oficina, pero una oficina puede tener muchos horarios asociados a ella. 
+Entonces, hay una relación one-to-many entre oficinas y horarios. El one-to-many se hace usando claves foráneas.
+Por lo tanto, agarraré los horarios usando una clave foránea.
+
+Sin embargo, el horario lo debo agarrar desde la tabla de horarios, NO desde la tabla de oficinas. Cada horario
+solo pertenece a una oficina. Por lo tanto, al crear un registro de un horario, también debo poder seleccionar
+la oficina a la que le pertenece ese horario.
+
+Tengo que poner "default=0" en la clave foránea que agarra la oficina, porque mínimo se debe tener un número
+por defecto al crear una tabla que use una clave foránea.
 """
 class Horario(models.Model):
 
     # ID del chofer (tomado como clave foranea)
     id_de_usuario = models.ForeignKey("User", on_delete=models.CASCADE, related_name="id_de_chofer")
+
+    # Oficina a la que le pertenece este horario
+    oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                related_name="oficina_a_la_que_le_pertenece_este_horario", default=0)
 
     # Horarios iniciales de entrada y salida los lunes (obligatorio)
     horario_de_inicio_lunes = models.TimeField(auto_now=False, auto_now_add=False)
@@ -183,4 +200,27 @@ class Horario(models.Model):
     def __str__(self):
         return f"{self.id_de_usuario}"
 
+""" Modelo de Oficinas.
+
+Los datos que necesito para el modelo de Oficinas son:
+•	Nombre de la oficina.
+•	Dirección de la oficina.
+•	Los choferes que trabajan ahí.
+
+
+Creo que tendré que crear una tabla extra para poner los choferes que trabajan en esa oficina y los horarios de los 
+choferes en esa oficina. Eso se debe  a que quiero hacer que un chofer pueda trabajar en varias oficinas, y obviamente 
+en una oficina pueden trabajar muchos choferes por lo que hay una relación de muchos a muchos entre choferes y 
+oficinas. Entonces, tendré que usar un many-to-many relationship al crear el modelo. 
+
+"""
+class Oficina(models.Model):
+    nombre_de_oficina = models.CharField(max_length=255)
+    direccion = models.TextField()
+
+    # Choferes que trabajan en esta oficina
+    chofer = models.ManyToManyField(Chofer, blank=True, related_name="choferes_que_trabajan_en_oficina", default=0)
+
+    # # Horarios de los choferes de la oficina
+    # horario = models.ForeignKey("Horario", on_delete=models.CASCADE, related_name="id_de_chofer")
 
