@@ -324,3 +324,52 @@ class Asistencia(models.Model):
 
     def __str__(self):
         return f"{self.nombre_de_reporte_de_asistencia}"
+
+""" Modelo de los Reportes Semanales.
+
+El modelo de Reporte Semanal tendrá los siguientes datos:
+•	ID del chofer (tomada como clave foránea). X
+•	Nombre del reporte semanal (ej: reporte del 1/1/23 de Pedro Perez). X
+•	Fecha de inicio de la semana. X
+•	Fecha de fin de la semana a evaluar. X
+•	Horas de clases dadas durante la semana (ESTO NO SE PUEDE EDITAR. ESTO SE CALCULA AUTOMÁTICAMENTE). X
+•	Número de clases canceladas durante la semana (ESTO NO SE PUEDE EDITAR. ESTO SE CALCULA AUTOMÁTICAMENTE).   X
+•	Clases cambiadas a otro horario (OPCIONAL, y usare un <textarea> para esto). X
+•	Motivos de las inasistencias (si las tiene) (OPCIONAL y con <textarea>).    X
+•	Marca de tiempo para saber fecha y hora de cuando se creó este registro (Timestamp). X
+
+"""
+class ReporteSemanal(models.Model):
+
+    # Se le asigna un nombre al reporte para encontrar facilmente el reporte de la asistencia
+    nombre_de_reporte_semanal = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_de_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_chofer_para_reporte_semanal",
+                                     default=0)
+
+    # Fecha de inicio de la semana a evaluar
+    fecha_de_inicio_de_semana_a_evaluar = models.DateField(default=date.today)
+
+    # Fecha del final de la semana a evaluar
+    fecha_final_de_semana_a_evaluar = models.DateField(default=date.today)
+
+    # Clases cambiadas a otro horario
+    clases_cambiadas_a_otro_horario = models.TextField(blank=True, null=True)
+
+    # Horas trabajadas por el chofer durante la semana (AUTOMATICO) (ARREGLAR DESPUES)
+    horas_trabajadas_en_la_semana = models.IntegerField(default=0)
+
+    # Número de clases canceladas (AUTOMATICO) (ARREGLAR DESPUES)
+    clases_canceladas_en_la_semana = models.IntegerField(default=0)
+
+    # Motivo de las inasistencias
+    motivo_de_las_inasistencias = models.TextField(blank=True, null=True)
+
+    # Fecha y hora en la que se registró esta asistencia (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_reporte = models.DateTimeField(auto_now_add=True)
+
+    # Esto le cambiara el titulo a cada registro de la tabla
+
+    def __str__(self):
+        return f"{self.nombre_de_reporte_semanal}"
