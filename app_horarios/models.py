@@ -143,6 +143,12 @@ por defecto al crear una tabla que use una clave foránea.
 Creo que preferiría asignarle un nombre a los horarios, para así encontrarlos más fácilmente. No voy a dejar el nombre 
 de usuario como el nombre de usuario, porque el usuario “pedro” podría ser “Pedro Gonzales” o “Pedro Perez”, pero 
 “Horario de Pedro Pérez” es mucho más específico y me dice el nombre de la persona exacta.
+
+Voy a hacer que todos los horarios de todos los días sean opcionales (es decir, que puedan ser NULL). Eso es porque, 
+primero que nada, hay posiblemente quienes no trabajen los fines de semana. Además, si alguien trabaja los sabados, 
+pero no trabaja los lunes, entonces no debería salir nada en “lunes”. Finalmente, como no puedo poner “N/A” al horario 
+de un dia en el que un chofer no venga a trabajar, me sale mejor dejar esos días como un campo vacío. Entonces, dejaré 
+todos los días como opcionales (Null=True).
 """
 class Horario(models.Model):
 
@@ -157,48 +163,48 @@ class Horario(models.Model):
                                 related_name="oficina_a_la_que_le_pertenece_este_horario", default=0)
 
     # Horarios iniciales de entrada y salida los lunes (obligatorio)
-    horario_de_inicio_lunes = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_fin_lunes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_lunes = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    horario_de_fin_lunes = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
 
     # Segundos horarios de entrada y salida los lunes (opcional)
     horario_de_inicio_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_fin_segundo_turno_lunes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Martes
-    horario_de_inicio_martes = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_fin_martes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_inicio_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_fin_segundo_turno_martes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Miércoles
-    horario_de_inicio_miercoles = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_fin_miercoles = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_inicio_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False,
                                                                  null=True)
     horario_de_fin_segundo_turno_miercoles = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Jueves
-    horario_de_inicio_jueves = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_fin_jueves = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_inicio_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_fin_segundo_turno_jueves = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Viernes
-    horario_de_inicio_viernes = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_fin_viernes = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_inicio_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False,
                                                                null=True)
     horario_de_fin_segundo_turno_viernes = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Sábado
-    horario_de_inicio_sabado = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_fin_sabado = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_inicio_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_fin_segundo_turno_sabado = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
 
     # Domingo
-    horario_de_inicio_domingo = models.TimeField(auto_now=False, auto_now_add=False)
-    horario_de_fin_domingo = models.TimeField(auto_now=False, auto_now_add=False)
+    horario_de_inicio_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
+    horario_de_fin_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
     horario_de_inicio_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False,
                                                                null=True)
     horario_de_fin_segundo_turno_domingo = models.TimeField(blank=True, auto_now=False, auto_now_add=False, null=True)
