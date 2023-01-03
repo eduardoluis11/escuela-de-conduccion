@@ -70,14 +70,24 @@ si es secretario o no SIEMPRE se debe dejar en "True".
 
 Como le puse “True” como valor por defecto, el administrador no tendrá que tocar nada cuando seleccione al usuario para 
 convertirlo en secretario. Solo tendrá que escoger la ID del usuario al que quiere convertir en secretario.
+
+Sí, si se puede usar un menú de selección para un modelo. Simplemente tengo que crear una lista de Python, usar 
+model.CharField, y meter el atributo “choices” dentro de ese CharField.
 """
 class Secretario(models.Model):
+    OPCIONES_SI_O_NO = (
+        ('Sí', 'Sí'),
+        ('No', 'No'),
+    )
 
     # ID del chofer (tomado como clave foranea)
     id_de_usuario = models.ForeignKey("User", on_delete=models.CASCADE, related_name="id_de_usuario_de_secretario")
 
     # Si el usuario es secretario (SIEMPRE DEJARLO EN "True")
-    el_usuario_es_secretario = models.BooleanField(default=True)
+    # el_usuario_es_secretario = models.BooleanField(default=True)
+
+    # Si el usuario es secretario (SIEMPRE DEJARLO EN "Sí")
+    el_usuario_es_secretario = models.CharField(max_length=2, choices=OPCIONES_SI_O_NO)
 
     # Esto le cambiara el titulo a cada registro de la tabla
     def __str__(self):
@@ -254,3 +264,28 @@ class Oficina(models.Model):
     # # Horarios de los choferes de la oficina
     # horario = models.ForeignKey("Horario", on_delete=models.CASCADE, related_name="id_de_chofer")
 
+
+""" Modelo de Asistencias.
+
+Solo me interesan las asistencias de los choferes, NO de los secretarios ni de los administradores (por los momentos).
+
+El problema de crear una tabla por separado para las Fechas de Asistencias es que el administrador tendrá que 
+primeramente agregar la fecha en la tabla “Fecha de Asistencia”, que es contra-intuitivo, y muy propenso a errores. 
+Entonces, para que sea más fácil e intuitivo de usar, NO haré un modelo por separado para las fechas.  En su lugar, 
+haré únicamente la tabla de Asistencia.
+
+Para las Asistencias de cada día (el modelo), los datos que usaré son los siguientes:
+•	ID del chofer.
+•	Fecha en la que se está tomando la asistencia.
+•	Si el chofer vino a trabajar (“sí” o “no”).
+•	Horas trabajadas por el chofer (en números).
+•	Fecha y hora en la que se registró esta asistencia (esto es automático).
+
+"""
+class Asistencia(models.Model):
+
+    nombre_de_reporte_de_asistencia = models.CharField(max_length=255, default='')
+
+    # Esto le cambiara el titulo a cada registro de la tabla
+    def __str__(self):
+        return f"{self.nombre_de_reporte_de_asistencia}"
