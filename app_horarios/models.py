@@ -219,7 +219,7 @@ class Oficina(models.Model):
     direccion = models.TextField()
 
     # Choferes que trabajan en esta oficina
-    chofer = models.ManyToManyField(Chofer, blank=True, related_name="choferes_que_trabajan_en_oficina", default=0)
+    chofer = models.ManyToManyField(Chofer, blank=True, related_name="choferes_que_trabajan_en_oficina", default=[0])
 
     # # Horarios de los choferes de la oficina
     # horario = models.ForeignKey("Horario", on_delete=models.CASCADE, related_name="id_de_chofer")
