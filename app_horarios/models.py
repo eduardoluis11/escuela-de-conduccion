@@ -43,6 +43,10 @@ class Chofer(models.Model):
     telefono = models.CharField(blank=True, null=True, max_length=20)
     email = models.EmailField(blank=True, null=True, max_length=254)
 
+    # Esto le cambiara el titulo a cada registro de la tabla
+    def __str__(self):
+        return f"{self.nombre} {self.apellidos}"
+
 
 """ Modelo de Secretarios/as 	
 
@@ -74,6 +78,10 @@ class Secretario(models.Model):
 
     # Si el usuario es secretario (SIEMPRE DEJARLO EN "True")
     el_usuario_es_secretario = models.BooleanField(default=True)
+
+    # Esto le cambiara el titulo a cada registro de la tabla
+    def __str__(self):
+        return f"{self.id_de_usuario}"
 
 
 """ Modelo de Horarios.
