@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Esto importará todos los modelos que he creado
-from .models import User, Chofer, Secretario, Horario, Oficina, Asistencia, ReporteSemanal
+from .models import User, Chofer, Secretario, Oficina, Asistencia, ReporteSemanal, Estudiante
 
 # Registra tus modelos aquí
 
@@ -9,7 +9,7 @@ from .models import User, Chofer, Secretario, Horario, Oficina, Asistencia, Repo
 admin.site.register(User)
 admin.site.register(Chofer)
 admin.site.register(Secretario)
-admin.site.register(Horario)
 admin.site.register(Oficina)
 admin.site.register(Asistencia)
 admin.site.register(ReporteSemanal)
+admin.site.register(Estudiante)
