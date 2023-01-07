@@ -310,14 +310,14 @@ class HorariosLunes(models.Model):
     nombre_del_horario = models.CharField(max_length=255, default='')
 
     # ID del chofer (tomado como clave foranea)
-    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer", default=0)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_lunes", default=0)
 
     # Oficina a la que le pertenece este horario
     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-                                related_name="oficina_a_la_que_le_pertenece_este_horario", default=0)
+                                related_name="oficina_a_la_que_le_pertenece_horario_lunes", default=0)
 
     # ID del estudiante
-    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE, related_name="id_de_chofer",
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE, related_name="id_de_estudiante_lunes",
                                           default=0)
 
     # Hora de entrada y salida del turno
@@ -327,6 +327,150 @@ class HorariosLunes(models.Model):
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
         return f"{self.nombre_del_horario}"
+
+""" Modelo de los Horarios de los Martes
+"""
+class HorariosMartes(models.Model):
+
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_martes", default=0)
+
+    # Oficina a la que le pertenece este horario
+    id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                related_name="oficina_a_la_que_le_pertenece_horario_martes", default=0)
+
+    # ID del estudiante
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+                                          related_name="id_de_estudiante_martes", default=0)
+
+    # Hora de entrada y salida del turno
+    hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_horario}"
+
+
+""" Modelo de los Horarios de los Miércoles.
+"""
+class HorariosMiercoles(models.Model):
+
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_miercoles",
+                                      default=0)
+
+    # Oficina a la que le pertenece este horario
+    id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                related_name="oficina_a_la_que_le_pertenece_horario_miercoles", default=0)
+
+    # ID del estudiante
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+                                          related_name="id_de_estudiante_miercoles", default=0)
+
+    # Hora de entrada y salida del turno
+    hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_horario}"
+
+
+""" Modelo de los Horarios de los Jueves.
+"""
+class HorariosJueves(models.Model):
+
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_jueves", default=0)
+
+    # Oficina a la que le pertenece este horario
+    id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                related_name="oficina_a_la_que_le_pertenece_horario_jueves", default=0)
+
+    # ID del estudiante
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+                                          related_name="id_de_estudiante_jueves", default=0)
+
+    # Hora de entrada y salida del turno
+    hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_horario}"
+
+
+""" Modelo de los Horarios de los Viernes.
+"""
+class HorariosViernes(models.Model):
+
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_viernes",
+                                      default=0)
+
+    # Oficina a la que le pertenece este horario
+    id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                related_name="oficina_a_la_que_le_pertenece_horario_viernes", default=0)
+
+    # ID del estudiante
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+                                          related_name="id_de_estudiante_viernes", default=0)
+
+    # Hora de entrada y salida del turno
+    hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_horario}"
+
+
+""" Modelo de los Horarios de los Sabados
+"""
+class HorariosSabados(models.Model):
+
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_sabado", default=0)
+
+    # Oficina a la que le pertenece este horario
+    id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                related_name="oficina_a_la_que_le_pertenece_horario_sabado", default=0)
+
+    # ID del estudiante
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+                                          related_name="id_de_estudiante_sabado",default=0)
+
+    # Hora de entrada y salida del turno
+    hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_horario}"
+
+
+
+
+
+
+
+
 
 
 
