@@ -77,6 +77,12 @@ convertirlo en secretario. Solo tendrá que escoger la ID del usuario al que qui
 
 Sí, si se puede usar un menú de selección para un modelo. Simplemente tengo que crear una lista de Python, usar 
 model.CharField, y meter el atributo “choices” dentro de ese CharField.
+
+Voy a agregar un campo que dice si está dentro del horario de trabajo (por ejemplo, que si el secretario está conectado
+antes de las 7 pm). Ese campo es para que el secretario no pueda hacer nada después de las 7 pm. Ese campo será un
+booleano (true o false). No le veo la necesidad de convertirlo en un "sí o no", ya que nadie va a tocar esto. El único
+que debería tocar esto es un script que crearé que, junto con un cron, van a cambiar ese booleano a "false" cuando
+sean las 7 pm, para que así el secretario no pueda hacer nada.
 """
 class Secretario(models.Model):
     OPCIONES_SI_O_NO = (
@@ -92,6 +98,9 @@ class Secretario(models.Model):
 
     # Si el usuario es secretario (SIEMPRE DEJARLO EN "Sí")
     el_usuario_es_secretario = models.CharField(max_length=2, choices=OPCIONES_SI_O_NO)
+
+    # Esto es una restricción que usaré después para que el secretario no pueda hacer nada después de las 7 pm
+    esta_dentro_del_horario_de_trabajo = models.BooleanField(default=True)
 
     # Esto le cambiara el titulo a cada registro de la tabla
     def __str__(self):
