@@ -148,20 +148,6 @@ class Estudiante(models.Model):
         return f"{self.nombre} {self.apellidos}"
 
 
-
-
-
-
-
-
-
-""" Modelo del Horario del Lunes.
-
-
-"""
-
-
-
 """ Modelo de Oficinas.
 
 Los datos que necesito para el modelo de Oficinas son:
@@ -305,6 +291,42 @@ class ReporteSemanal(models.Model):
 
     def __str__(self):
         return f"{self.nombre_de_reporte_semanal}"
+
+
+""" Modelo del Horario de los turnos del Lunes.
+
+Los datos que necesito para el horario (o turno) son:
+•	Nombre del turno (ej: turno de jesus - 02 ene - 10 am a 12 pm ). X
+•	ID del chofer (tomado como clave foranea). X
+•	ID de la oficina (tomada como clave foranea). X
+•	ID del estudiante. X
+•	Horario de inicio del turno. X
+•	Horario de fin del turno. X
+
+"""
+class HorariosLunes(models.Model):
+
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer", default=0)
+
+    # Oficina a la que le pertenece este horario
+    id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                related_name="oficina_a_la_que_le_pertenece_este_horario", default=0)
+
+    # ID del estudiante
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE, related_name="id_de_chofer",
+                                          default=0)
+
+    # Hora de entrada y salida del turno
+    hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_horario}"
 
 
 
