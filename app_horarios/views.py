@@ -37,6 +37,9 @@ mostraré la página de inicio para choferes.
 
 Necesito usar un Query Set para agarrar todas las IDs de la tabla Chofer. Por los momentos, no necesito crear un
 "array" ni una lista.
+
+La variable en la tabla Chofer que tiene la ID de usuario de ese chofer se llama “id_de_usuario_id”. Esa es la 
+variable que me dice la ID de usuario de ese chofer, y me dice si el usuario logueado es un chofer.
 """
 def index(request):
 
@@ -57,12 +60,18 @@ def index(request):
     # Esto agarra las IDs de todos los choferes
     lista_de_choferes = Chofer.objects.all()
 
+    # Bucle de DEBUGGEO
+    for chofer in lista_de_choferes:
+        print("ID del chofer:")
+        print(chofer.id_de_usuario_id)
+
     # Mensaje de debuggeo
     # print(user.id)
 
     # Aquí enviaré la lista de choferes, y cualquier otra ID qeu necesite
     return render(request, 'index.html', {
-        "lista_de_choferes": lista_de_choferes
+        "id_del_usuario_logueado": id_del_usuario_logueado,
+        "lista_de_choferes": lista_de_choferes,
     })
 
 """ Vista para la página de Iniciar Sesión.

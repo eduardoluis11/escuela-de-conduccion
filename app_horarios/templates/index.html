@@ -21,7 +21,7 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
         imprimo el texto que debe ver el chofer.
         -->
         {% for chofer in lista_de_choferes %}
-            {% if user.id == chofer.id %}
+            {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
 
                 <p>Consulte aquí su horario</p>
 
