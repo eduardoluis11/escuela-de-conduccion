@@ -36,6 +36,8 @@ Los datos serán:
 Idealmente debería almacenar el DNI de los choferes. Voy a poner el DNI como opcional, tanto para los choferes como 
 para los estudiantes, en caso de que la compañía no quiera almacenar esos datos tan delicados.
 """
+
+
 class Chofer(models.Model):
     # ID del chofer (tomado como clave foranea)
     id_de_usuario = models.ForeignKey("User", on_delete=models.CASCADE, related_name="id_de_usuario_de_chofer")
@@ -84,6 +86,8 @@ booleano (true o false). No le veo la necesidad de convertirlo en un "sí o no",
 que debería tocar esto es un script que crearé que, junto con un cron, van a cambiar ese booleano a "false" cuando
 sean las 7 pm, para que así el secretario no pueda hacer nada.
 """
+
+
 class Secretario(models.Model):
     OPCIONES_SI_O_NO = (
         ('Sí', 'Sí'),
@@ -125,8 +129,9 @@ La dirección es para tener más o menos una idea de que tan cerca vive de cada 
 Despues de pensarlo mejor, que si el estudiante usará un carro sincrónico o automático va mejor ponerlo en los horarios
 que en la tabla de Estudiantes.
 """
-class Estudiante(models.Model):
 
+
+class Estudiante(models.Model):
     # # Esta es la lista donde se almacena si el carro es automático o sincrónico
     # OPCIONES_AUTOMATICO_O_SINCRONICO = (
     #     ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
@@ -196,6 +201,8 @@ Para las Asistencias de cada día (el modelo), los datos que usaré son los sigu
 •	Fecha y hora en la que se registró esta asistencia (esto es automático) (Timestamp).
 
 """
+
+
 class Asistencia(models.Model):
     # Esto lo usaré para decir si el chofer vino a trabajar o no
     OPCIONES_SI_O_NO = (
@@ -229,6 +236,7 @@ class Asistencia(models.Model):
     def __str__(self):
         return f"{self.nombre_de_reporte_de_asistencia}"
 
+
 """ Modelo de los Reportes Semanales.
 
 El modelo de Reporte Semanal tendrá los siguientes datos:
@@ -246,14 +254,14 @@ Agarraré el cálculo de las horas trabajadas y las clases canceladas por ese ch
 Set, y lo meteré en una variable. Luego, meteré esa variable dentro del atributo “default” de tanto las horas 
 trabajadas como de las clases canceladas.
 """
-class ReporteSemanal(models.Model):
 
+
+class ReporteSemanal(models.Model):
     # # Variable de prueba para DEBUGGEO
     # numero_aleatorio = 40
 
     # # Mensaje de DEBUGGEO
     # print("Hola mundo")
-
 
     # Se le asigna un nombre al reporte para encontrar facilmente el reporte de la asistencia
     nombre_de_reporte_semanal = models.CharField(max_length=255, default='')
@@ -264,7 +272,6 @@ class ReporteSemanal(models.Model):
 
     # # Query Set que agarrará todos los días en el que el chofer no haya venido a trabajar...
     # Asistencia.objects.filter(user_id=id_de_chofer)
-
 
     # Fecha de inicio de la semana a evaluar
     fecha_de_inicio_de_semana_a_evaluar = models.DateField(default=date.today)
@@ -311,8 +318,9 @@ Pero, como los secretarios pueden agregar horarios, la marca de tiempo puede ser
 qué hora el secretario agregó tal horario.
 
 """
-class HorariosLunes(models.Model):
 
+
+class HorariosLunes(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -321,7 +329,7 @@ class HorariosLunes(models.Model):
 
     # Oficina a la que le pertenece este horario
     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-                                related_name="oficina_a_la_que_le_pertenece_horario_lunes", default=0)
+                                      related_name="oficina_a_la_que_le_pertenece_horario_lunes", default=0)
 
     # ID del estudiante
     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE, related_name="id_de_estudiante_lunes",
@@ -341,10 +349,12 @@ class HorariosLunes(models.Model):
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
+
 """ Modelo de los Horarios de los Martes
 """
-class HorariosMartes(models.Model):
 
+
+class HorariosMartes(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -353,7 +363,7 @@ class HorariosMartes(models.Model):
 
     # Oficina a la que le pertenece este horario
     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-                                related_name="oficina_a_la_que_le_pertenece_horario_martes", default=0)
+                                      related_name="oficina_a_la_que_le_pertenece_horario_martes", default=0)
 
     # ID del estudiante
     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
@@ -375,8 +385,9 @@ class HorariosMartes(models.Model):
 
 """ Modelo de los Horarios de los Miércoles.
 """
-class HorariosMiercoles(models.Model):
 
+
+class HorariosMiercoles(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -386,7 +397,7 @@ class HorariosMiercoles(models.Model):
 
     # Oficina a la que le pertenece este horario
     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-                                related_name="oficina_a_la_que_le_pertenece_horario_miercoles", default=0)
+                                      related_name="oficina_a_la_que_le_pertenece_horario_miercoles", default=0)
 
     # ID del estudiante
     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
@@ -406,8 +417,9 @@ class HorariosMiercoles(models.Model):
 
 """ Modelo de los Horarios de los Jueves.
 """
-class HorariosJueves(models.Model):
 
+
+class HorariosJueves(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -416,7 +428,7 @@ class HorariosJueves(models.Model):
 
     # Oficina a la que le pertenece este horario
     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-                                related_name="oficina_a_la_que_le_pertenece_horario_jueves", default=0)
+                                      related_name="oficina_a_la_que_le_pertenece_horario_jueves", default=0)
 
     # ID del estudiante
     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
@@ -436,8 +448,9 @@ class HorariosJueves(models.Model):
 
 """ Modelo de los Horarios de los Viernes.
 """
-class HorariosViernes(models.Model):
 
+
+class HorariosViernes(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -447,7 +460,7 @@ class HorariosViernes(models.Model):
 
     # Oficina a la que le pertenece este horario
     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-                                related_name="oficina_a_la_que_le_pertenece_horario_viernes", default=0)
+                                      related_name="oficina_a_la_que_le_pertenece_horario_viernes", default=0)
 
     # ID del estudiante
     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
@@ -467,8 +480,9 @@ class HorariosViernes(models.Model):
 
 """ Modelo de los Horarios de los Sabados
 """
-class HorariosSabados(models.Model):
 
+
+class HorariosSabados(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -477,11 +491,11 @@ class HorariosSabados(models.Model):
 
     # Oficina a la que le pertenece este horario
     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-                                related_name="oficina_a_la_que_le_pertenece_horario_sabado", default=0)
+                                      related_name="oficina_a_la_que_le_pertenece_horario_sabado", default=0)
 
     # ID del estudiante
     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
-                                          related_name="id_de_estudiante_sabado",default=0)
+                                          related_name="id_de_estudiante_sabado", default=0)
 
     # Hora de entrada y salida del turno
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
@@ -503,46 +517,80 @@ horario. Sino, el administrador ignorará la petición, y el horario no se modif
 
 	Los datos que necesito para las peticiones son:
 
-•	ID o Nombre del turno que deseas modificar (tomado como clave foranea).
-•	Nuevo horario de inicio del turno.
-•	Nuevo Horario de fin del turno.
-•	Nueva oficina que le deseas agregar al turno.
-•	Nuevo estudiante que le deseas agregar al turno.
-•	Día de la semana (Lunes, Martes, etc) (ESCOGER DE UNA LISTA).
-•	Nuevo nombre que le deseas agregar al turno (ej: turno de jesus - 02 ene - 10 am a 12 pm ).
-•	Timestamp o Marca de Tiempo.
+•	Nombre del chofer y del turno que deseas modificar. X
+•	Nombre del chofer al que le deseas cambiar el horario. X
+•	Nuevo horario de inicio del turno. X
+•	Nuevo Horario de fin del turno. X
+•	Nueva oficina que le deseas agregar al turno. X
+•	Nuevo estudiante que le deseas agregar al turno. X
+•	Día de la semana (Lunes, Martes, etc) (ESCOGER DE UNA LISTA). X
+•	Nuevo nombre que le deseas agregar al turno (ej: turno de jesus - 02 ene - 10 am a 12 pm ). X
+•	Timestamp o Marca de Tiempo. X 
 
 En principio, no voy a editar el chofer.
+
+voy a llamarle "nombre y fecha y hora del horario a cambiar" al campo que debe llenar el secretario para decir cual 
+turno quiere modificar. No puedo poner "nombre, fecha y hora" porque no puedo colocar "," en el nombre de unc campo, 
+porque la bbdd no lo detecta.
+
+Ahora que lo pienso, sería buena idea saber quien es el chofer al que le quiero modificar el horario. Entonces, pondré 
+la ID del chofer al que le deseo dar el horario. 
+
+Además, sería buena idea cambiar el campo del nombre del horario anterior a “nombre DEL CHOFER y fecha y hora” al que 
+se le desea cambiar el horario.
 """
-# class PeticionParaCambiarHorario(models.Model):
-#
-#     # ID del horario que deseas modificar
-#     id_de_horario = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-#                                 related_name="oficina_a_la_que_le_pertenece_horario_sabado", default=0)
-#
-#     # Oficina a la que le pertenece este horario
-#     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
-#                                 related_name="oficina_a_la_que_le_pertenece_horario_sabado", default=0)
-#
-#     # ID del estudiante
-#     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
-#                                           related_name="id_de_estudiante_sabado",default=0)
-#
-#     # Hora de entrada y salida del turno
-#     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
-#     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
-#
-#     # Nombre del horario (ej: "Horario de Pedro Perez")
-#     nuevo_nombre_para_el_horario = models.CharField(max_length=255, default='')
-#
-#     # Fecha y hora en la que se registró este turno (Timestamp)
-#     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
-#
-#     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
-#     def __str__(self):
-#         return f"{self.nuevo_nombre_para_el_horario}"
-#
-#
+class PeticionParaCambiarHorario(models.Model):
+
+    # Lista de días de la semana de lunes a sábado
+    OPCIONES_DIAS_DE_LA_SEMANA = (
+        ('Lunes', 'Lunes'),
+        ('Martes', 'Martes'),
+        ('Miércoles', 'Miércoles'),
+        ('Jueves', 'Jueves'),
+        ('Viernes', 'Viernes'),
+        ('Sábado', 'Sábado'),
+    )
+
+    # Nombre, fecha y hora del turno que deseas modificar
+    nombre_del_chofer_y_fecha_y_hora_del_horario_que_deseas_modificar = models.CharField(max_length=255, default='')
+
+    # ID del chofer del horario que quieres modificar (tomado como clave foranea)
+    id_del_chofer_del_horario_a_modificar = models.ForeignKey("Chofer", on_delete=models.CASCADE,
+                                    related_name="chofer_horario_a_modificar",
+                                    default=0)
+
+    # Nueva Hora de entrada y salida para el turno
+    hora_de_inicio_del_nuevo_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_nuevo_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Nueva Oficina a la que le deseas asignar al nuevo horario
+    id_de_oficina_para_nuevo_horario = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                      related_name="oficina_para_el_nuevo_horario", default=0)
+
+    # ID del Nuevo Estudiante al que le deseas asignar este turno
+    id_de_estudiante_para_nuevo_horario = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+                                          related_name="id_de_estudiante_para_nuevo_horario", default=0)
+
+    # Día de la semana a la que le deseas asignar a este turno
+    dia_de_la_semana_para_el_nuevo_horario = models.CharField(max_length=20, choices=OPCIONES_DIAS_DE_LA_SEMANA)
+
+    # Nuevo Nombre para el horario (ej: "Horario de Pedro Perez")
+    nombre_para_el_nuevo_horario = models.CharField(max_length=255, default='')
+
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_chofer_y_fecha_y_hora_del_horario_que_deseas_modificar}"
+
+
+
+
+
+
+
+
 
 
 
