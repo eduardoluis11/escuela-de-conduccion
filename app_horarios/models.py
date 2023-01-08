@@ -302,6 +302,13 @@ Los datos que necesito para el horario (o turno) son:
 •	ID del estudiante. X
 •	Horario de inicio del turno. X
 •	Horario de fin del turno. X
+•	Marca de tiempo. X
+
+Sería buena idea agregarle una marca de tiempo a los turnos de los horarios, para saber cuando fue creado el horario. 
+Sin embargo, no me dirá cuando fue la última modificación. Solo me dirá cuando fue agregado el horario.
+
+Pero, como los secretarios pueden agregar horarios, la marca de tiempo puede ser útil, ya que me diría en qué fecha y a 
+qué hora el secretario agregó tal horario.
 
 """
 class HorariosLunes(models.Model):
@@ -323,6 +330,12 @@ class HorariosLunes(models.Model):
     # Hora de entrada y salida del turno
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now_add=True)
+
+    # Timestamp erroneo
+    # fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(default=date.today)
 
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
@@ -349,6 +362,11 @@ class HorariosMartes(models.Model):
     # Hora de entrada y salida del turno
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now_add=True)
+
+    # fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(default=date.today)
 
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
@@ -378,6 +396,9 @@ class HorariosMiercoles(models.Model):
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
 
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
+
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
         return f"{self.nombre_del_horario}"
@@ -404,6 +425,9 @@ class HorariosJueves(models.Model):
     # Hora de entrada y salida del turno
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
 
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
@@ -433,6 +457,9 @@ class HorariosViernes(models.Model):
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
 
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
+
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
         return f"{self.nombre_del_horario}"
@@ -460,16 +487,62 @@ class HorariosSabados(models.Model):
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
 
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
+
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
 
+""" Modelo de Peticiones de cambiar horarios
 
+En esta función, los secretarios podrán pedirle al adminsitrador que editen un horario, ya que los secretarios no 
+podrán editar directamente los horarios. Si al administrador le parece bien modificar un horario, él modificará el 
+horario. Sino, el administrador ignorará la petición, y el horario no se modificará
 
+	Los datos que necesito para las peticiones son:
 
+•	ID o Nombre del turno que deseas modificar (tomado como clave foranea).
+•	Nuevo horario de inicio del turno.
+•	Nuevo Horario de fin del turno.
+•	Nueva oficina que le deseas agregar al turno.
+•	Nuevo estudiante que le deseas agregar al turno.
+•	Día de la semana (Lunes, Martes, etc) (ESCOGER DE UNA LISTA).
+•	Nuevo nombre que le deseas agregar al turno (ej: turno de jesus - 02 ene - 10 am a 12 pm ).
+•	Timestamp o Marca de Tiempo.
 
-
+En principio, no voy a editar el chofer.
+"""
+# class PeticionParaCambiarHorario(models.Model):
+#
+#     # ID del horario que deseas modificar
+#     id_de_horario = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+#                                 related_name="oficina_a_la_que_le_pertenece_horario_sabado", default=0)
+#
+#     # Oficina a la que le pertenece este horario
+#     id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+#                                 related_name="oficina_a_la_que_le_pertenece_horario_sabado", default=0)
+#
+#     # ID del estudiante
+#     id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+#                                           related_name="id_de_estudiante_sabado",default=0)
+#
+#     # Hora de entrada y salida del turno
+#     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+#     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+#
+#     # Nombre del horario (ej: "Horario de Pedro Perez")
+#     nuevo_nombre_para_el_horario = models.CharField(max_length=255, default='')
+#
+#     # Fecha y hora en la que se registró este turno (Timestamp)
+#     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
+#
+#     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+#     def __str__(self):
+#         return f"{self.nuevo_nombre_para_el_horario}"
+#
+#
 
 
 
