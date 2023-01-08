@@ -9,4 +9,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('iniciar-sesion', views.iniciar_sesion, name='iniciar_sesion'),
     path('cerrar-sesion', views.cerrar_sesion, name='cerrar_sesion'),
+    path('horario-chofer', views.horario_chofer_logueado, name='horario_chofer_logueado'),
 ]

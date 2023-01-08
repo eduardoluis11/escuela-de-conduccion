@@ -126,3 +126,13 @@ def cerrar_sesion(request):
 
     # Esto envía al usuario a la página de inicio
     return HttpResponseRedirect(reverse("index"))
+
+""" Vista del Horario del Chofer Logueado.
+
+SOLO LOS USUARIOS LOGUEADOS PUEDEN ENTRAR A ESTA PÁGINA.
+"""
+@login_required
+def horario_chofer_logueado(request):
+
+    return render(request, 'horario_chofer_logueado.html')
+
