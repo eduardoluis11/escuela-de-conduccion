@@ -33,8 +33,30 @@ contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bo
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <!-- Esto renderiza el enlace para cerrar sesión si has iniciado sesión -->
+
+            <!-- Esto me aparece si el usuario inicia sesión.
+
+            El nombre del usuario siempre debe aparecer en la barra de navegación si se loguea.
+
+            Si el usuario es un chofer, solo debe aparecer el enlace "Su Horario" para que el chofer pueda ver su
+            propio horario.
+
+            -->
             {% if user.is_authenticated %}
+
+                <!-- Si el usuario es un chofer -->
+                {% for chofer in lista_de_choferes %}
+                    {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
+                        <a class="nav-link" href="#">Su Horario</a>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Nombre del usuario logueado -->
+                <li class="nav-item">
+                    <p>{{user.username}}</p>
+                </li>
+
+                <!-- Esto renderiza el enlace para cerrar sesión -->
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
                 </li>
@@ -58,9 +80,39 @@ contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bo
     {% endblock %}
 </div>
 
-<!-- "mt-auto" o "margin top auto" me mantendrá el pie de la página al fondo de la página, independientemente
- de que haya mucho o poco contenido en la página -->
-<footer class="mt-auto">
+<!-- Pie de la página.
+
+"mt-auto" o "margin top auto" me mantendrá el pie de la página al fondo de la página, independientemente
+ de que haya mucho o poco contenido en la página.
+
+Los mismos enlaces de la barra de navegación los pondré aquí, para que asi la web app sea fácil de usar.
+Para poner los enlaces rápidos, lo ideal es usar un grid de bootstrap.
+
+La columna "Enlaces rápidos" y "Su Horario" me están generando un overflow horizontal. Se los voy a quitar.
+Con colocar todo el footer con un container fluid, se me quitaron los overflows.
+ -->
+<footer class="mt-auto container-fluid">
+
+    <!-- Grid o cuadrícula de Bootstrap con los enlaces rápidos -->
+    <div class="row">   <!-- Fila -->
+
+        <!-- Estas 2 columnas me están generando un overflow horizontal. -->
+        <div class="col">   <!-- Columna con los enlaces rápidos -->
+            <span>Enlaces Rápidos:</span>
+        </div>
+        <!-- Enlace a "Su Horario" si el usuario es un Chofer -->
+        <div class="col">
+            {% for chofer in lista_de_choferes %}
+                {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
+                    <a href="#">Consulte aquí su horario</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+
     <!-- Aviso de copyright. El script que agregué va a actualizar el año automáticamente cada año (fuente:
     https://kerstinmartin.com/blog/copyright-notice ). -->
     <span class="mb-3 mb-md-0 text-muted">
