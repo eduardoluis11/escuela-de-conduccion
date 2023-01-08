@@ -19,6 +19,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 
+# Esto importará todos los modelos que he creado
+from .models import User, Chofer, Secretario, Oficina, Asistencia, ReporteSemanal, Estudiante, HorariosLunes, \
+    HorariosMartes, HorariosMiercoles, HorariosJueves, HorariosViernes, HorariosSabados, PeticionParaCambiarHorario
 
 # Esto me dejará usar los formularios de Django de formularios.py
 from .formularios import FormularioInicioSesion
@@ -28,9 +31,39 @@ from .formularios import FormularioInicioSesion
 
 """ Vista de la Página de Inicio.
 
+Necesito los IDs de todos los usuarios de la tabla “Chofer”. Así, usando Jinja, voy a comparar la ID del usuario 
+logueado con las ID de los choferes. Si son la misma ID, quiere decir que el usuario es un chofer. Por lo tanto, le 
+mostraré la página de inicio para choferes. 
+
+Necesito usar un Query Set para agarrar todas las IDs de la tabla Chofer. Por los momentos, no necesito crear un
+"array" ni una lista.
 """
 def index(request):
-    return render(request, 'index.html')
+
+    # Esto almacenará la ID del usuario si se loguea
+    id_del_usuario_logueado = ''
+
+    # Esto cheque si el usuario está logueado
+    if request.user.is_authenticated:
+
+        # Esto almacena la ID del usuario logueado como un integer
+        id_del_usuario_logueado = int(request.user.id)
+
+        # MENSAJE DE DEBUGGEO
+        print("Esta es la ID del usuario logueado:")
+        print(id_del_usuario_logueado)
+
+
+    # Esto agarra las IDs de todos los choferes
+    lista_de_choferes = Chofer.objects.all()
+
+    # Mensaje de debuggeo
+    # print(user.id)
+
+    # Aquí enviaré la lista de choferes, y cualquier otra ID qeu necesite
+    return render(request, 'index.html', {
+        "lista_de_choferes": lista_de_choferes
+    })
 
 """ Vista para la página de Iniciar Sesión.
 

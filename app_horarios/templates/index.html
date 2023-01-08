@@ -10,8 +10,29 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
         <div>
             <p>
                 Bienvenido, {{user.username}}!
+
+
             </p>
         </div>
+
+        <!-- Si el usuario es un chofer, le aparecerá esta página.
+        Haré esto en el index.html con Jinja: crearé un bucle for para iterar cada usuario de la tabla Chofer. Luego,
+        comparare la ID del usuario logueado con la del usuario de la iteración actual de la tabla chofer. Si está,
+        imprimo el texto que debe ver el chofer.
+        -->
+        {% for chofer in lista_de_choferes %}
+            {% if user.id == chofer.id %}
+
+                <p>Consulte aquí su horario</p>
+
+            {% endif %}
+
+        {% endfor %}
+
+
+
+        <!-- Fin de la página de inicio para Choferes -->
+
     <!-- Página de inicio que le aparece al usuario si no ha iniciado sesión  -->
     {% else %}
 
