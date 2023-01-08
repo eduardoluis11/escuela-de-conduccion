@@ -7,6 +7,6 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
 {% block body %}
 
     <!-- Usando Jinja, imprimiré el nombre del chofer logueado aquí -->
-    <h1>Horario de Clases del Chofer ...</h1>
+    <h1>Horario de Clases del Chofer {{chofer_logueado.nombre}} {{chofer_logueado.apellidos}}</h1>
 
 {% endblock %}

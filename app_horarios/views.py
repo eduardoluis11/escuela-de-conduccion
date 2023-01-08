@@ -53,17 +53,17 @@ def index(request):
         id_del_usuario_logueado = int(request.user.id)
 
         # MENSAJE DE DEBUGGEO
-        print("Esta es la ID del usuario logueado:")
-        print(id_del_usuario_logueado)
+        # print("Esta es la ID del usuario logueado:")
+        # print(id_del_usuario_logueado)
 
 
     # Esto agarra las IDs de todos los choferes
     lista_de_choferes = Chofer.objects.all()
 
     # Bucle de DEBUGGEO
-    for chofer in lista_de_choferes:
-        print("ID del chofer:")
-        print(chofer.id_de_usuario_id)
+    # for chofer in lista_de_choferes:
+    #     print("ID del chofer:")
+    #     print(chofer.id_de_usuario_id)
 
     # Mensaje de debuggeo
     # print(user.id)
@@ -127,12 +127,27 @@ def cerrar_sesion(request):
     # Esto envía al usuario a la página de inicio
     return HttpResponseRedirect(reverse("index"))
 
+
 """ Vista del Horario del Chofer Logueado.
 
 SOLO LOS USUARIOS LOGUEADOS PUEDEN ENTRAR A ESTA PÁGINA.
+
+Voy a ir imprimiendo el nombre del chofer en la página de horarios individuales. Prefiero agarrar el nombre de la tabla 
+Chofer que de la Tabla Usuario.
+
+Recuerda que no necesito la ID del a tabla Chofer, sino que necesito la ID DE USUARIO que está en la tabla Chofer
 """
 @login_required
 def horario_chofer_logueado(request):
 
-    return render(request, 'horario_chofer_logueado.html')
+    # Esto agarra los datos del chofer logueado
+    chofer_logueado = Chofer.objects.get(id_de_usuario_id=request.user.id)
+
+    # MENSAJE DE DEBUGGEO
+    print("ID del chofer logueado")
+    print(chofer_logueado)
+
+    return render(request, 'horario_chofer_logueado.html', {
+        "chofer_logueado": chofer_logueado,
+    })
 
