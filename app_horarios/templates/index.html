@@ -22,7 +22,7 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
         -->
         {% for chofer in lista_de_choferes %}
             {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
-                <a href="#">Consulte aquí su horario</a>
+                <a href="{% url 'horario_chofer_logueado' %}">Consulte aquí su horario</a>
             {% endif %}
         {% endfor %}
 

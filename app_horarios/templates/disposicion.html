@@ -41,19 +41,22 @@ contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bo
             Si el usuario es un chofer, solo debe aparecer el enlace "Su Horario" para que el chofer pueda ver su
             propio horario.
 
+            El nombre de usuario no será un enlace. Sin embargo, le puse una etiqueta "a" y la clase "nav-link" para
+            que todo el texto de la barra de navegación salga en la misma línea.
+
             -->
             {% if user.is_authenticated %}
 
                 <!-- Si el usuario es un chofer -->
                 {% for chofer in lista_de_choferes %}
                     {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
-                        <a class="nav-link" href="#">Su Horario</a>
+                        <a class="nav-link" href="{% url 'horario_chofer_logueado' %}">Su Horario</a>
                     {% endif %}
                 {% endfor %}
 
                 <!-- Nombre del usuario logueado -->
                 <li class="nav-item">
-                    <p>{{user.username}}</p>
+                    <a class="nav-link">{{user.username}}</a>
                 </li>
 
                 <!-- Esto renderiza el enlace para cerrar sesión -->
@@ -104,7 +107,7 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
         <div class="col">
             {% for chofer in lista_de_choferes %}
                 {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
-                    <a href="#">Consulte aquí su horario</a>
+                    <a href="{% url 'horario_chofer_logueado' %}">Consulte aquí su horario</a>
                 {% endif %}
             {% endfor %}
         </div>
