@@ -9,4 +9,55 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
     <!-- Usando Jinja, imprimiré el nombre del chofer logueado aquí -->
     <h1>Horario de Clases del Chofer {{chofer_logueado.nombre}} {{chofer_logueado.apellidos}}</h1>
 
+    <!-- Tabla con los horarios del chofer.
+
+    RECUERDA HACER LA TABLA DEL HORARIO USANDO EL GRID DE BOOTSTRAP (para que así se pueda ver bien en móviles).
+    -->
+    <table>
+        <tbody>
+            <!-- Esto le agregará los títulos a las tablas -->
+            <th>
+                Lunes
+            </th>
+            <th>
+                Martes
+            </th>
+            <th>
+                Miércoles
+            </th>
+            <th>
+                Jueves
+            </th>
+            <th>
+                Viernes
+            </th>
+            <th>
+                Sábado
+            </th>
+            <!-- Esto llama cada horario registrado en la base de datos -->
+
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>    <!-- Fin de la tabla -->
+
 {% endblock %}
