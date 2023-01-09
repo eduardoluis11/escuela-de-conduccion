@@ -18,59 +18,84 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
     -->
     {% for semana in lista_de_semanas %}
 
-        <h3>{{semana.nombre_de_la_semana}}</h3>
+        <h4>{{semana.nombre_de_la_semana}}</h4>
 
-    {% endfor %}
+        <!-- Tabla con los horarios del chofer.
 
-    <!-- Tabla con los horarios del chofer.
+        RECUERDA HACER LA TABLA DEL HORARIO USANDO EL GRID DE BOOTSTRAP (para que así se pueda ver bien en móviles).
 
-    RECUERDA HACER LA TABLA DEL HORARIO USANDO EL GRID DE BOOTSTRAP (para que así se pueda ver bien en móviles).
-    -->
-    <table>
-        <tbody>
-            <!-- Esto le agregará los títulos a las tablas -->
-            <th>
-                Lunes
-            </th>
-            <th>
-                Martes
-            </th>
-            <th>
-                Miércoles
-            </th>
-            <th>
-                Jueves
-            </th>
-            <th>
-                Viernes
-            </th>
-            <th>
-                Sábado
-            </th>
-            <!-- Esto llama cada horario registrado en la base de datos -->
+        Voy a ir imprimiendo la fecha de ese día al lado del título de cada día.
 
-                <tr>
-                    <td>
+        Mira las tablas responsive de bootstrap: https://getbootstrap.com/docs/5.3/content/tables/ . La bordered tables,
+        y la de horizontal scroll me llaman la atención para móviles.
 
-                    </td>
-                    <td>
+        Usare la de horizontal scroll: meter todos los 7 días de la semana en una pantallita chiquita haría que los
+        horarios sean difíciles de leer.
 
-                    </td>
-                    <td>
+        -->
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <!-- Esto le agregará los títulos a las tablas. esto tiene que estar dentro de una fila del
+                    Grid de Bootstrap.
 
-                    </td>
-                    <td>
+                    Cada día de la semana debe estar dentro de una columna del Grid.
+                    -->
 
-                    </td>
-                    <td>
+                        <th>
+                            Lunes {{semana.fecha_del_lunes}}
+                        </th>
+                        <th>
+                            Martes
+                        </th>
+                        <th>
+                            Miércoles
+                        </th>
+                        <th>
+                            Jueves
+                        </th>
+                        <th>
+                            Viernes
+                        </th>
+                        <th>
+                            Sábado
+                        </th>
+                        <th>
+                            Domingo
+                        </th>
 
-                    </td>
-                    <td>
 
-                    </td>
-                </tr>
+                    <!-- Esto llama cada horario registrado en la base de datos -->
 
-        </tbody>
-    </table>    <!-- Fin de la tabla -->
+                    <!-- Fila de tabla con un solo turno -->
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>  <!-- Fin de la tabla -->
+
+    {% endfor %} <!-- Fin del bucle de las semanas -->
 
 {% endblock %}
