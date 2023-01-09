@@ -40,10 +40,12 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                     Grid de Bootstrap.
 
                     Cada día de la semana debe estar dentro de una columna del Grid.
+
+                    "date: d M" cambia el formato de la fecha para que salga como "09 Ene".
                     -->
 
                         <th>
-                            Lunes {{semana.fecha_del_lunes}}
+                            Lunes {{semana.fecha_del_lunes|date:"d M"}}
                         </th>
                         <th>
                             Martes
