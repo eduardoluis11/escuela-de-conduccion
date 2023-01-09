@@ -169,11 +169,15 @@ def horario_chofer_logueado(request):
     # Esto agarrará todos los turnos del lunes
     turnos_lunes = HorariosLunes.objects.all()
 
+    # Turnos del martes
+    turnos_martes = HorariosMartes.objects.all()
+
     return render(request, 'horario_chofer_logueado.html', {
         "chofer_logueado": chofer_logueado,
         "id_del_usuario_logueado": id_del_usuario_logueado,
         "lista_de_choferes": lista_de_choferes,
         "lista_de_semanas": lista_de_semanas,
         "turnos_lunes": turnos_lunes,
+        "turnos_martes": turnos_martes,
     })
 

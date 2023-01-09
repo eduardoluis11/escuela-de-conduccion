@@ -89,35 +89,171 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                             {% if turno.semana_del_turno_id == semana.id %}
                                 <tr>
                                     <td>
-                                        {{turno.hora_de_inicio_del_turno}}
+                                        <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
                                     </td>
                                 </tr>
 
                             {% endif %}
                         {% endfor %}
-                        <td>
 
-                        </td>
-                        <td>
+                        <!-- Turnos del martes -->
+                        {% for turno in turnos_martes  %}
+                            {% if turno.semana_del_turno_id == semana.id %}
+                                <tr>
+                                    <td>
+                                        <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                    </td>
+                                </tr>
 
-                        </td>
-                        <td>
+                            {% endif %}
+                        {% endfor %}
 
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
 <!--                    </tr>-->
 
                 </tbody>
             </table>
         </div>  <!-- Fin de la tabla -->
+
+
+
+        <!-- Tabla de DEBUGGEO.
+
+        Crearé un grid de bootstrap de 1 fila y 7 columnas, donde cada columna será una tabla.
+        -->
+        <div class="row justify-content-md-center">
+            <table class="col"> <!-- Tabla del lunes -->
+                <tbody>
+
+                    <th>
+                        Lunes
+                    </th>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="col"> <!-- Tabla del martes -->
+                <tbody>
+
+                    <th>
+                        Martes
+                    </th>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="col"> <!-- Tabla del miercoles -->
+                <tbody>
+
+                    <th>
+                        Miércoles
+                    </th>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="col"> <!-- Tabla del jueves -->
+                <tbody>
+
+                    <th>
+                        Jueves
+                    </th>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="col"> <!-- Tabla del viernes -->
+                <tbody>
+
+                    <th>
+                        Viernes
+                    </th>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="col"> <!-- Tabla del sábado -->
+                <tbody>
+
+                    <th>
+                        Sábado
+                    </th>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="col"> <!-- Tabla del domingo -->
+                <tbody>
+
+                    <th>
+                        Domingo
+                    </th>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hola mundo
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  <!-- Fin de la fila -->
 
     {% endfor %} <!-- Fin del bucle de las semanas -->
 
