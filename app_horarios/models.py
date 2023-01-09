@@ -702,6 +702,9 @@ class Semana(models.Model):
     # Sabado
     fecha_del_sabado = models.DateField(default=date.today)
 
+    # Domingo
+    fecha_del_domingo = models.DateField(default=date.today)
+
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_semana = models.DateTimeField(auto_now=True)
 
