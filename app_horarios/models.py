@@ -517,10 +517,8 @@ class HorariosViernes(models.Model):
 """ Modelo de los Horarios de los Sabados.
 
 DEBO AGREGAR:
-•	Semana del turno (tomado como clave foranea)
+•	Semana del turno (tomado como clave foranea) X
 """
-
-
 class HorariosSabados(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
@@ -553,6 +551,41 @@ class HorariosSabados(models.Model):
         return f"{self.nombre_del_horario}"
 
 
+""" Modelo de los Horarios de los Domingos.
+
+"""
+class HorariosDomingos(models.Model):
+    # Nombre del horario (ej: "Horario de Pedro Perez")
+    nombre_del_horario = models.CharField(max_length=255, default='')
+
+    # ID del chofer (tomado como clave foranea)
+    id_del_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_de_chofer_domingo",
+                                      default=0)
+
+    # Oficina a la que le pertenece este horario
+    id_de_oficina = models.ForeignKey("Oficina", on_delete=models.CASCADE,
+                                      related_name="oficina_a_la_que_le_pertenece_horario_domingo", default=0)
+
+    # ID del estudiante
+    id_del_estudiante = models.ForeignKey("Estudiante", on_delete=models.CASCADE,
+                                          related_name="id_de_estudiante_domingo", default=0)
+
+    # Hora de entrada y salida del turno
+    hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+    hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Semana del turno
+    semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE,
+                                         related_name="semana_del_turno_del_domingo", default=0)
+
+
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_del_horario}"
+
 """ Modelo de Peticiones de cambiar horarios
 
 En esta función, los secretarios podrán pedirle al adminsitrador que editen un horario, ya que los secretarios no 
@@ -569,7 +602,7 @@ horario. Sino, el administrador ignorará la petición, y el horario no se modif
 •	Nuevo estudiante que le deseas agregar al turno. X
 •	Día de la semana (Lunes, Martes, etc) (ESCOGER DE UNA LISTA). X
 •	Nuevo nombre que le deseas agregar al turno (ej: turno de jesus - 02 ene - 10 am a 12 pm ). X
-•	Semana del turno (tomado como clave foranea)
+•	Semana del turno (tomado como clave foranea) X
 •	Timestamp o Marca de Tiempo. X 
 
 En principio, no voy a editar el chofer.
@@ -594,6 +627,7 @@ class PeticionParaCambiarHorario(models.Model):
         ('Jueves', 'Jueves'),
         ('Viernes', 'Viernes'),
         ('Sábado', 'Sábado'),
+        ('Domingo', 'Domingo'),
     )
 
     # Nombre, fecha y hora del turno que deseas modificar
