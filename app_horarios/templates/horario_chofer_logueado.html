@@ -42,35 +42,59 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                     Cada día de la semana debe estar dentro de una columna del Grid.
 
                     "date: d M" cambia el formato de la fecha para que salga como "09 Ene".
+
+                    Para el <td> que mostrará los turnos del lunes, haré un bucle “for” que imprimirá todos los turnos
+                    del lunes. Sin embargo, quiero asegurarme que me imprima los turnos del lunes DE ESA SEMANA. Tengo
+                    que comparar la semana de los turnos del lunes, y esa semana debe ser la misma que la semana de esa
+                    iteración de la lista de semanas.
+
+                    Para hacer la comparación, la cual haré usando Jinja en el archivo HTML, compararé el campo
+                    “semana_del_turno” de la tabla “HorariosLunes” (el cual es una ID, el cual es un integer) con el
+                    campo “id” de la tabla “Semana”. Sin son iguales, debe imprimirme el turno del lunes de esa semana.
+
+                     Lo que tuve que hacer es poner un <tr> (table row) por cada fila que quiero debajo de “lunes”, y
+                     dentro de cada <tr>, pongo un <td> (table descriptor) con cada registro de la bbdd que quiero
+                     imprimir.
                     -->
 
                         <th>
                             Lunes {{semana.fecha_del_lunes|date:"d M"}}
                         </th>
                         <th>
-                            Martes
+                            Martes {{semana.fecha_del_martes|date:"d M"}}
                         </th>
                         <th>
-                            Miércoles
+                            Miércoles {{semana.fecha_del_miercoles|date:"d M"}}
                         </th>
                         <th>
-                            Jueves
+                            Jueves {{semana.fecha_del_jueves|date:"d M"}}
                         </th>
                         <th>
-                            Viernes
+                            Viernes {{semana.fecha_del_viernes|date:"d M"}}
                         </th>
                         <th>
-                            Sábado
+                            Sábado {{semana.fecha_del_sabado|date:"d M"}}
                         </th>
                         <th>
-                            Domingo
+                            Domingo {{semana.fecha_del_domingo|date:"d M"}}
                         </th>
 
 
                     <!-- Esto llama cada horario registrado en la base de datos -->
 
                     <!-- Fila de tabla con un solo turno -->
-                    <tr>
+<!--                    <tr>-->
+                        <!-- Turnos del lunes -->
+                        {% for turno in turnos_lunes  %}
+                            {% if turno.semana_del_turno_id == semana.id %}
+                                <tr>
+                                    <td>
+                                        {{turno.hora_de_inicio_del_turno}}
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+                        {% endfor %}
                         <td>
 
                         </td>
@@ -89,10 +113,7 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                         <td>
 
                         </td>
-                        <td>
-
-                        </td>
-                    </tr>
+<!--                    </tr>-->
 
                 </tbody>
             </table>

@@ -139,6 +139,10 @@ Chofer que de la Tabla Usuario.
 Recuerda que no necesito la ID del a tabla Chofer, sino que necesito la ID DE USUARIO que está en la tabla Chofer.
 
 Primero, debo hacer un bucle “for” para iterar todas las semanas de la tabla Semana.
+
+Ahora, voy a imprimir todos los turnos en cada día. Voy a ordenarlos por hora de inicio (desde más temprano a más 
+tarde). Pero antes, voy simplemente a imprimir los turnos. Para ello, agarraré todos los turnos de todas las tablas de 
+todos los días, y los enviaré via Jinja.
 """
 @login_required
 def horario_chofer_logueado(request):
@@ -162,10 +166,14 @@ def horario_chofer_logueado(request):
     # Esto agarra todas las semanas en la tabla Semana
     lista_de_semanas = Semana.objects.all()
 
+    # Esto agarrará todos los turnos del lunes
+    turnos_lunes = HorariosLunes.objects.all()
+
     return render(request, 'horario_chofer_logueado.html', {
         "chofer_logueado": chofer_logueado,
         "id_del_usuario_logueado": id_del_usuario_logueado,
         "lista_de_choferes": lista_de_choferes,
         "lista_de_semanas": lista_de_semanas,
+        "turnos_lunes": turnos_lunes,
     })
 
