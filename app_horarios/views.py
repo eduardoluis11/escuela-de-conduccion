@@ -146,6 +146,11 @@ todos los días, y los enviaré via Jinja.
 
 Tengo que, al crear el query set que agarra todos los horarios, poner el filtro “order_by(campo_con_la_hora__hour')” al 
 final del Query set para ordenar los horarios por orden de hora de inicio.
+
+Los datos que necesito de otras tablas para imprimirlo en el horario son: los datos del Estudiante, y los datos de la 
+Oficina. Entonces, con un Query Set, agarraré todos los datos de los modelos Estudiante y Oficina. Luego, compararé las 
+IDs de los estudiantes y de las oficinas con las que están registradas en el turno. Si son las mismas, imprimiré esa 
+oficina y ese estudiante.
 """
 @login_required
 def horario_chofer_logueado(request):
@@ -182,6 +187,24 @@ def horario_chofer_logueado(request):
     turnos_sabado = HorariosSabados.objects.all().order_by('hora_de_inicio_del_turno__hour')
     turnos_domingo = HorariosDomingos.objects.all().order_by('hora_de_inicio_del_turno__hour')
 
+    # Esto agarra todos los estudiantes
+    estudiantes = Estudiante.objects.all()
+
+    # Esto agarra todas las oficinas
+    oficinas = Oficina.objects.all()
+
+    # # MENSAJE DE DEBUGGEO:
+    # print("Estudiantes relacionados al turno del lunes:")
+    #
+    # # Esto agarrará un estudiante de ejemplo
+    # estudiante_de_ejemplo = Estudiante.objects.get(id=1)
+    #
+    # # MENSAJE DE DEBUGGEO
+    # print(turno_lunes_de_ejemplo_chofer_logueado.id_de_estudiante_lunes.all())
+
+
+    # print(turnos_lunes.id_de_estudiante_lunes.all())
+
     return render(request, 'horario_chofer_logueado.html', {
         "chofer_logueado": chofer_logueado,
         "id_del_usuario_logueado": id_del_usuario_logueado,
@@ -194,6 +217,8 @@ def horario_chofer_logueado(request):
         "turnos_viernes": turnos_viernes,
         "turnos_sabado": turnos_sabado,
         "turnos_domingo": turnos_domingo,
+        "estudiantes": estudiantes,
+        "oficinas": oficinas,
 
     })
 

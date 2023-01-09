@@ -71,6 +71,14 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                         {% if turno.semana_del_turno_id == semana.id %}
                             <tr>
                                 <td>
+                                    <!-- Estudiante del turno -->
+                                    {% for estudiante in estudiantes %}
+                                        {% if turno.id_del_estudiante_id == estudiante.id %}
+                                            {{estudiante.nombre}} {{estudiante.apellidos}}
+                                        {% endif %}
+                                    {% endfor %}
+
+
                                     <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
                                 </td>
                             </tr>
