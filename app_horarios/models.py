@@ -321,8 +321,6 @@ qué hora el secretario agregó tal horario.
 Tengo que crear un campo que se llame “Fecha”, y solo agarraría la fecha (usando DateField). Dado que así lo ponía en 
 el Excel el cliente, lo ideal sería agarrar la fecha de cada día. 
 """
-
-
 class HorariosLunes(models.Model):
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
@@ -341,6 +339,11 @@ class HorariosLunes(models.Model):
     # Hora de entrada y salida del turno
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Semana del turno
+    semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_lunes",
+                                          default=0)
+
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now_add=True)
@@ -379,6 +382,11 @@ class HorariosMartes(models.Model):
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
 
+    # Semana del turno
+    semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_martes",
+                                          default=0)
+
+
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now_add=True)
 
@@ -416,6 +424,10 @@ class HorariosMiercoles(models.Model):
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
 
+    # Semana del turno
+    semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE,
+                                         related_name="semana_del_turno_del_miercoles", default=0)
+
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
 
@@ -449,6 +461,10 @@ class HorariosJueves(models.Model):
     # Hora de entrada y salida del turno
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Semana del turno
+    semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_jueves",
+                                          default=0)
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
@@ -485,6 +501,11 @@ class HorariosViernes(models.Model):
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
 
+    # Semana del turno
+    semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE,
+                                         related_name="semana_del_turno_del_viernes", default=0)
+
+
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
 
@@ -518,6 +539,11 @@ class HorariosSabados(models.Model):
     # Hora de entrada y salida del turno
     hora_de_inicio_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
     hora_de_fin_del_turno = models.TimeField(auto_now=False, auto_now_add=False)
+
+    # Semana del turno
+    semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_sabado",
+                                          default=0)
+
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
