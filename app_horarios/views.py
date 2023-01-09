@@ -46,7 +46,7 @@ def index(request):
     # Esto almacenará la ID del usuario si se loguea
     id_del_usuario_logueado = ''
 
-    # Esto cheque si el usuario está logueado
+    # Esto chequea si el usuario está logueado
     if request.user.is_authenticated:
 
         # Esto almacena la ID del usuario logueado como un integer
@@ -144,10 +144,21 @@ def horario_chofer_logueado(request):
     chofer_logueado = Chofer.objects.get(id_de_usuario_id=request.user.id)
 
     # MENSAJE DE DEBUGGEO
-    print("ID del chofer logueado")
-    print(chofer_logueado)
+    # print("ID del chofer logueado")
+    # print(chofer_logueado)
+
+    # Esto almacenará la ID del usuario si se loguea
+    id_del_usuario_logueado = ''
+
+    # Esto almacena la ID del usuario logueado
+    id_del_usuario_logueado = int(request.user.id)
+
+    # Esto agarra las IDs de todos los choferes
+    lista_de_choferes = Chofer.objects.all()
 
     return render(request, 'horario_chofer_logueado.html', {
         "chofer_logueado": chofer_logueado,
+        "id_del_usuario_logueado": id_del_usuario_logueado,
+        "lista_de_choferes": lista_de_choferes,
     })
 
