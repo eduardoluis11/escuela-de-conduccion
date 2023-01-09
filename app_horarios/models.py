@@ -309,6 +309,7 @@ Los datos que necesito para el horario (o turno) son:
 •	ID del estudiante. X
 •	Horario de inicio del turno. X
 •	Horario de fin del turno. X
+•	Semana del turno (tomado como clave foranea)
 •	Marca de tiempo. X
 
 Sería buena idea agregarle una marca de tiempo a los turnos de los horarios, para saber cuando fue creado el horario. 
@@ -317,6 +318,8 @@ Sin embargo, no me dirá cuando fue la última modificación. Solo me dirá cuan
 Pero, como los secretarios pueden agregar horarios, la marca de tiempo puede ser útil, ya que me diría en qué fecha y a 
 qué hora el secretario agregó tal horario.
 
+Tengo que crear un campo que se llame “Fecha”, y solo agarraría la fecha (usando DateField). Dado que así lo ponía en 
+el Excel el cliente, lo ideal sería agarrar la fecha de cada día. 
 """
 
 
@@ -351,6 +354,9 @@ class HorariosLunes(models.Model):
 
 
 """ Modelo de los Horarios de los Martes
+
+DEBO AGREGAR:
+•	Semana del turno (tomado como clave foranea)
 """
 
 
@@ -384,6 +390,9 @@ class HorariosMartes(models.Model):
 
 
 """ Modelo de los Horarios de los Miércoles.
+
+DEBO AGREGAR:
+•	Semana del turno (tomado como clave foranea)
 """
 
 
@@ -416,6 +425,9 @@ class HorariosMiercoles(models.Model):
 
 
 """ Modelo de los Horarios de los Jueves.
+
+DEBO AGREGAR:
+•	Semana del turno (tomado como clave foranea)
 """
 
 
@@ -447,6 +459,9 @@ class HorariosJueves(models.Model):
 
 
 """ Modelo de los Horarios de los Viernes.
+
+DEBO AGREGAR:
+•	Semana del turno (tomado como clave foranea)
 """
 
 
@@ -478,7 +493,10 @@ class HorariosViernes(models.Model):
         return f"{self.nombre_del_horario}"
 
 
-""" Modelo de los Horarios de los Sabados
+""" Modelo de los Horarios de los Sabados.
+
+DEBO AGREGAR:
+•	Semana del turno (tomado como clave foranea)
 """
 
 
@@ -525,6 +543,7 @@ horario. Sino, el administrador ignorará la petición, y el horario no se modif
 •	Nuevo estudiante que le deseas agregar al turno. X
 •	Día de la semana (Lunes, Martes, etc) (ESCOGER DE UNA LISTA). X
 •	Nuevo nombre que le deseas agregar al turno (ej: turno de jesus - 02 ene - 10 am a 12 pm ). X
+•	Semana del turno (tomado como clave foranea)
 •	Timestamp o Marca de Tiempo. X 
 
 En principio, no voy a editar el chofer.
@@ -585,7 +604,50 @@ class PeticionParaCambiarHorario(models.Model):
         return f"{self.nombre_del_chofer_y_fecha_y_hora_del_horario_que_deseas_modificar}"
 
 
+""" Modelo de Semanas.
 
+Tengo que crear un campo que se llame “Fecha”, y solo agarraría la fecha (usando DateField). Dado que así lo ponía en 
+el Excel el cliente, lo ideal sería agarrar la fecha de cada día. 
+
+Los datos que debe contener cada semana son:
+•	Nombre de la semana. X
+•	Fecha del lunes. X
+•	Fecha del martes. X
+•	Fecha del miércoles. X
+•	Fecha del jueves. X
+•	Fecha del viernes. X
+•	Fecha del sábado. X
+•	Marca de tiempo. X
+"""
+class Semana(models.Model):
+
+    # Nombre, fecha y hora del turno que deseas modificar
+    nombre_de_la_semana = models.CharField(max_length=255, default='')
+
+    # Fecha del lunes de esa semana
+    fecha_del_lunes = models.DateField(default=date.today)
+
+    # Martes
+    fecha_del_martes = models.DateField(default=date.today)
+
+    # Miercoles
+    fecha_del_miercoles = models.DateField(default=date.today)
+
+    # Jueves
+    fecha_del_jueves = models.DateField(default=date.today)
+
+    # Viernes
+    fecha_del_viernes = models.DateField(default=date.today)
+
+    # Sabado
+    fecha_del_sabado = models.DateField(default=date.today)
+
+    # Fecha y hora en la que se registró este turno (Timestamp)
+    fecha_y_hora_en_la_que_se_registro_semana = models.DateTimeField(auto_now=True)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_de_la_semana}"
 
 
 
