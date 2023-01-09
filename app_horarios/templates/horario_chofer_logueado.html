@@ -36,25 +36,9 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
         <div class="table-responsive">
             <table class="table">
                 <tbody>
-                    <!-- Esto le agregará los títulos a las tablas. esto tiene que estar dentro de una fila del
+                    <!-- . esto tiene que estar dentro de una fila del
                     Grid de Bootstrap.
 
-                    Cada día de la semana debe estar dentro de una columna del Grid.
-
-                    "date: d M" cambia el formato de la fecha para que salga como "09 Ene".
-
-                    Para el <td> que mostrará los turnos del lunes, haré un bucle “for” que imprimirá todos los turnos
-                    del lunes. Sin embargo, quiero asegurarme que me imprima los turnos del lunes DE ESA SEMANA. Tengo
-                    que comparar la semana de los turnos del lunes, y esa semana debe ser la misma que la semana de esa
-                    iteración de la lista de semanas.
-
-                    Para hacer la comparación, la cual haré usando Jinja en el archivo HTML, compararé el campo
-                    “semana_del_turno” de la tabla “HorariosLunes” (el cual es una ID, el cual es un integer) con el
-                    campo “id” de la tabla “Semana”. Sin son iguales, debe imprimirme el turno del lunes de esa semana.
-
-                     Lo que tuve que hacer es poner un <tr> (table row) por cada fila que quiero debajo de “lunes”, y
-                     dentro de cada <tr>, pongo un <td> (table descriptor) con cada registro de la bbdd que quiero
-                     imprimir.
                     -->
 
                         <th>
@@ -116,27 +100,48 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
 
 
 
-        <!-- Tabla de DEBUGGEO.
+        <!-- Tabla con todos los horarios.
 
-        Crearé un grid de bootstrap de 1 fila y 7 columnas, donde cada columna será una tabla.
+        Crearé un grid de bootstrap de 1 fila y 7 columnas, donde cada columna será una tabla de cada día.
+
+        Cada día de la semana debe estar dentro de una columna del Grid.
+
+        "date: d M" cambia el formato de la fecha para que salga como "09 Ene".
+
+        Para el <td> que mostrará los turnos del lunes, haré un bucle “for” que imprimirá todos los turnos
+        del lunes. Sin embargo, quiero asegurarme que me imprima los turnos del lunes DE ESA SEMANA. Tengo
+        que comparar la semana de los turnos del lunes, y esa semana debe ser la misma que la semana de esa
+        iteración de la lista de semanas.
+
+        Para hacer la comparación, la cual haré usando Jinja en el archivo HTML, compararé el campo
+        “semana_del_turno” de la tabla “HorariosLunes” (el cual es una ID, el cual es un integer) con el
+        campo “id” de la tabla “Semana”. Sin son iguales, debe imprimirme el turno del lunes de esa semana.
+
+         Lo que tuve que hacer es poner un <tr> (table row) por cada fila que quiero debajo de “lunes”, y
+         dentro de cada <tr>, pongo un <td> (table descriptor) con cada registro de la bbdd que quiero
+         imprimir.
+
+
         -->
         <div class="row justify-content-md-center">
             <table class="col"> <!-- Tabla del lunes -->
                 <tbody>
-
+                    <!-- El <th> le agregará los títulos a las tablas -->
                     <th>
-                        Lunes
+                        Lunes {{semana.fecha_del_lunes|date:"d M"}}
                     </th>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
+                    <!-- Turnos del lunes -->
+                    {% for turno in turnos_lunes  %}
+                        {% if turno.semana_del_turno_id == semana.id %}
+                            <tr>
+                                <td>
+                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+
                 </tbody>
             </table>
 
@@ -144,18 +149,21 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                 <tbody>
 
                     <th>
-                        Martes
+                        Martes {{semana.fecha_del_martes|date:"d M"}}
                     </th>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
+
+                    <!-- Turnos del martes -->
+                    {% for turno in turnos_martes  %}
+                        {% if turno.semana_del_turno_id == semana.id %}
+                            <tr>
+                                <td>
+                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+
                 </tbody>
             </table>
 
@@ -253,7 +261,7 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                     </tr>
                 </tbody>
             </table>
-        </div>  <!-- Fin de la fila -->
+        </div>  <!-- Fin de la fila con el grid 1x7 de Bootstrap (fin del as 7 tablas) -->
 
     {% endfor %} <!-- Fin del bucle de las semanas -->
 
