@@ -9,6 +9,19 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
     <!-- Usando Jinja, imprimiré el nombre del chofer logueado aquí -->
     <h1>Horario de Clases del Chofer {{chofer_logueado.nombre}} {{chofer_logueado.apellidos}}</h1>
 
+    <!-- Esto renderiza cada semana dentro de la tabla "Semana"
+
+    Cada semana tendrá su propio horario.
+
+    Necesito esto para evitar conflictos entre las fechas y los horarios que puede que no hayan sido editados. Además,
+    esto me dejará fácilmente agarrar la fecha de cada dia de la semana para el horario.
+    -->
+    {% for semana in lista_de_semanas %}
+
+        <h3>{{semana.nombre_de_la_semana}}</h3>
+
+    {% endfor %}
+
     <!-- Tabla con los horarios del chofer.
 
     RECUERDA HACER LA TABLA DEL HORARIO USANDO EL GRID DE BOOTSTRAP (para que así se pueda ver bien en móviles).

@@ -21,7 +21,8 @@ from django.contrib.auth import authenticate, login, logout
 
 # Esto importará todos los modelos que he creado
 from .models import User, Chofer, Secretario, Oficina, Asistencia, ReporteSemanal, Estudiante, HorariosLunes, \
-    HorariosMartes, HorariosMiercoles, HorariosJueves, HorariosViernes, HorariosSabados, PeticionParaCambiarHorario
+    HorariosMartes, HorariosMiercoles, HorariosJueves, HorariosViernes, HorariosSabados, PeticionParaCambiarHorario, \
+    Semana
 
 # Esto me dejará usar los formularios de Django de formularios.py
 from .formularios import FormularioInicioSesion
@@ -135,7 +136,9 @@ SOLO LOS USUARIOS LOGUEADOS PUEDEN ENTRAR A ESTA PÁGINA.
 Voy a ir imprimiendo el nombre del chofer en la página de horarios individuales. Prefiero agarrar el nombre de la tabla 
 Chofer que de la Tabla Usuario.
 
-Recuerda que no necesito la ID del a tabla Chofer, sino que necesito la ID DE USUARIO que está en la tabla Chofer
+Recuerda que no necesito la ID del a tabla Chofer, sino que necesito la ID DE USUARIO que está en la tabla Chofer.
+
+Primero, debo hacer un bucle “for” para iterar todas las semanas de la tabla Semana.
 """
 @login_required
 def horario_chofer_logueado(request):
@@ -156,9 +159,13 @@ def horario_chofer_logueado(request):
     # Esto agarra las IDs de todos los choferes
     lista_de_choferes = Chofer.objects.all()
 
+    # Esto agarra todas las semanas en la tabla Semana
+    lista_de_semanas = Semana.objects.all()
+
     return render(request, 'horario_chofer_logueado.html', {
         "chofer_logueado": chofer_logueado,
         "id_del_usuario_logueado": id_del_usuario_logueado,
         "lista_de_choferes": lista_de_choferes,
+        "lista_de_semanas": lista_de_semanas,
     })
 
