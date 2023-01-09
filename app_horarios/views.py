@@ -21,8 +21,8 @@ from django.contrib.auth import authenticate, login, logout
 
 # Esto importará todos los modelos que he creado
 from .models import User, Chofer, Secretario, Oficina, Asistencia, ReporteSemanal, Estudiante, HorariosLunes, \
-    HorariosMartes, HorariosMiercoles, HorariosJueves, HorariosViernes, HorariosSabados, PeticionParaCambiarHorario, \
-    Semana
+    HorariosMartes, HorariosMiercoles, HorariosJueves, HorariosViernes, HorariosSabados, HorariosDomingos, \
+    PeticionParaCambiarHorario, Semana
 
 # Esto me dejará usar los formularios de Django de formularios.py
 from .formularios import FormularioInicioSesion
@@ -143,6 +143,9 @@ Primero, debo hacer un bucle “for” para iterar todas las semanas de la tabla
 Ahora, voy a imprimir todos los turnos en cada día. Voy a ordenarlos por hora de inicio (desde más temprano a más 
 tarde). Pero antes, voy simplemente a imprimir los turnos. Para ello, agarraré todos los turnos de todas las tablas de 
 todos los días, y los enviaré via Jinja.
+
+Tengo que, al crear el query set que agarra todos los horarios, poner el filtro “order_by(campo_con_la_hora__hour')” al 
+final del Query set para ordenar los horarios por orden de hora de inicio.
 """
 @login_required
 def horario_chofer_logueado(request):
@@ -167,10 +170,17 @@ def horario_chofer_logueado(request):
     lista_de_semanas = Semana.objects.all()
 
     # Esto agarrará todos los turnos del lunes
-    turnos_lunes = HorariosLunes.objects.all()
+    turnos_lunes = HorariosLunes.objects.all().order_by('hora_de_inicio_del_turno__hour')
 
     # Turnos del martes
-    turnos_martes = HorariosMartes.objects.all()
+    turnos_martes = HorariosMartes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+
+    # Esto agarrará todos los turnos del resto de los días
+    turnos_miercoles = HorariosMiercoles.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_jueves = HorariosJueves.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_viernes = HorariosViernes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_sabado = HorariosSabados.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_domingo = HorariosDomingos.objects.all().order_by('hora_de_inicio_del_turno__hour')
 
     return render(request, 'horario_chofer_logueado.html', {
         "chofer_logueado": chofer_logueado,
@@ -179,5 +189,11 @@ def horario_chofer_logueado(request):
         "lista_de_semanas": lista_de_semanas,
         "turnos_lunes": turnos_lunes,
         "turnos_martes": turnos_martes,
+        "turnos_miercoles": turnos_miercoles,
+        "turnos_jueves": turnos_jueves,
+        "turnos_viernes": turnos_viernes,
+        "turnos_sabado": turnos_sabado,
+        "turnos_domingo": turnos_domingo,
+
     })
 

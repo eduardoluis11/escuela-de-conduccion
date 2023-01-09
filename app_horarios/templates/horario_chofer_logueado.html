@@ -33,73 +33,6 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
         horarios sean difíciles de leer.
 
         -->
-        <div class="table-responsive">
-            <table class="table">
-                <tbody>
-                    <!-- . esto tiene que estar dentro de una fila del
-                    Grid de Bootstrap.
-
-                    -->
-
-                        <th>
-                            Lunes {{semana.fecha_del_lunes|date:"d M"}}
-                        </th>
-                        <th>
-                            Martes {{semana.fecha_del_martes|date:"d M"}}
-                        </th>
-                        <th>
-                            Miércoles {{semana.fecha_del_miercoles|date:"d M"}}
-                        </th>
-                        <th>
-                            Jueves {{semana.fecha_del_jueves|date:"d M"}}
-                        </th>
-                        <th>
-                            Viernes {{semana.fecha_del_viernes|date:"d M"}}
-                        </th>
-                        <th>
-                            Sábado {{semana.fecha_del_sabado|date:"d M"}}
-                        </th>
-                        <th>
-                            Domingo {{semana.fecha_del_domingo|date:"d M"}}
-                        </th>
-
-
-                    <!-- Esto llama cada horario registrado en la base de datos -->
-
-                    <!-- Fila de tabla con un solo turno -->
-<!--                    <tr>-->
-                        <!-- Turnos del lunes -->
-                        {% for turno in turnos_lunes  %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
-                                    </td>
-                                </tr>
-
-                            {% endif %}
-                        {% endfor %}
-
-                        <!-- Turnos del martes -->
-                        {% for turno in turnos_martes  %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
-                                    </td>
-                                </tr>
-
-                            {% endif %}
-                        {% endfor %}
-
-<!--                    </tr>-->
-
-                </tbody>
-            </table>
-        </div>  <!-- Fin de la tabla -->
-
-
-
         <!-- Tabla con todos los horarios.
 
         Crearé un grid de bootstrap de 1 fila y 7 columnas, donde cada columna será una tabla de cada día.
@@ -117,10 +50,13 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
         “semana_del_turno” de la tabla “HorariosLunes” (el cual es una ID, el cual es un integer) con el
         campo “id” de la tabla “Semana”. Sin son iguales, debe imprimirme el turno del lunes de esa semana.
 
+        Una forma improvisada sería crear 7 tablas (7 atributos <table>), en donde con un Bootstrap grid de 1 fila
+        por 7 columnas. Así, cada tabla saldría una la lado de la otra si la pantalla es grande, o una debajo del a
+        otra si la pantalla es pequeña. Esto no es lo ideal, pero debería funcionar.
+
          Lo que tuve que hacer es poner un <tr> (table row) por cada fila que quiero debajo de “lunes”, y
          dentro de cada <tr>, pongo un <td> (table descriptor) con cada registro de la bbdd que quiero
          imprimir.
-
 
         -->
         <div class="row justify-content-md-center">
@@ -171,37 +107,40 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                 <tbody>
 
                     <th>
-                        Miércoles
+                        Miércoles {{semana.fecha_del_miercoles|date:"d M"}}
                     </th>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
+
+                    <!-- Turnos del miercoles -->
+                    {% for turno in turnos_miercoles  %}
+                        {% if turno.semana_del_turno_id == semana.id %}
+                            <tr>
+                                <td>
+                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
 
             <table class="col"> <!-- Tabla del jueves -->
                 <tbody>
-
                     <th>
-                        Jueves
+                        Jueves {{semana.fecha_del_jueves|date:"d M"}}
                     </th>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
+
+                    <!-- Turnos del jueves -->
+                    {% for turno in turnos_jueves  %}
+                        {% if turno.semana_del_turno_id == semana.id %}
+                            <tr>
+                                <td>
+                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
 
@@ -209,18 +148,21 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                 <tbody>
 
                     <th>
-                        Viernes
+                        Viernes {{semana.fecha_del_viernes|date:"d M"}}
                     </th>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
+
+                    <!-- Turnos del viernes -->
+                    {% for turno in turnos_viernes  %}
+                        {% if turno.semana_del_turno_id == semana.id %}
+                            <tr>
+                                <td>
+                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+
                 </tbody>
             </table>
 
@@ -228,37 +170,38 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                 <tbody>
 
                     <th>
-                        Sábado
+                        Sábado {{semana.fecha_del_sabado|date:"d M"}}
                     </th>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
+
+                    <!-- Turnos del sábado -->
+                    {% for turno in turnos_sabado  %}
+                        {% if turno.semana_del_turno_id == semana.id %}
+                            <tr>
+                                <td>
+                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
 
             <table class="col"> <!-- Tabla del domingo -->
                 <tbody>
-
                     <th>
-                        Domingo
+                        Domingo {{semana.fecha_del_domingo|date:"d M"}}
                     </th>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hola mundo
-                        </td>
-                    </tr>
+
+                    <!-- Turnos del domingo -->
+                    {% for turno in turnos_domingo  %}
+                        {% if turno.semana_del_turno_id == semana.id %}
+                            <tr>
+                                <td>
+                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>  <!-- Fin de la fila con el grid 1x7 de Bootstrap (fin del as 7 tablas) -->
