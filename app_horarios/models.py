@@ -309,7 +309,7 @@ Los datos que necesito para el horario (o turno) son:
 •	ID del estudiante. X
 •	Horario de inicio del turno. X
 •	Horario de fin del turno. X
-•	Semana del turno (tomado como clave foranea)
+•	Semana del turno (tomado como clave foranea) X
 •	Marca de tiempo. X
 
 Sería buena idea agregarle una marca de tiempo a los turnos de los horarios, para saber cuando fue creado el horario. 
@@ -320,8 +320,17 @@ qué hora el secretario agregó tal horario.
 
 Tengo que crear un campo que se llame “Fecha”, y solo agarraría la fecha (usando DateField). Dado que así lo ponía en 
 el Excel el cliente, lo ideal sería agarrar la fecha de cada día. 
+
+Pondre en todas las tablas de los horarios de todos los días si el Carro a usar es automático o sincrónico.
 """
 class HorariosLunes(models.Model):
+
+    # Esta es la lista donde se almacena si el carro es automático o sincrónico
+    OPCIONES_AUTOMATICO_O_SINCRONICO = (
+        ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
+        ('CARRO SINCRONICO', 'CARRO SINCRONICO'),
+    )
+
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -344,6 +353,9 @@ class HorariosLunes(models.Model):
     semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_lunes",
                                           default=0)
 
+    # Esto guarda si el estudiante usará un carro sincrónico o automático
+    usara_carro_automatico_o_sincronico = models.CharField(max_length=20, choices=OPCIONES_AUTOMATICO_O_SINCRONICO,
+                                                           default='')
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now_add=True)

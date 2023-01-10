@@ -86,6 +86,9 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                                     {% endfor %}
                                     <br>
 
+                                    <!-- Si se usará carro automático o sincrónico -->
+                                    {{turno.usara_carro_automatico_o_sincronico}}
+
                                     <!-- Oficina del turno -->
                                     {% for oficina in oficinas %}
                                         {% if turno.id_de_oficina_id == oficina.id %}
@@ -98,10 +101,10 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                                     <br>
 
 
-                                    <b>
-                                        {{turno.hora_de_inicio_del_turno |time:"g:i a"}} -
-                                        {{turno.hora_de_fin_del_turno |time:"g:i a"}}
-                                    </b>
+                                    <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                    <br>
+                                    <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+
                                 </td>
                             </tr>
 
@@ -237,5 +240,10 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
         </div>  <!-- Fin de la fila con el grid 1x7 de Bootstrap (fin del as 7 tablas) -->
 
     {% endfor %} <!-- Fin del bucle de las semanas -->
+
+    <br>
+    <br>
+    <br>
+    <br>
 
 {% endblock %}
