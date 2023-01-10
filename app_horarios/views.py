@@ -251,4 +251,18 @@ Hay que estar logueado para poder entrar a esta página.
 """
 @login_required
 def lista_fechas_reportes_semanales(request):
-    return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html')
+
+    # Esto almacena la ID del usuario logueado
+    id_del_usuario_logueado = int(request.user.id)
+
+    # Esto agarra todos los secretarios
+    lista_de_secretarios = Secretario.objects.all()
+
+    # Esto agarra al usuario logueado
+    instancia_usuario_logueado = User.objects.get(id=request.user.id)
+
+    return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html', {
+        "lista_de_secretarios": lista_de_secretarios,
+        "instancia_usuario_logueado": instancia_usuario_logueado,
+        "id_del_usuario_logueado": id_del_usuario_logueado,
+    })
