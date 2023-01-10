@@ -171,6 +171,9 @@ Los datos que necesito de otras tablas para imprimirlo en el horario son: los da
 Oficina. Entonces, con un Query Set, agarraré todos los datos de los modelos Estudiante y Oficina. Luego, compararé las 
 IDs de los estudiantes y de las oficinas con las que están registradas en el turno. Si son las mismas, imprimiré esa 
 oficina y ese estudiante.
+
+Voy a ordenar las semanas por orden de fecha del lunes, en donde el lunes más reciente será la semana que aparezca de 
+primero. Para arreglar algo por orden descendiente, debo usar ‘order_by’ y ‘-nombre_del_campo’.
 """
 @login_required
 def horario_chofer_logueado(request):
@@ -192,7 +195,7 @@ def horario_chofer_logueado(request):
     lista_de_choferes = Chofer.objects.all()
 
     # Esto agarra todas las semanas en la tabla Semana
-    lista_de_semanas = Semana.objects.all()
+    lista_de_semanas = Semana.objects.all().order_by('-fecha_del_lunes')
 
     # Esto agarrará todos los turnos del lunes
     turnos_lunes = HorariosLunes.objects.all().order_by('hora_de_inicio_del_turno__hour')
