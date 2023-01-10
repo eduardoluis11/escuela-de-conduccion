@@ -373,9 +373,13 @@ class HorariosLunes(models.Model):
 DEBO AGREGAR:
 •	Semana del turno (tomado como clave foranea)
 """
-
-
 class HorariosMartes(models.Model):
+    OPCIONES_AUTOMATICO_O_SINCRONICO = (
+        ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
+        ('CARRO SINCRONICO', 'CARRO SINCRONICO'),
+    )
+
+
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -398,6 +402,9 @@ class HorariosMartes(models.Model):
     semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_martes",
                                           default=0)
 
+    # Esto guarda si el estudiante usará un carro sincrónico o automático
+    usara_carro_automatico_o_sincronico = models.CharField(max_length=20, choices=OPCIONES_AUTOMATICO_O_SINCRONICO,
+                                                           default='')
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now_add=True)
@@ -414,9 +421,12 @@ class HorariosMartes(models.Model):
 DEBO AGREGAR:
 •	Semana del turno (tomado como clave foranea)
 """
-
-
 class HorariosMiercoles(models.Model):
+    OPCIONES_AUTOMATICO_O_SINCRONICO = (
+        ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
+        ('CARRO SINCRONICO', 'CARRO SINCRONICO'),
+    )
+
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -440,6 +450,10 @@ class HorariosMiercoles(models.Model):
     semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE,
                                          related_name="semana_del_turno_del_miercoles", default=0)
 
+    # Esto guarda si el estudiante usará un carro sincrónico o automático
+    usara_carro_automatico_o_sincronico = models.CharField(max_length=20, choices=OPCIONES_AUTOMATICO_O_SINCRONICO,
+                                                           default='')
+
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
 
@@ -453,9 +467,12 @@ class HorariosMiercoles(models.Model):
 DEBO AGREGAR:
 •	Semana del turno (tomado como clave foranea)
 """
-
-
 class HorariosJueves(models.Model):
+    OPCIONES_AUTOMATICO_O_SINCRONICO = (
+        ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
+        ('CARRO SINCRONICO', 'CARRO SINCRONICO'),
+    )
+
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -478,6 +495,10 @@ class HorariosJueves(models.Model):
     semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_jueves",
                                           default=0)
 
+    # Esto guarda si el estudiante usará un carro sincrónico o automático
+    usara_carro_automatico_o_sincronico = models.CharField(max_length=20, choices=OPCIONES_AUTOMATICO_O_SINCRONICO,
+                                                           default='')
+
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
 
@@ -491,9 +512,12 @@ class HorariosJueves(models.Model):
 DEBO AGREGAR:
 •	Semana del turno (tomado como clave foranea)
 """
-
-
 class HorariosViernes(models.Model):
+    OPCIONES_AUTOMATICO_O_SINCRONICO = (
+        ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
+        ('CARRO SINCRONICO', 'CARRO SINCRONICO'),
+    )
+
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -517,6 +541,9 @@ class HorariosViernes(models.Model):
     semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE,
                                          related_name="semana_del_turno_del_viernes", default=0)
 
+    # Esto guarda si el estudiante usará un carro sincrónico o automático
+    usara_carro_automatico_o_sincronico = models.CharField(max_length=20, choices=OPCIONES_AUTOMATICO_O_SINCRONICO,
+                                                           default='')
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
@@ -532,6 +559,11 @@ DEBO AGREGAR:
 •	Semana del turno (tomado como clave foranea) X
 """
 class HorariosSabados(models.Model):
+    OPCIONES_AUTOMATICO_O_SINCRONICO = (
+        ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
+        ('CARRO SINCRONICO', 'CARRO SINCRONICO'),
+    )
+
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -554,6 +586,9 @@ class HorariosSabados(models.Model):
     semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE, related_name="semana_del_turno_del_sabado",
                                           default=0)
 
+    # Esto guarda si el estudiante usará un carro sincrónico o automático
+    usara_carro_automatico_o_sincronico = models.CharField(max_length=20, choices=OPCIONES_AUTOMATICO_O_SINCRONICO,
+                                                           default='')
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
@@ -567,6 +602,11 @@ class HorariosSabados(models.Model):
 
 """
 class HorariosDomingos(models.Model):
+    OPCIONES_AUTOMATICO_O_SINCRONICO = (
+        ('CARRO AUTOMATICO', 'CARRO AUTOMATICO'),
+        ('CARRO SINCRONICO', 'CARRO SINCRONICO'),
+    )
+
     # Nombre del horario (ej: "Horario de Pedro Perez")
     nombre_del_horario = models.CharField(max_length=255, default='')
 
@@ -590,6 +630,9 @@ class HorariosDomingos(models.Model):
     semana_del_turno = models.ForeignKey("Semana", on_delete=models.CASCADE,
                                          related_name="semana_del_turno_del_domingo", default=0)
 
+    # Esto guarda si el estudiante usará un carro sincrónico o automático
+    usara_carro_automatico_o_sincronico = models.CharField(max_length=20, choices=OPCIONES_AUTOMATICO_O_SINCRONICO,
+                                                           default='')
 
     # Fecha y hora en la que se registró este turno (Timestamp)
     fecha_y_hora_en_la_que_se_registro_turno = models.DateTimeField(auto_now=True)
