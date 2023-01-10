@@ -28,7 +28,12 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
         <!-- Si el usuario es un Secretario o es el Administrador, le aparecerá esta página -->
         {% for secretario in lista_de_secretarios %}
             {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
-                Hola mundo
+                <p>
+                    <a href="#">Consulte aquí</a> los horarios de los choferes en las distintas oficinas.
+                </p>
+                <p>
+                    <a href="#">Aquí podrá ver</a> todos los reportes semanales.
+                </p>
             {% endif %}
         {% endfor %}    <!-- Fin de la página de inicio para Secretarios y el Administrador -->
 
