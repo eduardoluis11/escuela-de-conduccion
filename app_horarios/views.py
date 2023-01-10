@@ -245,3 +245,10 @@ def horario_chofer_logueado(request):
 
     })
 
+""" Vista con la Lista de Fechas en las que hay Reportes Semanales Registrados.
+
+Hay que estar logueado para poder entrar a esta página.
+"""
+@login_required
+def lista_fechas_reportes_semanales(request):
+    return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html')
