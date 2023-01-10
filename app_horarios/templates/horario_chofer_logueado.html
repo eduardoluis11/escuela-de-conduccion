@@ -6,8 +6,12 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
 -->
 {% block body %}
 
+    <br>
+
     <!-- Usando Jinja, imprimiré el nombre del chofer logueado aquí -->
     <h1>Horario de Clases del Chofer {{chofer_logueado.nombre}} {{chofer_logueado.apellidos}}</h1>
+
+    <br>
 
     <!-- Esto renderiza cada semana dentro de la tabla "Semana"
 
@@ -19,6 +23,7 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
     {% for semana in lista_de_semanas %}
 
         <h4>{{semana.nombre_de_la_semana}}</h4>
+        <br>
 
         <!-- Tabla con los horarios del chofer.
 
