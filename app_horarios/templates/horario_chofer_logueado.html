@@ -74,9 +74,25 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                                     <!-- Estudiante del turno -->
                                     {% for estudiante in estudiantes %}
                                         {% if turno.id_del_estudiante_id == estudiante.id %}
+                                            <!-- Nombre --->
                                             {{estudiante.nombre}} {{estudiante.apellidos}}
+
+                                            <!-- Telefono -->
+                                            {{estudiante.telefono}}
                                         {% endif %}
                                     {% endfor %}
+                                    <br>
+
+                                    <!-- Oficina del turno -->
+                                    {% for oficina in oficinas %}
+                                        {% if turno.id_de_oficina_id == oficina.id %}
+
+                                            <!-- Nombre de oficina --->
+                                            {{oficina.nombre_de_oficina}}
+
+                                        {% endif %}
+                                    {% endfor %}
+                                    <br>
 
 
                                     <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
