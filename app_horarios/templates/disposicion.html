@@ -82,6 +82,9 @@ horarios, y el de crear peticiones.
                             <a class="nav-link" href="#">Oficinas</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#">Asistencias</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">Reportes</a>
                         </li>
                         <li class="nav-item">
@@ -159,6 +162,10 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
             {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
                 <div class="col">
                     <a href="#">Oficinas</a>
+                </div>
+
+                <div class="col">
+                    <a href="#">Asistencias</a>
                 </div>
 
                 <div class="col">
