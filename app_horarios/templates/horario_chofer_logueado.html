@@ -58,13 +58,16 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
          dentro de cada <tr>, pongo un <td> (table descriptor) con cada registro de la bbdd que quiero
          imprimir.
 
+         Tengo que usar “h” para mostrar formato de 12 horas con 0s, “g” para mostrar en formato de 12 horas sin ceros
+         a la izquierda, “i” para los minutos, y “a” para mostrar si es “am” o “pm”.
+
         -->
         <div class="row justify-content-md-center">
             <table class="col"> <!-- Tabla del lunes -->
                 <tbody>
                     <!-- El <th> le agregará los títulos a las tablas -->
                     <th>
-                        Lunes {{semana.fecha_del_lunes|date:"d M"}}
+                        Lunes {{semana.fecha_del_lunes|date:"d M "}}
                     </th>
                     <!-- Turnos del lunes -->
                     {% for turno in turnos_lunes  %}
@@ -95,7 +98,10 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                                     <br>
 
 
-                                    <b>{{turno.hora_de_inicio_del_turno}} - {{turno.hora_de_fin_del_turno}}</b>
+                                    <b>
+                                        {{turno.hora_de_inicio_del_turno |time:"g:i a"}} -
+                                        {{turno.hora_de_fin_del_turno |time:"g:i a"}}
+                                    </b>
                                 </td>
                             </tr>
 
