@@ -10,12 +10,11 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
         <div>
             <p>
                 Bienvenido/a, {{user.username}}.
-
-
             </p>
         </div>
 
         <!-- Si el usuario es un chofer, le aparecerá esta página.
+
         Haré esto en el index.html con Jinja: crearé un bucle for para iterar cada usuario de la tabla Chofer. Luego,
         comparare la ID del usuario logueado con la del usuario de la iteración actual de la tabla chofer. Si está,
         imprimo el texto que debe ver el chofer.
@@ -24,11 +23,14 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
             {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
                 <a href="{% url 'horario_chofer_logueado' %}">Consulte aquí su horario</a>
             {% endif %}
-        {% endfor %}
+        {% endfor %}    <!-- Fin de la página de inicio para Choferes -->
 
-
-
-        <!-- Fin de la página de inicio para Choferes -->
+        <!-- Si el usuario es un Secretario o el Administrador, le aparecerá esta página -->
+        {% for secretario in lista_de_secretarios %}
+            {% if id_del_usuario_logueado == secretario.id_de_usuario_id %}
+                Hola mundo
+            {% endif %}
+        {% endfor %}    <!-- Fin de la página de inicio para Secretarios y el Administrador -->
 
     <!-- Página de inicio que le aparece al usuario si no ha iniciado sesión  -->
     {% else %}
@@ -43,5 +45,7 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
 
         <p><b>Aviso:</b> este sitio web usa cookies, las cuales toman su información privada.</p>
     {% endif %}
+
+
 
 {% endblock %}

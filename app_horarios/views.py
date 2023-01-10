@@ -41,6 +41,9 @@ Necesito usar un Query Set para agarrar todas las IDs de la tabla Chofer. Por lo
 
 La variable en la tabla Chofer que tiene la ID de usuario de ese chofer se llama “id_de_usuario_id”. Esa es la 
 variable que me dice la ID de usuario de ese chofer, y me dice si el usuario logueado es un chofer.
+
+Como la página de inicio es distinta para los choferes, el secretario, y si nadie se ha logueado, 
+tengo que agarrar a todos los choferes, secretarios y al super usuario, y enviarlos por Jinja al index.html.
 """
 def index(request):
 
@@ -58,8 +61,11 @@ def index(request):
         # print(id_del_usuario_logueado)
 
 
-    # Esto agarra las IDs de todos los choferes
+    # Esto agarra a todos los choferes
     lista_de_choferes = Chofer.objects.all()
+
+    # Esto agarra todos los secretarios
+    lista_de_secretarios = Secretario.objects.all()
 
     # Bucle de DEBUGGEO
     # for chofer in lista_de_choferes:
@@ -73,6 +79,7 @@ def index(request):
     return render(request, 'index.html', {
         "id_del_usuario_logueado": id_del_usuario_logueado,
         "lista_de_choferes": lista_de_choferes,
+        "lista_de_secretarios": lista_de_secretarios,
     })
 
 """ Vista para la página de Iniciar Sesión.
