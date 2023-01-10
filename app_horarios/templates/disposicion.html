@@ -142,14 +142,40 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
         <div class="col">   <!-- Columna con los enlaces rápidos -->
             <span>Enlaces Rápidos:</span>
         </div>
+
+
         <!-- Enlace a "Su Horario" si el usuario es un Chofer -->
-        <div class="col">
-            {% for chofer in lista_de_choferes %}
-                {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
+        {% for chofer in lista_de_choferes %}
+            {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
+                <div class="col">
                     <a href="{% url 'horario_chofer_logueado' %}">Consulte aquí su horario</a>
-                {% endif %}
-            {% endfor %}
-        </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+
+        <!-- Si el usuario es un Secretario o el Administrador -->
+        {% for secretario in lista_de_secretarios %}
+            {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
+                <div class="col">
+                    <a href="#">Oficinas</a>
+                </div>
+
+                <div class="col">
+                    <a href="#">Reportes</a>
+                </div>
+
+                <div class="col">
+                    <a href="#">Agregar Horario</a>
+                </div>
+
+                <div class="col">
+                    <a href="#">Crear Petición</a>
+                </div>
+
+            {% endif %}
+        {% endfor %}    <!-- Fin del footer para Secretarios y el Administrador -->
+
 
 
     </div>
