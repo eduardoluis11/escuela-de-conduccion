@@ -44,17 +44,26 @@ variable que me dice la ID de usuario de ese chofer, y me dice si el usuario log
 
 Como la página de inicio es distinta para los choferes, el secretario, y si nadie se ha logueado, 
 tengo que agarrar a todos los choferes, secretarios y al super usuario, y enviarlos por Jinja al index.html.
+
+Para agarrar al super usuario (que necesito ver si el campo "isSuperUser = true"), voy a tener que agarrar una 
+instancia del usuario logueado.
 """
 def index(request):
 
     # Esto almacenará la ID del usuario si se loguea
     id_del_usuario_logueado = ''
 
+    # Esto almacenará todos los datos del usuario si se loguea
+    instancia_usuario_logueado = ''
+
     # Esto chequea si el usuario está logueado
     if request.user.is_authenticated:
 
         # Esto almacena la ID del usuario logueado como un integer
         id_del_usuario_logueado = int(request.user.id)
+
+        # Esto agarra al usuario logueado
+        instancia_usuario_logueado = User.objects.get(id=id_del_usuario_logueado)
 
         # MENSAJE DE DEBUGGEO
         # print("Esta es la ID del usuario logueado:")
@@ -66,6 +75,9 @@ def index(request):
 
     # Esto agarra todos los secretarios
     lista_de_secretarios = Secretario.objects.all()
+
+
+
 
     # Bucle de DEBUGGEO
     # for chofer in lista_de_choferes:
@@ -80,6 +92,7 @@ def index(request):
         "id_del_usuario_logueado": id_del_usuario_logueado,
         "lista_de_choferes": lista_de_choferes,
         "lista_de_secretarios": lista_de_secretarios,
+        "instancia_usuario_logueado": instancia_usuario_logueado,
     })
 
 """ Vista para la página de Iniciar Sesión.
