@@ -40,7 +40,11 @@ contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bo
 .)  -->
 <body class="d-flex flex-column min-vh-100">
 
-<!-- Barra de navegación -->
+<!-- Barra de navegación.
+
+Para los secretarios, recuerda que son 4 enlaces en el navbar y en el footer: los horarios, los reportes, el de agregar
+horarios, y el de crear peticiones.
+-->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand titulo-barra-navegacion" href="{% url 'index' %}">ESCUELA DE CONDUCCIÓN</a>
@@ -69,7 +73,25 @@ contenido en la página (fuente: https://stackoverflow.com/questions/40853952/bo
                     {% if id_del_usuario_logueado == chofer.id_de_usuario_id %}
                         <a class="nav-link" href="{% url 'horario_chofer_logueado' %}">Su Horario</a>
                     {% endif %}
-                {% endfor %}
+                {% endfor %}    <!-- Fin de navbar para choferes -->
+
+                <!-- Si el usuario es un Secretario o el Administrador -->
+                {% for secretario in lista_de_secretarios %}
+                    {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Oficinas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Reportes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Agregar Horario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Crear Petición</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}    <!-- Fin del navbar para Secretarios y el Administrador -->
 
                 <!-- Nombre del usuario logueado -->
                 <li class="nav-item">
