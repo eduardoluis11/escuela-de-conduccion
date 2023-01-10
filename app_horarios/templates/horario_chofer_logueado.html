@@ -61,6 +61,8 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
          Tengo que usar “h” para mostrar formato de 12 horas con 0s, “g” para mostrar en formato de 12 horas sin ceros
          a la izquierda, “i” para los minutos, y “a” para mostrar si es “am” o “pm”.
 
+        TENGO QUE ESPECIFICAR QUE SOLO DEBO MOSTRAR LOS HORARIOS DEL CHOFER LOGUEADO. NO VOY A MOSTRAR LOS HORARIOS
+        DE TODOS LOS CHOFERES.
         -->
         <div class="row justify-content-md-center">
             <table class="col"> <!-- Tabla del lunes -->
@@ -71,43 +73,46 @@ NO SE DEBE PODER ENTRAR A ESTA PAGINA SI NO ES ESTÁ LOGUEADO.
                     </th>
                     <!-- Turnos del lunes -->
                     {% for turno in turnos_lunes  %}
-                        {% if turno.semana_del_turno_id == semana.id %}
-                            <tr>
-                                <td>
-                                    <!-- Estudiante del turno -->
-                                    {% for estudiante in estudiantes %}
-                                        {% if turno.id_del_estudiante_id == estudiante.id %}
-                                            <!-- Nombre --->
-                                            {{estudiante.nombre}} {{estudiante.apellidos}}
+                        <!-- Esto agarra solo los horarios del chofer logueado -->
+                        {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                            {% if turno.semana_del_turno_id == semana.id %}
+                                <tr>
+                                    <td>
+                                        <!-- Estudiante del turno -->
+                                        {% for estudiante in estudiantes %}
+                                            {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                <!-- Nombre --->
+                                                {{estudiante.nombre}} {{estudiante.apellidos}}
 
-                                            <!-- Telefono -->
-                                            {{estudiante.telefono}}
-                                        {% endif %}
-                                    {% endfor %}
-                                    <br>
+                                                <!-- Telefono -->
+                                                {{estudiante.telefono}}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
 
-                                    <!-- Si se usará carro automático o sincrónico -->
-                                    {{turno.usara_carro_automatico_o_sincronico}}
+                                        <!-- Si se usará carro automático o sincrónico -->
+                                        {{turno.usara_carro_automatico_o_sincronico}}
 
-                                    <!-- Oficina del turno -->
-                                    {% for oficina in oficinas %}
-                                        {% if turno.id_de_oficina_id == oficina.id %}
+                                        <!-- Oficina del turno -->
+                                        {% for oficina in oficinas %}
+                                            {% if turno.id_de_oficina_id == oficina.id %}
 
-                                            <!-- Nombre de oficina --->
-                                            {{oficina.nombre_de_oficina}}
+                                                <!-- Nombre de oficina --->
+                                                {{oficina.nombre_de_oficina}}
 
-                                        {% endif %}
-                                    {% endfor %}
-                                    <br>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
 
 
-                                    <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                    <br>
-                                    <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                        <br>
+                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
 
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
 
