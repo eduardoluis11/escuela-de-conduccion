@@ -19,4 +19,8 @@ urlpatterns = [
          name='lista_fechas_reportes_semanales'),
     path('lista-reportes-semanales/<str:semana_id>', views.lista_reportes_semanales_semana_seleccionada,
          name='lista_reportes_semanales_semana_seleccionada'),
+
+    # Mensaje de error
+    path('error', views.mensaje_de_error, name='mensaje_de_error'),
+
 ]

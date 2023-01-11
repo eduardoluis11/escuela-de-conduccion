@@ -320,3 +320,13 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
         "semana_seleccionada": semana_seleccionada,
 
     })
+
+""" Vista de Mensaje de Error.
+
+Esto saldrá si el usuario entra a una página que no debería (por ejemplo, si el chofer intenta entrar a páginas
+que son solo para secretarios).
+
+El usuario debe pdoer ver esto, esté logueado o no.
+"""
+def mensaje_de_error(request):
+    return render(request, 'error.html')
