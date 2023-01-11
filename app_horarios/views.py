@@ -201,6 +201,13 @@ oficina y ese estudiante.
 
 Voy a ordenar las semanas por orden de fecha del lunes, en donde el lunes más reciente será la semana que aparezca de 
 primero. Para arreglar algo por orden descendiente, debo usar ‘order_by’ y ‘-nombre_del_campo’.
+
+Ahora, solo me falta agregarle ciberseguridad a la página de horarios individuales de los choferes, para que ni el 
+administrador ni los secretarios (dentro o fuera de horario) no puedan entrar a los horarios individuales. Solo los 
+choferes podrán entrar a la página de sus horarios.
+
+Con tan solo poner un “if usuario es chofer, renderiza la página. Else, renderiza la página con el mensaje de error” 
+debería ser suficiente para agregar ciberseguridad.
 """
 @login_required
 def horario_chofer_logueado(request):
@@ -221,56 +228,63 @@ def horario_chofer_logueado(request):
     # Esto agarra las IDs de todos los choferes
     lista_de_choferes = Chofer.objects.all()
 
-    # Esto agarra todas las semanas en la tabla Semana
-    lista_de_semanas = Semana.objects.all().order_by('-fecha_del_lunes')
+    # Esto chequea si el usuario que se logueó es un chofer
+    for chofer in lista_de_choferes:
+        if id_del_usuario_logueado == chofer.id_de_usuario_id:
 
-    # Esto agarrará todos los turnos del lunes
-    turnos_lunes = HorariosLunes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+            # Esto agarra todas las semanas en la tabla Semana
+            lista_de_semanas = Semana.objects.all().order_by('-fecha_del_lunes')
 
-    # Turnos del martes
-    turnos_martes = HorariosMartes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+            # Esto agarrará todos los turnos del lunes
+            turnos_lunes = HorariosLunes.objects.all().order_by('hora_de_inicio_del_turno__hour')
 
-    # Esto agarrará todos los turnos del resto de los días
-    turnos_miercoles = HorariosMiercoles.objects.all().order_by('hora_de_inicio_del_turno__hour')
-    turnos_jueves = HorariosJueves.objects.all().order_by('hora_de_inicio_del_turno__hour')
-    turnos_viernes = HorariosViernes.objects.all().order_by('hora_de_inicio_del_turno__hour')
-    turnos_sabado = HorariosSabados.objects.all().order_by('hora_de_inicio_del_turno__hour')
-    turnos_domingo = HorariosDomingos.objects.all().order_by('hora_de_inicio_del_turno__hour')
+            # Turnos del martes
+            turnos_martes = HorariosMartes.objects.all().order_by('hora_de_inicio_del_turno__hour')
 
-    # Esto agarra todos los estudiantes
-    estudiantes = Estudiante.objects.all()
+            # Esto agarrará todos los turnos del resto de los días
+            turnos_miercoles = HorariosMiercoles.objects.all().order_by('hora_de_inicio_del_turno__hour')
+            turnos_jueves = HorariosJueves.objects.all().order_by('hora_de_inicio_del_turno__hour')
+            turnos_viernes = HorariosViernes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+            turnos_sabado = HorariosSabados.objects.all().order_by('hora_de_inicio_del_turno__hour')
+            turnos_domingo = HorariosDomingos.objects.all().order_by('hora_de_inicio_del_turno__hour')
 
-    # Esto agarra todas las oficinas
-    oficinas = Oficina.objects.all()
+            # Esto agarra todos los estudiantes
+            estudiantes = Estudiante.objects.all()
 
-    # # MENSAJE DE DEBUGGEO:
-    # print("Estudiantes relacionados al turno del lunes:")
-    #
-    # # Esto agarrará un estudiante de ejemplo
-    # estudiante_de_ejemplo = Estudiante.objects.get(id=1)
-    #
-    # # MENSAJE DE DEBUGGEO
-    # print(turno_lunes_de_ejemplo_chofer_logueado.id_de_estudiante_lunes.all())
+            # Esto agarra todas las oficinas
+            oficinas = Oficina.objects.all()
+
+            # # MENSAJE DE DEBUGGEO:
+            # print("Estudiantes relacionados al turno del lunes:")
+            #
+            # # Esto agarrará un estudiante de ejemplo
+            # estudiante_de_ejemplo = Estudiante.objects.get(id=1)
+            #
+            # # MENSAJE DE DEBUGGEO
+            # print(turno_lunes_de_ejemplo_chofer_logueado.id_de_estudiante_lunes.all())
 
 
-    # print(turnos_lunes.id_de_estudiante_lunes.all())
+            # print(turnos_lunes.id_de_estudiante_lunes.all())
 
-    return render(request, 'horario_chofer_logueado.html', {
-        "chofer_logueado": chofer_logueado,
-        "id_del_usuario_logueado": id_del_usuario_logueado,
-        "lista_de_choferes": lista_de_choferes,
-        "lista_de_semanas": lista_de_semanas,
-        "turnos_lunes": turnos_lunes,
-        "turnos_martes": turnos_martes,
-        "turnos_miercoles": turnos_miercoles,
-        "turnos_jueves": turnos_jueves,
-        "turnos_viernes": turnos_viernes,
-        "turnos_sabado": turnos_sabado,
-        "turnos_domingo": turnos_domingo,
-        "estudiantes": estudiantes,
-        "oficinas": oficinas,
+            return render(request, 'horario_chofer_logueado.html', {
+                "chofer_logueado": chofer_logueado,
+                "id_del_usuario_logueado": id_del_usuario_logueado,
+                "lista_de_choferes": lista_de_choferes,
+                "lista_de_semanas": lista_de_semanas,
+                "turnos_lunes": turnos_lunes,
+                "turnos_martes": turnos_martes,
+                "turnos_miercoles": turnos_miercoles,
+                "turnos_jueves": turnos_jueves,
+                "turnos_viernes": turnos_viernes,
+                "turnos_sabado": turnos_sabado,
+                "turnos_domingo": turnos_domingo,
+                "estudiantes": estudiantes,
+                "oficinas": oficinas,
+            })
 
-    })
+        # Si el usuario no es un chofer, le mostraré un mensaje de error
+        else:
+            return render(request, 'error.html')
 
 """ Vista con la Lista de Fechas en las que hay Reportes Semanales Registrados.
 
