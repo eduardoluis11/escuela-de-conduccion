@@ -89,7 +89,7 @@ def index(request):
                 return render(request, 'index.html', {
                     "id_del_usuario_logueado": id_del_usuario_logueado,
                     "lista_de_choferes": lista_de_choferes,
-                    "lista_de_secretarios": lista_de_secretarios,
+
                     "instancia_usuario_logueado": instancia_usuario_logueado,
                 })
 
@@ -100,7 +100,7 @@ def index(request):
                 # Aquí enviaré la lista de choferes, y cualquier otra ID que necesite
                 return render(request, 'index.html', {
                     "id_del_usuario_logueado": id_del_usuario_logueado,
-                    "lista_de_choferes": lista_de_choferes,
+
                     "lista_de_secretarios": lista_de_secretarios,
                     "instancia_usuario_logueado": instancia_usuario_logueado,
                 })
@@ -120,12 +120,7 @@ def index(request):
         # print(user.id)
 
         # Esto renderiza la pág de inicio si el usuario no se ha logueado
-        return render(request, 'index.html', {
-            "id_del_usuario_logueado": id_del_usuario_logueado,
-            "lista_de_choferes": lista_de_choferes,
-            "lista_de_secretarios": lista_de_secretarios,
-            "instancia_usuario_logueado": instancia_usuario_logueado,
-        })
+        return render(request, 'index.html')
 
 """ Vista para la página de Iniciar Sesión.
 
