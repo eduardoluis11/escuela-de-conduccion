@@ -5,7 +5,7 @@
 
     <!-- -->
     <h1>
-        Reporte de ...
+        Reporte Semanal de ...
     </h1>
 
     <br>
@@ -15,18 +15,18 @@
     <p><b>Horas de clases dadas</b></p>
     <p>{{reporte_semanal_seleccionado.horas_trabajadas_en_la_semana}} Horas</p>
 
+    <!-- Clases canceladas -->
+    <p><b>Clases canceladas</b></p>
+    <p>{{reporte_semanal_seleccionado.clases_canceladas_en_la_semana}} Clases</p>
 
-    <p>
-        <b>Clases canceladas</b>
-    </p>
+    <!-- Clases cambiadas a otro horario -->
+    <p><b>Clases cambiadas a otro horario</b></p>
+    <p>{{reporte_semanal_seleccionado.clases_cambiadas_a_otro_horario}}</p>
 
-    <p>
-        <b>Clases cambiadas a otro horario</b>
-    </p>
-
-    <p>
-        <b>Fecha</b>
-    </p>
+    <!-- pondré “Fecha y hora en el que se creó el reporte” o algo así, e imprimiré el timestamp
+    -->
+    <p><b>Fecha y hora en la que se creó el reporte</b></p>
+    <p>{{reporte_semanal_seleccionado.fecha_y_hora_en_la_que_se_registro_reporte}}</p>
 
 
     <br>
@@ -35,4 +35,7 @@
     <a href="#" style="text-decoration: none;">
         < Volver a la Lista de Reportes de la Semana Seleccionada
     </a>
+
+    <br>
+    <br>
 {% endblock %}
