@@ -3,10 +3,14 @@
 <!-- Vista Detallada de un Reporte Semanal -->
 {% block body %}
 
-    <!-- -->
-    <h1>
-        Reporte Semanal de ...
-    </h1>
+    <!-- Voy a imprimir el nombre del chofer en el nombre del título del Reporte -->
+    {% for chofer in lista_de_choferes %}
+        {% if chofer.id == reporte_semanal_seleccionado.id_de_chofer_id %}
+            <h1>
+                Reporte Semanal de {{chofer.nombre}} {{chofer.apellidos}}
+            </h1>
+        {% endif %}
+    {% endfor %}
 
     <br>
     <br>
