@@ -273,3 +273,13 @@ def lista_fechas_reportes_semanales(request):
         "id_del_usuario_logueado": id_del_usuario_logueado,
         "lista_de_fechas_reportes_semanales": lista_de_fechas_reportes_semanales,
     })
+
+""" Vista de Lista de Reportes Semanales de la Semana Seleccionada.
+
+Debes estar logueado para ver esta página.
+
+Aquí saldrán los reportes semanales de todos los choferes para la semana seleccionada.
+"""
+@login_required
+def lista_reportes_semanales_semana_seleccionada(request):
+    return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html')

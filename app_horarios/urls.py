@@ -11,7 +11,9 @@ urlpatterns = [
     path('cerrar-sesion', views.cerrar_sesion, name='cerrar_sesion'),
     path('horario-chofer', views.horario_chofer_logueado, name='horario_chofer_logueado'),
 
-    # Páginas con Reportes Semanales
+    # URLs a Páginas con Reportes Semanales
     path('lista-fechas-con-reportes-semanales', views.lista_fechas_reportes_semanales,
          name='lista_fechas_reportes_semanales'),
+    path('lista-reportes-semanales', views.lista_reportes_semanales_semana_seleccionada,
+         name='lista_reportes_semanales_semana_seleccionada'),
 ]

@@ -1,0 +1,3 @@
+
+Las contraseñas no se pueden cambiar. Si al usuario se le olvida la contraseña, habrá que eliminarle la cuenta y crearle otra.
+
