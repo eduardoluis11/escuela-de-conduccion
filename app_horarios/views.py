@@ -280,10 +280,27 @@ Debes estar logueado para ver esta página.
 
 Aquí saldrán los reportes semanales de todos los choferes para la semana seleccionada.
 
-Dado a que cada semana tiene una lsita de reportes distinta, es decir, que voy a tener que generar un monton de páginas
+Dado a que cada semana tiene una lista de reportes distinta, es decir, que voy a tener que generar un monton de páginas
 de manera dinámica, tendré que agregar la ID de la semana seleccionada a la URL de la página con la lista de reportes
 semanales.
+
+Voy a renderizar la página SOLO cuando una ID de una semana existente haya sido seleccionada. De lo contrario, me debe 
+salir un mensaje de error. 
+
+Tengo que primero agarrar todas las semanas de la tabla de Semanas para Reportes Semanales.
 """
 @login_required
 def lista_reportes_semanales_semana_seleccionada(request, semana_id):
-    return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html')
+
+    # Esto agarra todos los Reportes Semanales de la semana seleccionada
+    lista_reportes_semanales = SemanaParaReportesSemanales.objects.filter(id=semana_id)
+
+    # MENSAJE DE DEBUGGEO
+    print("Lista de reportes de la semana seleccionada:")
+    print(lista_reportes_semanales)
+
+
+    return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html', {
+        "lista_reportes_semanales": lista_reportes_semanales,
+
+    })
