@@ -317,5 +317,6 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
 
     return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html', {
         "lista_reportes_semanales": lista_reportes_semanales,
+        "semana_seleccionada": semana_seleccionada,
 
     })
