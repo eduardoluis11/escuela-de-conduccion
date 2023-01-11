@@ -288,12 +288,27 @@ Voy a renderizar la página SOLO cuando una ID de una semana existente haya sido
 salir un mensaje de error. 
 
 Tengo que primero agarrar todas las semanas de la tabla de Semanas para Reportes Semanales.
+
+Ahora, necesito agarrar todos los reportes de que pertenezcan a una semana en específico, y debo mostrarlo en la página 
+de Lista de Reportes de esa fecha. Primero, necesito imprimir la fecha del lunes y la fecha del domingo de esa semana 
+en el título <h1> de la página.
+
+“id_de_semana_id” es la ID de la semana a la que pertenecen varios reportes.
+
+Prefiero usar "semana_seleccionada.id" que "semana_id" en la lista de reportes semanales por motivos de seguridad.
+Así, debería salir un error si el usuario escribe una ID de una semana que no exista en la base de datos.
 """
 @login_required
 def lista_reportes_semanales_semana_seleccionada(request, semana_id):
 
-    # Esto agarra todos los Reportes Semanales de la semana seleccionada
-    lista_reportes_semanales = SemanaParaReportesSemanales.objects.filter(id=semana_id)
+    # Esto agarra la semana seleccionada
+    semana_seleccionada = SemanaParaReportesSemanales.objects.get(id=semana_id)
+
+    # Esto agarra TODOS los reportes semanales de la semana seleccionada
+    lista_reportes_semanales = ReporteSemanal.objects.filter(id_de_semana_id=semana_seleccionada.id)
+
+    print("Esta es la ID de la semana seleccionada:")
+    print(lista_reportes_semanales)
 
     # # MENSAJE DE DEBUGGEO
     # print("Lista de reportes de la semana seleccionada:")
