@@ -18,6 +18,8 @@ from django.contrib.auth.decorators import login_required
 # Esto me permitirá iniciar y cerrar la sesión de un usuario
 from django.contrib.auth import authenticate, login, logout
 
+# Esto me dejará agarrar la fecha y la hora actual
+import datetime
 
 # Esto importará todos los modelos que he creado
 from .models import User, Chofer, Secretario, Oficina, Asistencia, ReporteSemanal, Estudiante, HorariosLunes, \
@@ -447,6 +449,16 @@ def reporte_semanal(request, reporte_id):
 
 
 """ Vista de Formulario para que lso secretarios puedan Agregar Horarios.
+
+Debo detectar un Post request. Si detecta el Post request, meteré los datos de los campos en una de las 7 tablas de los 
+horarios con el nuevo turno.
+
+Y, por razones de seguridad, solo detectaré el POST request si el usuario logueado es un secretario.
+
+Si no se detecta un POST request, renderizaré como si nada la página con el formulario.
+
+Puedo redirigir al usuario al home page después de agregar un horario, y le mostraré un mensaje flash de confirmación, 
+para así mostrarle que se agregó un horario.
 """
 @login_required
 def agregar_horarios(request):
@@ -467,14 +479,34 @@ def agregar_horarios(request):
     for secretario in lista_de_secretarios:
         if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
-            return render(request, './horarios_secretarios/formulario_agregar_horarios.html', {
-                "formulario": formulario,
+            # Esto detecta si el usuario ha entregado el formulario, es decir, si hizo un POST request
+            if request.method == "POST":
 
-                # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
-                "id_del_usuario_logueado": id_del_usuario_logueado,
-                "lista_de_secretarios": lista_de_secretarios,
+                # Voy primero a agarrar los datos de cada casilla del formulario
+                nombre_del_horario = request.POST["nombre_del_horario"]
+                chofer = request.POST["chofer"]
+                oficina = request.POST["oficina"]
+                estudiante = request.POST["estudiante"]
+                dia_de_la_semana = request.POST["dia_de_la_semana"]
+                hora_de_inicio_del_turno = request.POST["hora_de_inicio_del_turno"]
+                hora_de_fin_del_turno = request.POST["hora_de_fin_del_turno"]
+                semana_del_turno = request.POST["semana_del_turno"]
+                usara_carro_automatico_o_sincronico = request.POST["usara_carro_automatico_o_sincronico"]
 
-            })
+                # Esto agarra la fecha y hora actual
+                fecha_y_hora_en_que_se_agrego_horario = datetime.datetime.now()
+
+                # Esto va a redirigir al usuario al home page
+                return HttpResponseRedirect(reverse("index"))
+
+            # Esto renderiza la página si el usuario no ha entregado el formulario con un POST
+            else:
+                return render(request, './horarios_secretarios/formulario_agregar_horarios.html', {
+                    "formulario": formulario,
+                    # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                    "id_del_usuario_logueado": id_del_usuario_logueado,
+                    "lista_de_secretarios": lista_de_secretarios,
+                })
 
         # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
         else:
