@@ -248,6 +248,9 @@ def horario_chofer_logueado(request):
 """ Vista con la Lista de Fechas en las que hay Reportes Semanales Registrados.
 
 Hay que estar logueado para poder entrar a esta página.
+
+Todos los secretarios deben poder ver todos los reportes. Por lo tanto, no tengo que poner ninguna restricción aquí. 
+Solo debo poner las fechas de los reportes en orden descendiente (del mas nuevo al mas viejo).
 """
 @login_required
 def lista_fechas_reportes_semanales(request):
@@ -260,6 +263,8 @@ def lista_fechas_reportes_semanales(request):
 
     # Esto agarra al usuario logueado
     instancia_usuario_logueado = User.objects.get(id=request.user.id)
+
+    # Esto agarra todos los reportes semanales
 
     return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html', {
         "lista_de_secretarios": lista_de_secretarios,

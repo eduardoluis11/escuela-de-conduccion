@@ -768,6 +768,38 @@ class Semana(models.Model):
         return f"{self.nombre_de_la_semana}"
 
 
+""" Modelo de Semanas para Reportes Semanales.
+
+Este es un modelo redundante en el que se almacenarán las semanas en las que se crearán los reportes semanales (es
+decir, cada semana para cada reporte se almacenará aquí).
+
+Hay un montón de problemas que podrían surgir si limito el número de tablas de semanas que el chofer puede ver en su 
+propio horario. Por ejemplo, si los 5 nuevos horarios de las 5 semanas no tienen ningun horario, el chofer no veria 
+cual eran sus clases anteriores. Solución: crear una tabla redundante que almacene las semanas para los reportes 
+semanales.
+
+Los datos que pondré en la tabla de Semanas de Reporte Semanal serán:
+•	Nombre (de que fecha a que fecha es). X
+•	Fecha de inicio de esa semana. X
+•	Fecha de fin de esa semana. X
+
+Solo sería eso. No necesitaría más nada. Pondré la fecha de inicio y la fecha de fin para imprimirlos en la tabla en el 
+formato dia/mes/año, aunque el usuario ponga lo que le de la gana en “Nombre” y escriba algo mal.
+"""
+class SemanaParaReportesSemanales(models.Model):
+
+    # Nombre de la semana a evaluar
+    nombre_de_la_semana = models.CharField(max_length=255, default='')
+
+    # Fecha de inicio de la semana a evaluar
+    fecha_de_inicio_de_semana_a_evaluar = models.DateField(default=date.today)
+
+    # Fecha del final de la semana a evaluar
+    fecha_final_de_semana_a_evaluar = models.DateField(default=date.today)
+
+    # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
+    def __str__(self):
+        return f"{self.nombre_de_la_semana}"
 
 
 
