@@ -276,7 +276,7 @@ class ReporteSemanal(models.Model):
                                      related_name="id_semana_para_reporte_semanal",
                                      default=0)
 
-    # # Query Set que agarrará todos los días en el que el chofer no haya venido a trabajar...
+    # # Query Set que agarrará todos los días en el que el chofer no haya venido a trabajar
     # Asistencia.objects.filter(user_id=id_de_chofer)
 
     # Fecha de inicio de la semana a evaluar

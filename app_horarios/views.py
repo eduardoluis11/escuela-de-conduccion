@@ -22,7 +22,7 @@ from django.contrib.auth import authenticate, login, logout
 # Esto importará todos los modelos que he creado
 from .models import User, Chofer, Secretario, Oficina, Asistencia, ReporteSemanal, Estudiante, HorariosLunes, \
     HorariosMartes, HorariosMiercoles, HorariosJueves, HorariosViernes, HorariosSabados, HorariosDomingos, \
-    PeticionParaCambiarHorario, Semana
+    PeticionParaCambiarHorario, Semana, SemanaParaReportesSemanales
 
 # Esto me dejará usar los formularios de Django de formularios.py
 from .formularios import FormularioInicioSesion
@@ -264,10 +264,12 @@ def lista_fechas_reportes_semanales(request):
     # Esto agarra al usuario logueado
     instancia_usuario_logueado = User.objects.get(id=request.user.id)
 
-    # Esto agarra todos los reportes semanales
+    # Esto agarra todas las fechas para los reportes semanales
+    lista_de_fechas_reportes_semanales = SemanaParaReportesSemanales.objects.all()
 
     return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html', {
         "lista_de_secretarios": lista_de_secretarios,
         "instancia_usuario_logueado": instancia_usuario_logueado,
         "id_del_usuario_logueado": id_del_usuario_logueado,
+        "lista_de_fechas_reportes_semanales": lista_de_fechas_reportes_semanales,
     })
