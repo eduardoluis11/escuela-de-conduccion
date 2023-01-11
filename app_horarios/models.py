@@ -253,9 +253,10 @@ El modelo de Reporte Semanal tendrá los siguientes datos:
 Agarraré el cálculo de las horas trabajadas y las clases canceladas por ese chofer durante esa semana usando un Query 
 Set, y lo meteré en una variable. Luego, meteré esa variable dentro del atributo “default” de tanto las horas 
 trabajadas como de las clases canceladas.
+
+Crearé el campo como clave foránea de la semana a seleccionar para la tabla “Reportes Semanales”. La clave foránea se 
+tomará de la tabla “Semanas para Reportes Semanales”.
 """
-
-
 class ReporteSemanal(models.Model):
     # # Variable de prueba para DEBUGGEO
     # numero_aleatorio = 40
@@ -268,6 +269,11 @@ class ReporteSemanal(models.Model):
 
     # ID del chofer (tomado como clave foranea)
     id_de_chofer = models.ForeignKey("Chofer", on_delete=models.CASCADE, related_name="id_chofer_para_reporte_semanal",
+                                     default=0)
+
+    # ID de la semana a evaluar
+    id_de_semana = models.ForeignKey("SemanaParaReportesSemanales", on_delete=models.CASCADE,
+                                     related_name="id_semana_para_reporte_semanal",
                                      default=0)
 
     # # Query Set que agarrará todos los días en el que el chofer no haya venido a trabajar...
