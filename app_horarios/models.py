@@ -680,7 +680,7 @@ se le desea cambiar el horario.
 """
 class PeticionParaCambiarHorario(models.Model):
 
-    # Lista de días de la semana de lunes a sábado
+    # Lista de días de la semana de lunes a domingo
     OPCIONES_DIAS_DE_LA_SEMANA = (
         ('Lunes', 'Lunes'),
         ('Martes', 'Martes'),
