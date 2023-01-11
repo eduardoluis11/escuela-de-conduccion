@@ -295,9 +295,9 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
     # Esto agarra todos los Reportes Semanales de la semana seleccionada
     lista_reportes_semanales = SemanaParaReportesSemanales.objects.filter(id=semana_id)
 
-    # MENSAJE DE DEBUGGEO
-    print("Lista de reportes de la semana seleccionada:")
-    print(lista_reportes_semanales)
+    # # MENSAJE DE DEBUGGEO
+    # print("Lista de reportes de la semana seleccionada:")
+    # print(lista_reportes_semanales)
 
 
     return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html', {

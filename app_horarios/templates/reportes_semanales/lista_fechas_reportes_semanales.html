@@ -13,6 +13,9 @@
     Se ve perfecto sin el Bootstrap. Por lo tanto, no le pondré Bootstrap ni a esta ni a ninguna tabla pequeña.
 
     Para poner el formato como “dia/mes/año”, usaré el filtro “|date:”d/m/y” ”
+
+    Ahora, usando notación Jinja, pondré la ID de cada semana en el enlace a cada página con la lista de reportes
+    de esa semana (en el enlace azul).
     -->
 
 <!--    <div class="row">   &lt;!&ndash; Fila del Grid 1x2 de Boostrap &ndash;&gt;-->
@@ -32,7 +35,7 @@
                             {{fecha.fecha_final_de_semana_a_evaluar|date:"j/n/y"}}
                         </td>
                         <td>    <!-- Enlace con reportes de esa semana -->
-                            <a href="#">Ver Lista de Reportes</a>
+                            <a href="lista-reportes-semanales/{{fecha.id}}">Ver Lista de Reportes</a>
                         </td>
                     </tr>
                 {% endfor %}
