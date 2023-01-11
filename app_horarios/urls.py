@@ -19,6 +19,8 @@ urlpatterns = [
          name='lista_fechas_reportes_semanales'),
     path('lista-reportes-semanales/<str:semana_id>', views.lista_reportes_semanales_semana_seleccionada,
          name='lista_reportes_semanales_semana_seleccionada'),
+    path('reporte-semanal/<str:reporte_id>', views.reporte_semanal,
+         name='reporte_semanal'),
 
     # Mensaje de error
     path('error', views.mensaje_de_error, name='mensaje_de_error'),

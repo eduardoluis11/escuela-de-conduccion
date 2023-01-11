@@ -381,8 +381,8 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
             # Esto agarra todos los choferes
             lista_de_choferes = Chofer.objects.all()
 
-            print("Esta es la ID de la semana seleccionada:")
-            print(lista_reportes_semanales)
+            # print("Esta es la ID de la semana seleccionada:")
+            # print(lista_reportes_semanales)
 
             # # MENSAJE DE DEBUGGEO
             # print("Lista de reportes de la semana seleccionada:")
@@ -398,6 +398,45 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
         # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
         else:
             return render(request, 'error.html')
+
+
+""" Vista Detallada de un Reporte Semanal. 
+
+Necesito el ID del reporte a ver de forma detallada, ya que el secretario puede ver un montón de reportes.
+
+Luego veré si agrego un botón para mostrar una página con un formulario para que los secretarios agreguen nuevos
+reportes semanales.
+"""
+@login_required
+def reporte_semanal(request, reporte_id):
+
+    # Esto almacena la ID del usuario logueado
+    id_del_usuario_logueado = int(request.user.id)
+
+    # Esto agarra todos los secretarios
+    lista_de_secretarios = Secretario.objects.all()
+
+    # Esto agarra al usuario logueado
+    instancia_usuario_logueado = User.objects.get(id=request.user.id)
+
+    # Esto chequea si el usuario es un secretario en horario de trabajo, o un administrador
+    for secretario in lista_de_secretarios:
+        if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
+
+
+
+            # Esto agarra todos los choferes
+            lista_de_choferes = Chofer.objects.all()
+
+            return render(request, './reportes_semanales/reporte_semanal_detallado.html', {
+                "lista_de_choferes": lista_de_choferes,
+
+            })
+
+        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        else:
+            return render(request, 'error.html')
+
 
 
 """ Vista de Mensaje de Error.
