@@ -47,6 +47,11 @@ tengo que agarrar a todos los choferes, secretarios y al super usuario, y enviar
 
 Para agarrar al super usuario (que necesito ver si el campo "isSuperUser = true"), voy a tener que agarrar una 
 instancia del usuario logueado.
+
+En el index hay que hacer varias cosas para agregarle ciberseguridad, ya que hay 3 páginas posibles: si el usuario no 
+esta logueado, si se mete un secretario o un administrador, o si se mete un chofer. Mira el “return render()”, ya que 
+me debe renderizar algo, este o no esté logueado el usuario. Si el usuario no está logueado, siempre se debe 
+renderizar la página.
 """
 def index(request):
 
@@ -55,6 +60,13 @@ def index(request):
 
     # Esto almacenará todos los datos del usuario si se loguea
     instancia_usuario_logueado = ''
+
+    # Esto agarra a todos los choferes
+    lista_de_choferes = Chofer.objects.all()
+
+    # Esto agarra todos los secretarios
+    lista_de_secretarios = Secretario.objects.all()
+
 
     # Esto chequea si el usuario está logueado
     if request.user.is_authenticated:
@@ -69,31 +81,51 @@ def index(request):
         # print("Esta es la ID del usuario logueado:")
         # print(id_del_usuario_logueado)
 
+        # Esto me va a renderizar la página para los choferes
+        for chofer in lista_de_choferes:
+            if id_del_usuario_logueado == chofer.id_de_usuario_id:
 
-    # Esto agarra a todos los choferes
-    lista_de_choferes = Chofer.objects.all()
+                # Aquí enviaré la lista de choferes, y cualquier otra ID que necesite
+                return render(request, 'index.html', {
+                    "id_del_usuario_logueado": id_del_usuario_logueado,
+                    "lista_de_choferes": lista_de_choferes,
+                    "lista_de_secretarios": lista_de_secretarios,
+                    "instancia_usuario_logueado": instancia_usuario_logueado,
+                })
 
-    # Esto agarra todos los secretarios
-    lista_de_secretarios = Secretario.objects.all()
+        # Esto me va a renderizar la página para el administrador y el secretario en horario de trabajo
+        for secretario in lista_de_secretarios:
+            if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
+                # Aquí enviaré la lista de choferes, y cualquier otra ID que necesite
+                return render(request, 'index.html', {
+                    "id_del_usuario_logueado": id_del_usuario_logueado,
+                    "lista_de_choferes": lista_de_choferes,
+                    "lista_de_secretarios": lista_de_secretarios,
+                    "instancia_usuario_logueado": instancia_usuario_logueado,
+                })
 
+        # Si el usuario no es ni chofer, ni administrador, ni secretario en horario de trabajo, le mostraré un error
+        return render(request, 'error.html')
 
+    # Si el usuario no está logueado, igual renderizaré la página de inicio
+    else:
 
-    # Bucle de DEBUGGEO
-    # for chofer in lista_de_choferes:
-    #     print("ID del chofer:")
-    #     print(chofer.id_de_usuario_id)
+        # Bucle de DEBUGGEO
+        # for chofer in lista_de_choferes:
+        #     print("ID del chofer:")
+        #     print(chofer.id_de_usuario_id)
 
-    # Mensaje de debuggeo
-    # print(user.id)
+        # Mensaje de debuggeo
+        # print(user.id)
 
-    # Aquí enviaré la lista de choferes, y cualquier otra ID qeu necesite
-    return render(request, 'index.html', {
-        "id_del_usuario_logueado": id_del_usuario_logueado,
-        "lista_de_choferes": lista_de_choferes,
-        "lista_de_secretarios": lista_de_secretarios,
-        "instancia_usuario_logueado": instancia_usuario_logueado,
-    })
+        # Esto renderiza la pág de inicio si el usuario no se ha logueado
+        return render(request, 'index.html', {
+            "id_del_usuario_logueado": id_del_usuario_logueado,
+            "lista_de_choferes": lista_de_choferes,
+            "lista_de_secretarios": lista_de_secretarios,
+            "instancia_usuario_logueado": instancia_usuario_logueado,
+        })
 
 """ Vista para la página de Iniciar Sesión.
 
