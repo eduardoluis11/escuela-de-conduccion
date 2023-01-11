@@ -413,7 +413,7 @@ def reporte_semanal(request, reporte_id):
     # Esto almacena la ID del usuario logueado
     id_del_usuario_logueado = int(request.user.id)
 
-    # Esto agarra todos los secretarios
+    # Esto agarra todos los secretarios para revisar si esta logueado
     lista_de_secretarios = Secretario.objects.all()
 
     # Esto agarra al usuario logueado
@@ -423,13 +423,15 @@ def reporte_semanal(request, reporte_id):
     for secretario in lista_de_secretarios:
         if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
-
-
             # Esto agarra todos los choferes
             lista_de_choferes = Chofer.objects.all()
 
+            # Reporte semanal que quiero mostrar
+            reporte_semanal_seleccionado = ReporteSemanal.objects.get(id=reporte_id)
+
             return render(request, './reportes_semanales/reporte_semanal_detallado.html', {
                 "lista_de_choferes": lista_de_choferes,
+                "reporte_semanal_seleccionado": reporte_semanal_seleccionado,
 
             })
 
