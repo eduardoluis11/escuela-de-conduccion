@@ -22,6 +22,11 @@ urlpatterns = [
     path('reporte-semanal/<str:reporte_id>', views.reporte_semanal,
          name='reporte_semanal'),
 
+    # URLs a Páginas de Horarios para secretarios
+    path('agregar-horarios', views.agregar_horarios, name='agregar_horarios'),
+
+
+
     # Mensaje de error
     path('error', views.mensaje_de_error, name='mensaje_de_error'),
 
