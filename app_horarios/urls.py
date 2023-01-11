@@ -1,6 +1,9 @@
 """ El "urlpatterns" me permitirá acceder a cada template o pagina a través de las distintas URLs (fuente:
 https://youtu.be/pRNhdI9PVmg) .
 
+Dado a que cada semana tiene una lsita de reportes distinta, es decir, que voy a tener que generar un monton de páginas
+de manera dinámica, tendré que agregar la ID de la semana seleccionada a la URL de la página con la lista de reportes
+semanales.
 """
 from django.urls import path
 from . import views
@@ -14,6 +17,6 @@ urlpatterns = [
     # URLs a Páginas con Reportes Semanales
     path('lista-fechas-con-reportes-semanales', views.lista_fechas_reportes_semanales,
          name='lista_fechas_reportes_semanales'),
-    path('lista-reportes-semanales', views.lista_reportes_semanales_semana_seleccionada,
+    path('lista-reportes-semanales/<str:semana_id>', views.lista_reportes_semanales_semana_seleccionada,
          name='lista_reportes_semanales_semana_seleccionada'),
 ]

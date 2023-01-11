@@ -279,7 +279,11 @@ def lista_fechas_reportes_semanales(request):
 Debes estar logueado para ver esta página.
 
 Aquí saldrán los reportes semanales de todos los choferes para la semana seleccionada.
+
+Dado a que cada semana tiene una lsita de reportes distinta, es decir, que voy a tener que generar un monton de páginas
+de manera dinámica, tendré que agregar la ID de la semana seleccionada a la URL de la página con la lista de reportes
+semanales.
 """
 @login_required
-def lista_reportes_semanales_semana_seleccionada(request):
+def lista_reportes_semanales_semana_seleccionada(request, semana_id):
     return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html')
