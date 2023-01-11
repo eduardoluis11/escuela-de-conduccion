@@ -9,28 +9,37 @@
     Ahora, en la página de la lista de fechas de los reportes semanales, voy a importar la fecha de inicio y la fecha
     de fin de la tabla “Semanas para Reportes Semanales”. Y crearé un bucle “for” que agarre todos los registros de
     esa tabla.
-    -->
-    <div class="table-responsive">
-      <table class="table table-bordered">
-          <tbody>
-            <th>Chofer</th>
-            <th>Reportes de Esa Semana</th>
 
-            <!-- Fechas con reportes -->
-            {% for fecha in lista_de_fechas_reportes_semanales %}
-                <tr>    <!-- Fila con fecha -->
-                    <td>    <!-- Semana -->
-                        Del {{fecha.fecha_de_inicio_de_semana_a_evaluar}} al
-                        {{fecha.fecha_final_de_semana_a_evaluar}}
-                    </td>
-                    <td>    <!-- Enlace con reportes de esa semana -->
-                        <a href="#">Ver Lista de Reportes</a>
-                    </td>
-                </tr>
-            {% endfor %}
-          </tbody>
-      </table>
-    </div>
+    Se ve perfecto sin el Bootstrap. Por lo tanto, no le pondré Bootstrap ni a esta ni a ninguna tabla pequeña.
+    -->
+<!--    <div class="row">   &lt;!&ndash; Fila del Grid 1x2 de Boostrap &ndash;&gt;-->
+
+<!--        <div class="col table-responsive">  &lt;!&ndash; Columna de la izquierda de la pantalla del grid &ndash;&gt;-->
+<!--          <table class="table table-bordered">-->
+          <table>
+              <tbody>
+                <th>Chofer</th>
+                <th>Reportes de Esa Semana</th>
+
+                <!-- Fechas con reportes -->
+                {% for fecha in lista_de_fechas_reportes_semanales %}
+                    <tr>    <!-- Fila con fecha -->
+                        <td>    <!-- Semana -->
+                            Del {{fecha.fecha_de_inicio_de_semana_a_evaluar}} al
+                            {{fecha.fecha_final_de_semana_a_evaluar}}
+                        </td>
+                        <td>    <!-- Enlace con reportes de esa semana -->
+                            <a href="#">Ver Lista de Reportes</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+        </div>
+
+<!--        <div class="col"></div> &lt;!&ndash; Columna derecha del grid. Esto estará vacío. &ndash;&gt;-->
+
+<!--    </div>  &lt;!&ndash; Fin de la fila del grid &ndash;&gt;-->
 
 
 
