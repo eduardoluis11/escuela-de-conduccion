@@ -251,6 +251,10 @@ Hay que estar logueado para poder entrar a esta página.
 
 Todos los secretarios deben poder ver todos los reportes. Por lo tanto, no tengo que poner ninguna restricción aquí. 
 Solo debo poner las fechas de los reportes en orden descendiente (del mas nuevo al mas viejo).
+
+Entonces, pondré 3 restricciones para ver los reportes semanales: que el usuario sea secretario Y que esté dentro del 
+horario de trabajo, o que el usuario sea el administrador. Para que el usuario esté dentro de la hora de trabajo, solo 
+debo asegurarme de que el campo "esta dentro del horario" sea “true”.
 """
 @login_required
 def lista_fechas_reportes_semanales(request):
@@ -313,25 +317,43 @@ Así, debería salir un error si el usuario escribe una ID de una semana que no 
 @login_required
 def lista_reportes_semanales_semana_seleccionada(request, semana_id):
 
-    # Esto agarra la semana seleccionada
-    semana_seleccionada = SemanaParaReportesSemanales.objects.get(id=semana_id)
+    # Esto almacena la ID del usuario logueado
+    id_del_usuario_logueado = int(request.user.id)
 
-    # Esto agarra TODOS los reportes semanales de la semana seleccionada
-    lista_reportes_semanales = ReporteSemanal.objects.filter(id_de_semana_id=semana_seleccionada.id)
+    # Esto agarra todos los secretarios
+    lista_de_secretarios = Secretario.objects.all()
 
-    print("Esta es la ID de la semana seleccionada:")
-    print(lista_reportes_semanales)
+    # Esto agarra al usuario logueado
+    instancia_usuario_logueado = User.objects.get(id=request.user.id)
 
-    # # MENSAJE DE DEBUGGEO
-    # print("Lista de reportes de la semana seleccionada:")
-    # print(lista_reportes_semanales)
+    # Esto chequea si el usuario es un secretario en horario de trabajo, o un administrador
+    for secretario in lista_de_secretarios:
+        if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
 
-    return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html', {
-        "lista_reportes_semanales": lista_reportes_semanales,
-        "semana_seleccionada": semana_seleccionada,
+            # Esto agarra la semana seleccionada
+            semana_seleccionada = SemanaParaReportesSemanales.objects.get(id=semana_id)
 
-    })
+            # Esto agarra TODOS los reportes semanales de la semana seleccionada
+            lista_reportes_semanales = ReporteSemanal.objects.filter(id_de_semana_id=semana_seleccionada.id)
+
+            print("Esta es la ID de la semana seleccionada:")
+            print(lista_reportes_semanales)
+
+            # # MENSAJE DE DEBUGGEO
+            # print("Lista de reportes de la semana seleccionada:")
+            # print(lista_reportes_semanales)
+
+            return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html', {
+                "lista_reportes_semanales": lista_reportes_semanales,
+                "semana_seleccionada": semana_seleccionada,
+
+            })
+
+        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        else:
+            return render(request, 'error.html')
+
 
 """ Vista de Mensaje de Error.
 
