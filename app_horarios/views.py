@@ -378,6 +378,9 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
             # Esto agarra TODOS los reportes semanales de la semana seleccionada
             lista_reportes_semanales = ReporteSemanal.objects.filter(id_de_semana_id=semana_seleccionada.id)
 
+            # Esto agarra todos los choferes
+            lista_de_choferes = Chofer.objects.all()
+
             print("Esta es la ID de la semana seleccionada:")
             print(lista_reportes_semanales)
 
@@ -388,6 +391,7 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
             return render(request, './reportes_semanales/reportes_semanales_semana_seleccionada.html', {
                 "lista_reportes_semanales": lista_reportes_semanales,
                 "semana_seleccionada": semana_seleccionada,
+                "lista_de_choferes": lista_de_choferes,
 
             })
 

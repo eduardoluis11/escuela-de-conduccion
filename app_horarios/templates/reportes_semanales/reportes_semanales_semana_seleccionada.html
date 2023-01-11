@@ -7,11 +7,39 @@
     página.
 
     SOLO DEBE APARECER UN SOLO REGISTRO para imprimir el título de la página.
+
+    Tengo que mandar la lista de choferes via Jinja a la lista de reportes. Es para comparar la ID del chofer con la ID
+    del chofer registrada en el reporte semanal. Si ambos son iguales, renderizaré el nombre y apellido de ese chofer
+    usando Jinja.
     -->
     <h1>
         Lista de Reportes de la Semana del {{semana_seleccionada.fecha_de_inicio_de_semana_a_evaluar|date:"j/n/y"}} al
         {{semana_seleccionada.fecha_final_de_semana_a_evaluar|date:"j/n/y"}}
     </h1>
+
+    <table>
+      <tbody>
+        <th>Chofer</th>
+        <th>Reporte</th>
+
+        <!-- Lista de choferes con sus respectivos reportes -->
+        {% for reporte in lista_reportes_semanales %}
+            <tr>    <!-- Fila con nombre de chofer y enlace a reporte -->
+                {% for chofer in lista_de_choferes %}
+                    {% if chofer.id == reporte.id_de_chofer_id  %}
+                        <td>    <!-- Chofer -->
+                            {{chofer.nombre}} {{chofer.apellidos}}
+                        </td>
+                    {% endif %}
+                {% endfor %}
+                <td>    <!-- Enlace con reportes de ese chofer -->
+                    <a href="#">Ver Reporte</a>
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
 
 
 
