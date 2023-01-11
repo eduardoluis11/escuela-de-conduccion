@@ -264,15 +264,27 @@ def lista_fechas_reportes_semanales(request):
     # Esto agarra al usuario logueado
     instancia_usuario_logueado = User.objects.get(id=request.user.id)
 
-    # Esto agarra todas las fechas para los reportes semanales
-    lista_de_fechas_reportes_semanales = SemanaParaReportesSemanales.objects.all()
+    # Esto chequea si el usuario es un secretario en horario de trabajo, o un administrador
+    for secretario in lista_de_secretarios:
+        if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
-    return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html', {
-        "lista_de_secretarios": lista_de_secretarios,
-        "instancia_usuario_logueado": instancia_usuario_logueado,
-        "id_del_usuario_logueado": id_del_usuario_logueado,
-        "lista_de_fechas_reportes_semanales": lista_de_fechas_reportes_semanales,
-    })
+            # La página funcionará como debe si un secretario se loguea
+
+            # Esto agarra todas las fechas para los reportes semanales
+            lista_de_fechas_reportes_semanales = SemanaParaReportesSemanales.objects.all()
+
+            return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html', {
+                "lista_de_secretarios": lista_de_secretarios,
+                "instancia_usuario_logueado": instancia_usuario_logueado,
+                "id_del_usuario_logueado": id_del_usuario_logueado,
+                "lista_de_fechas_reportes_semanales": lista_de_fechas_reportes_semanales,
+            })
+
+        # Si se loguea un chofer o un secretario despues de las 7 pm, saldrá un mensaje de error
+        else:
+            return render(request, 'error.html')
+
+
 
 """ Vista de Lista de Reportes Semanales de la Semana Seleccionada.
 
