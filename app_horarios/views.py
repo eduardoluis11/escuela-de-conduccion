@@ -392,6 +392,8 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
                 "lista_reportes_semanales": lista_reportes_semanales,
                 "semana_seleccionada": semana_seleccionada,
                 "lista_de_choferes": lista_de_choferes,
+                "id_del_usuario_logueado": id_del_usuario_logueado,
+                "lista_de_secretarios": lista_de_secretarios,
 
             })
 
@@ -432,6 +434,10 @@ def reporte_semanal(request, reporte_id):
             return render(request, './reportes_semanales/reporte_semanal_detallado.html', {
                 "lista_de_choferes": lista_de_choferes,
                 "reporte_semanal_seleccionado": reporte_semanal_seleccionado,
+
+                # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                "id_del_usuario_logueado": id_del_usuario_logueado,
+                "lista_de_secretarios": lista_de_secretarios,
 
             })
 
