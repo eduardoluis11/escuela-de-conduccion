@@ -3,8 +3,7 @@
 <!-- Formulario para que un secretario pueda Agregar un Horario -->
 {% block body %}
 
-    <!--
-    -->
+
     <h1>
         Agregar Turno Para un Horario
     </h1>
@@ -14,6 +13,9 @@
         {% csrf_token %}
 
         {{formulario.as_p}}
+
+        <!-- Botón de submit. Pensaba hacerlo en forma de botón de Bootstrap. -->
+        <input class="btn btn-primary" type="submit" value="Agregar Turno">
     </form>
 
     <br>
