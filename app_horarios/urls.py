@@ -24,6 +24,7 @@ urlpatterns = [
 
     # URLs a Páginas de Horarios para secretarios
     path('agregar-horarios', views.agregar_horarios, name='agregar_horarios'),
+    path('todos-los-horarios', views.horarios_de_todos_los_choferes, name='horarios_de_todos_los_choferes'),
 
 
 
