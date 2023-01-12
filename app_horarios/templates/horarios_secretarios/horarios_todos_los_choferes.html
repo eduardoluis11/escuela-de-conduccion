@@ -13,7 +13,8 @@
     -->
     {% for chofer in lista_de_choferes %}
         <h4>Chofer</h4>
-        <p>{{chofer.nombre}} {{chofer.apellidos}}</p>
+        <p><b>{{chofer.nombre}} {{chofer.apellidos}}</b></p>
+        <br>
 
         <h4>Horario</h4>
 
@@ -81,50 +82,51 @@
                         </th>
                         <!-- Turnos del lunes -->
                         {% for turno in turnos_lunes  %}
+                            <!-- Esto agarra solo los horarios del chofer de la iteración actual de lista de choferes
+                            -->
+                            {% if turno.id_del_chofer_id == chofer.id %}
+                                {% if turno.semana_del_turno_id == semana.id %}
+                                    <tr>
+                                        <td>
+                                            <!-- Estudiante del turno -->
+                                            {% for estudiante in estudiantes %}
+                                                {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                    <!-- Nombre --->
+                                                    {{estudiante.nombre}} {{estudiante.apellidos}}
 
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <!-- Estudiante del turno -->
-                                        {% for estudiante in estudiantes %}
-                                            {% if turno.id_del_estudiante_id == estudiante.id %}
-                                                <!-- Nombre --->
-                                                {{estudiante.nombre}} {{estudiante.apellidos}}
+                                                    <br>
 
-                                                <br>
+                                                    <!-- Telefono -->
+                                                    {{estudiante.telefono}}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
-                                                <!-- Telefono -->
-                                                {{estudiante.telefono}}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
+                                            <!-- Si se usará carro automático o sincrónico -->
+                                            {{turno.usara_carro_automatico_o_sincronico}}
 
-                                        <!-- Si se usará carro automático o sincrónico -->
-                                        {{turno.usara_carro_automatico_o_sincronico}}
+                                            <br>
 
-                                        <br>
+                                            <!-- Oficina del turno -->
+                                            {% for oficina in oficinas %}
+                                                {% if turno.id_de_oficina_id == oficina.id %}
 
-                                        <!-- Oficina del turno -->
-                                        {% for oficina in oficinas %}
-                                            {% if turno.id_de_oficina_id == oficina.id %}
+                                                    <!-- Nombre de oficina --->
+                                                    {{oficina.nombre_de_oficina}}
 
-                                                <!-- Nombre de oficina --->
-                                                {{oficina.nombre_de_oficina}}
-
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
 
-                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                        <br>
-                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                            <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                            <br>
+                                            <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                    </td>
-                                </tr>
-
+                                        </td>
+                                    </tr>
+                                {% endif %}
                             {% endif %}
-
                         {% endfor %}
                     </tbody>
                 </table>    <!-- Fin de tabla del lunes -->
@@ -472,6 +474,8 @@
 
         {% endfor %} <!-- Fin del bucle de las semanas -->
 
+        <hr>
+        <br>
     {% endfor %}    <!-- Fin del bucle de los choferes -->
 
     <br>
