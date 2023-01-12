@@ -771,13 +771,36 @@ def horarios_oficina_seleccionada(request, oficina_id):
     # Esto agarra la oficina específica que necesito
     oficina_seleccionada = Oficina.objects.get(id=oficina_id)
 
+    # Esto agarra todas las semanas en la tabla Semana
+    lista_de_semanas = Semana.objects.all().order_by('-fecha_del_lunes')
+
+    # Esto agarrará todos los turnos de todos los días
+    turnos_lunes = HorariosLunes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_martes = HorariosMartes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_miercoles = HorariosMiercoles.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_jueves = HorariosJueves.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_viernes = HorariosViernes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_sabado = HorariosSabados.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_domingo = HorariosDomingos.objects.all().order_by('hora_de_inicio_del_turno__hour')
+
+    # Esto agarra todos los estudiantes
+    estudiantes = Estudiante.objects.all()
+
     # Esto chequea si el usuario es un secretario en horario de trabajo, o un administrador
     for secretario in lista_de_secretarios:
         if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
             return render(request, './oficinas/horarios_para_oficina_seleccionada.html', {
-
+                "lista_de_semanas": lista_de_semanas,
                 "oficina_seleccionada": oficina_seleccionada,
+                "turnos_lunes": turnos_lunes,
+                "turnos_martes": turnos_martes,
+                "turnos_miercoles": turnos_miercoles,
+                "turnos_jueves": turnos_jueves,
+                "turnos_viernes": turnos_viernes,
+                "turnos_sabado": turnos_sabado,
+                "turnos_domingo": turnos_domingo,
+                "estudiantes": estudiantes,
 
                 # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
