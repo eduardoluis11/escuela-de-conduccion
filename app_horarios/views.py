@@ -653,9 +653,11 @@ def agregar_horarios(request):
             return render(request, 'error.html')
 
 
-""" Vista para ver los Horarios de todos los Choferes (PRIORITARIO).
+""" Vista para ver los Horarios de todos los Choferes (PRIORITARIO). ...
 
-
+para imprimir los horarios, voy a hacer casi lo mismo que hice para imprimir el horario de cada chofer individual. 
+Excepto que, en lugar de imprimir el horario del chofer logueado, voy a imprimir los horarios de TODOS los choferes. 
+Eso se puede hacer con un Chofer.objects.all().
 """
 @login_required
 def horarios_de_todos_los_choferes(request):
@@ -666,6 +668,31 @@ def horarios_de_todos_los_choferes(request):
     # Esto agarra todos los secretarios para revisar si esta logueado
     lista_de_secretarios = Secretario.objects.all()
 
+    # Esto agarra las IDs de todos los choferes
+    lista_de_choferes = Chofer.objects.all()
+
+    # Esto agarra todas las semanas en la tabla Semana
+    lista_de_semanas = Semana.objects.all().order_by('-fecha_del_lunes')
+
+    # Esto agarrará todos los turnos del lunes
+    turnos_lunes = HorariosLunes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+
+    # Turnos del martes
+    turnos_martes = HorariosMartes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+
+    # Esto agarrará todos los turnos del resto de los días
+    turnos_miercoles = HorariosMiercoles.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_jueves = HorariosJueves.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_viernes = HorariosViernes.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_sabado = HorariosSabados.objects.all().order_by('hora_de_inicio_del_turno__hour')
+    turnos_domingo = HorariosDomingos.objects.all().order_by('hora_de_inicio_del_turno__hour')
+
+    # Esto agarra todos los estudiantes
+    estudiantes = Estudiante.objects.all()
+
+    # Esto agarra todas las oficinas
+    oficinas = Oficina.objects.all()
+
     # Esto agarra al usuario logueado
     instancia_usuario_logueado = User.objects.get(id=request.user.id)
 
@@ -674,6 +701,17 @@ def horarios_de_todos_los_choferes(request):
         if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
             return render(request, './horarios_secretarios/horarios_todos_los_choferes.html', {
+                "lista_de_choferes": lista_de_choferes,
+                "lista_de_semanas": lista_de_semanas,
+                "turnos_lunes": turnos_lunes,
+                "turnos_martes": turnos_martes,
+                "turnos_miercoles": turnos_miercoles,
+                "turnos_jueves": turnos_jueves,
+                "turnos_viernes": turnos_viernes,
+                "turnos_sabado": turnos_sabado,
+                "turnos_domingo": turnos_domingo,
+                "estudiantes": estudiantes,
+                "oficinas": oficinas,
 
                 # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
