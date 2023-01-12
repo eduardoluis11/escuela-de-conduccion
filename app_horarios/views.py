@@ -757,6 +757,8 @@ def lista_de_oficinas(request):
 
 """ Vista de Horarios para una Oficina Seleccionada.
 
+Tengo que agarrar una oficina en específico. Eso lo puedo hacer con el get(), el cual debo hacer, para que así el 
+usuario no pueda entrar en la página de la oficina si no está usando el ID correcto.
 """
 def horarios_oficina_seleccionada(request, oficina_id):
 
@@ -766,8 +768,8 @@ def horarios_oficina_seleccionada(request, oficina_id):
     # Esto agarra todos los secretarios para revisar si esta logueado
     lista_de_secretarios = Secretario.objects.all()
 
-    # Esto agarra todas las oficinas
-    lista_oficinas = Oficina.objects.all()
+    # Esto agarra la oficina específica que necesito
+    oficina_seleccionada = Oficina.objects.get(id=oficina_id)
 
     # Esto chequea si el usuario es un secretario en horario de trabajo, o un administrador
     for secretario in lista_de_secretarios:
@@ -775,7 +777,7 @@ def horarios_oficina_seleccionada(request, oficina_id):
 
             return render(request, './oficinas/horarios_para_oficina_seleccionada.html', {
 
-                "lista_oficinas": lista_oficinas,
+                "oficina_seleccionada": oficina_seleccionada,
 
                 # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
