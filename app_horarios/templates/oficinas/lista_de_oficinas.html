@@ -17,17 +17,19 @@
         <th>Oficina</th>
         <th>Dirección</th>
         <th>Ver Horarios</th>
-            <tr>    <!-- Fila con oficina, dirección, y fecha -->
-                <td>    <!-- Oficina -->
-
-                </td>
-                <td>    <!-- Dirección -->
-
-                </td>
-                <td>    <!-- Horarios -->
-                    <a href="#">Ver Horarios</a>
-                </td>
-            </tr>
+            {% for oficina in lista_oficinas %}
+                <tr>    <!-- Fila con oficina, dirección, y fecha -->
+                    <td>    <!-- Oficina -->
+                        {{oficina.nombre_de_oficina}}
+                    </td>
+                    <td>    <!-- Dirección -->
+                        {{oficina.direccion}}
+                    </td>
+                    <td>    <!-- Horarios -->
+                        <a href="#">Ver Horarios</a>
+                    </td>
+                </tr>
+            {% endfor %}
       </tbody>
     </table>
 

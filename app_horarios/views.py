@@ -734,11 +734,16 @@ def lista_de_oficinas(request):
     # Esto agarra todos los secretarios para revisar si esta logueado
     lista_de_secretarios = Secretario.objects.all()
 
+    # Esto agarra todas las oficinas
+    lista_oficinas = Oficina.objects.all()
+
     # Esto chequea si el usuario es un secretario en horario de trabajo, o un administrador
     for secretario in lista_de_secretarios:
         if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
 
             return render(request, './oficinas/lista_de_oficinas.html', {
+
+                "lista_oficinas": lista_oficinas,
 
                 # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
