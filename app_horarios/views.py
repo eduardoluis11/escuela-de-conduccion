@@ -755,6 +755,40 @@ def lista_de_oficinas(request):
             return render(request, 'error.html')
 
 
+""" Vista de Horarios para una Oficina Seleccionada.
+
+"""
+def horarios_oficina_seleccionada(request, oficina_id):
+
+    # Esto almacena la ID del usuario logueado
+    id_del_usuario_logueado = int(request.user.id)
+
+    # Esto agarra todos los secretarios para revisar si esta logueado
+    lista_de_secretarios = Secretario.objects.all()
+
+    # Esto agarra todas las oficinas
+    lista_oficinas = Oficina.objects.all()
+
+    # Esto chequea si el usuario es un secretario en horario de trabajo, o un administrador
+    for secretario in lista_de_secretarios:
+        if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
+
+            return render(request, './oficinas/horarios_para_oficina_seleccionada.html', {
+
+                "lista_oficinas": lista_oficinas,
+
+                # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                "id_del_usuario_logueado": id_del_usuario_logueado,
+                "lista_de_secretarios": lista_de_secretarios,
+            })
+
+        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        else:
+            return render(request, 'error.html')
+
+
+
+
 """ Vista de Mensaje de Error.
 
 Esto saldrá si el usuario entra a una página que no debería (por ejemplo, si el chofer intenta entrar a páginas
