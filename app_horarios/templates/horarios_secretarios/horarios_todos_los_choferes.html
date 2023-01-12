@@ -12,11 +12,11 @@
     iteración actual de la lista de choferes, renderiza este horario”.
     -->
     {% for chofer in lista_de_choferes %}
-        <h4>Chofer</h4>
+        <h4>Chofer:</h4>
         <p><b>{{chofer.nombre}} {{chofer.apellidos}}</b></p>
         <br>
 
-        <h4>Horario</h4>
+        <h4>Horario:</h4>
 
         <!-- Esto renderiza cada semana dentro de la tabla "Semana"
 
@@ -197,8 +197,9 @@
                         </th>
                         <!-- Turnos del miércoles -->
                         {% for turno in turnos_miercoles  %}
-                            <!-- Esto agarra solo los horarios del chofer logueado -->
-                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                            <!-- Esto agarra solo los horarios del chofer de la iteración actual de lista de choferes
+                            -->
+                            {% if turno.id_del_chofer_id == chofer.id %}
                                 {% if turno.semana_del_turno_id == semana.id %}
                                     <tr>
                                         <td>
@@ -252,8 +253,9 @@
                         </th>
                         <!-- Turnos del jueves -->
                         {% for turno in turnos_jueves  %}
-                            <!-- Esto agarra solo los horarios del chofer logueado -->
-                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                            <!-- Esto agarra solo los horarios del chofer de la iteración actual de lista de choferes
+                            -->
+                            {% if turno.id_del_chofer_id == chofer.id %}
                                 {% if turno.semana_del_turno_id == semana.id %}
                                     <tr>
                                         <td>
@@ -307,8 +309,8 @@
                         </th>
                         <!-- Turnos del viernes -->
                         {% for turno in turnos_viernes  %}
-                            <!-- Esto agarra solo los horarios del chofer logueado -->
-                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                            <!-- Esto agarra solo los horarios del chofer de la iteración actual de lista de choferes -->
+                            {% if turno.id_del_chofer_id == chofer.id %}
                                 {% if turno.semana_del_turno_id == semana.id %}
                                     <tr>
                                         <td>
@@ -362,8 +364,8 @@
                         </th>
                         <!-- Turnos del sabado -->
                         {% for turno in turnos_sabado  %}
-                            <!-- Esto agarra solo los horarios del chofer logueado -->
-                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                            <!-- Esto agarra solo los horarios del chofer de la iteración actual de lista de choferes -->
+                            {% if turno.id_del_chofer_id == chofer.id %}
                                 {% if turno.semana_del_turno_id == semana.id %}
                                     <tr>
                                         <td>
@@ -417,8 +419,8 @@
                         </th>
                         <!-- Turnos del domingo -->
                         {% for turno in turnos_domingo  %}
-                            <!-- Esto agarra solo los horarios del chofer logueado -->
-                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                            <!-- Esto agarra solo los horarios del chofer de la iteración actual de lista de choferes -->
+                            {% if turno.id_del_chofer_id == chofer.id %}
                                 {% if turno.semana_del_turno_id == semana.id %}
                                     <tr>
                                         <td>
