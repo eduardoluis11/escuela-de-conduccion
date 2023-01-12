@@ -86,7 +86,7 @@ horarios, y el de crear peticiones.
                             <a class="nav-link" href="{% url 'horarios_de_todos_los_choferes' %}">Horarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Oficinas</a>
+                            <a class="nav-link" href="{% url 'lista_de_oficinas' %}">Oficinas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Asistencias</a>
@@ -176,7 +176,7 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
                     <a href="{% url 'horarios_de_todos_los_choferes' %}">Horarios</a>
                 </div>
                 <div class="col">
-                    <a href="#">Oficinas</a>
+                    <a href="{% url 'lista_de_oficinas' %}">Oficinas</a>
                 </div>
 
                 <div class="col">
