@@ -81,6 +81,10 @@ horarios, y el de crear peticiones.
                 {% for secretario in lista_de_secretarios %}
                     {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
                         <!-- Si el usuario es un Secretario o el Administrador -->
+
+                        <li class="nav-item"> <!-- Todos los horarios de todos los choferes -->
+                            <a class="nav-link" href="#">Horarios</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Oficinas</a>
                         </li>
@@ -166,6 +170,11 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
         {% for secretario in lista_de_secretarios %}
             {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
                 <!-- Si el usuario es un Secretario o el Administrador -->
+
+
+                <div class="col">   <!-- Horarios de todos los choferes -->
+                    <a href="#">Horarios</a>
+                </div>
                 <div class="col">
                     <a href="#">Oficinas</a>
                 </div>

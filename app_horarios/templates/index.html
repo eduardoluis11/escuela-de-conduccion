@@ -36,7 +36,7 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
         {% for secretario in lista_de_secretarios %}
             {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
                 <p>
-                    Consulte aquí los <a href="#">Horarios de los Choferes</a> en las distintas oficinas.
+                    Consulte aquí los <a href="#">Horarios de los todos los Choferes</a>.
                 </p>
                 <p>
                     Aquí podrá ver todos los <a href="{% url 'lista_fechas_reportes_semanales' %}">

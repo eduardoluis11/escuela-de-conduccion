@@ -1,3 +1,6 @@
-
+##Contraseñas:
 Las contraseñas no se pueden cambiar. Si al usuario se le olvida la contraseña, habrá que eliminarle la cuenta y crearle otra.
+
+##Marca de tiempo de registros:
+Vi el timestamp, y agarra bien los horarios, EXCEPTO si es el medio día, que por alguna razón lo agarra como “0:00”, en lugar de “12:00”. No se porqué, si está en formato de 24 horas. 
 
