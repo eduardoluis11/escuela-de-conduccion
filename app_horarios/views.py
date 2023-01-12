@@ -768,6 +768,9 @@ def horarios_oficina_seleccionada(request, oficina_id):
     # Esto agarra todos los secretarios para revisar si esta logueado
     lista_de_secretarios = Secretario.objects.all()
 
+    # Esto agarra las IDs de todos los choferes
+    lista_de_choferes = Chofer.objects.all()
+
     # Esto agarra la oficina específica que necesito
     oficina_seleccionada = Oficina.objects.get(id=oficina_id)
 
@@ -801,6 +804,7 @@ def horarios_oficina_seleccionada(request, oficina_id):
                 "turnos_sabado": turnos_sabado,
                 "turnos_domingo": turnos_domingo,
                 "estudiantes": estudiantes,
+                "lista_de_choferes": lista_de_choferes,
 
                 # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
