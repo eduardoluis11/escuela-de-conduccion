@@ -1,6 +1,11 @@
 ##Contraseñas:
 Las contraseñas no se pueden cambiar. Si al usuario se le olvida la contraseña, habrá que eliminarle la cuenta y crearle otra.
 
+##Bloquear a los secretarios después de las 7 pm:
+Esto depende del hosting. Necesito configurar una herramienta llamada "cron" en el hosting para que, a las 7 pm de todos los días, bloquee a los 4 administradores con bajos privilegios (o "secretarios") para que no puedan agregar horarios.
+
+Si el hosting no me deja configurar el cron, no podré bloquear a los secretarios después de las 7 pm. Es decir, que podrán agregar horarios en cualquier momento del día, incluyendo después de las 7 pm, que no es lo deseable.
+
 ##Marca de tiempo de registros:
 Vi el timestamp, y agarra bien los horarios, EXCEPTO si es el medio día, que por alguna razón lo agarra como “0:00”, en lugar de “12:00”. No se porqué, si está en formato de 24 horas. 
 

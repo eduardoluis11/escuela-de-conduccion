@@ -722,6 +722,12 @@ def horarios_de_todos_los_choferes(request):
         else:
             return render(request, 'error.html')
 
+""" Vista de Lista de Oficinas.
+
+
+"""
+def lista_de_oficinas(request):
+    return render(request, './oficinas/lista_de_oficinas.html')
 
 """ Vista de Mensaje de Error.
 

@@ -26,7 +26,8 @@ urlpatterns = [
     path('agregar-horarios', views.agregar_horarios, name='agregar_horarios'),
     path('todos-los-horarios', views.horarios_de_todos_los_choferes, name='horarios_de_todos_los_choferes'),
 
-
+    # URLs a páginas de Oficinas
+    path('lista-oficinas', views.lista_de_oficinas, name='lista_de_oficinas'),
 
     # Mensaje de error
     path('error', views.mensaje_de_error, name='mensaje_de_error'),
