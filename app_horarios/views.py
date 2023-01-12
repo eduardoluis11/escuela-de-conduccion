@@ -472,6 +472,10 @@ etc, están agarrando la ID de ese chofer u oficina seleccionados. Y la cosa es 
 Entonces, lo bueno es que están agarrando la ID. Lo malo es que stán como un string. Entonces, para los campos que me 
 están agarrando los registros de tablas (como choferes u oficinas), primero voy a convertir esas variables a Integer. 
 LUEGO, las meteré en la base de datos.
+
+Ya vi como agregar los mensajes de confirmación usando “messages”. Primero, debo importar la biblioteca “messages” en 
+views.py. Luego, debo crear el mensaje flash de confirmación usando “messages”. Después, en el archivo HTML, uso un 
+bucle “for” para agarrar cada mensaje en “messages” (que es un tipo de array), e imprimo el mensaje de confirmación.
 """
 @login_required
 def agregar_horarios(request):
@@ -509,11 +513,11 @@ def agregar_horarios(request):
                 # Esto agarra la fecha y hora actual
                 fecha_y_hora_en_la_que_se_registro_turno = datetime.datetime.now()
 
-                # DEBUGGEO: Quiero ver que se está metiendo en los campos con los registros (choferes, oficinas, etc)
-                print("Esto es lo que contiene el campo 'chofer': ")
-                print(chofer)
+                # # DEBUGGEO: Quiero ver que se está metiendo en los campos con los registros (choferes, oficinas, etc)
+                # print("Esto es lo que contiene el campo 'chofer': ")
+                # print(chofer)
 
-                # Dependiendo del día de la semana escogido, voy a meter los datos en una tabla u otra.
+                # Dependiendo del día de la semana escogido, voy a meter los datos en una tabla u otra. ...
                 match dia_de_la_semana:
 
                     # Si el día es lunes, lo meteré en los Horarios del Lunes
@@ -532,8 +536,8 @@ def agregar_horarios(request):
                         # Esto termina de meter los datos en la base de datos
                         nuevo_turno.save()
 
-
-
+                # Mensaje flash de confirmación
+                messages.success(request, "Se ha agregado un nuevo horario correctamente.")
 
                 # Esto va a redirigir al usuario al home page
                 return HttpResponseRedirect(reverse("index"))

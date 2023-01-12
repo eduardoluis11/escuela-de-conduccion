@@ -5,6 +5,13 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
 {% block body %}
     <h1>Horarios de la Escuela de Conducción</h1>
 
+
+    {% for msg in messages %}
+        <!-- Mensaje de confirmación que aparece si el usuario registra una nueva sanción -->
+        <p style="color: green;">{{msg}}</p>
+    {% endfor %}
+
+
     <!-- Página de inicio que le aparece a los usuarios que han iniciado sesión -->
     {% if user.is_authenticated %}
         <div>
