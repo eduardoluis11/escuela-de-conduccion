@@ -91,9 +91,9 @@ class FormularioAgregarHorarios(forms.Form):
     # Día de la semana
     dia_de_la_semana = forms.ChoiceField(choices=OPCIONES_DIAS_DE_LA_SEMANA)
 
-    # Hora de entrada y salida del turno
-    hora_de_inicio_del_turno = forms.TimeField()
-    hora_de_fin_del_turno = forms.TimeField()
+    # Hora de entrada y salida del turno (solo se pueden meter numeros)
+    hora_de_inicio_del_turno = forms.TimeField(initial='13:00', widget=forms.widgets.TimeInput(attrs={'type': 'time'}))
+    hora_de_fin_del_turno = forms.TimeField(initial='15:00', widget=forms.widgets.TimeInput(attrs={'type': 'time'}))
 
     # Semana del turno
     semana_del_turno = forms.ModelChoiceField(queryset=Semana.objects.all())
