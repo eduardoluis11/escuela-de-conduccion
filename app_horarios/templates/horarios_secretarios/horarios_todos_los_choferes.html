@@ -6,459 +6,473 @@
 
     <br>
 
-    <!-- Esto renderiza cada semana dentro de la tabla "Semana"
+    <!-- Esto va a imprimir los horarios de todas las semanas por cada chofer.
 
-    Cada semana tendrá su propio horario.
-
-    Necesito esto para evitar conflictos entre las fechas y los horarios que puede que no hayan sido editados. Además,
-    esto me dejará fácilmente agarrar la fecha de cada dia de la semana para el horario.
+    Luego, en cada tabla de cada semana, tengo que poner “si la ID del chofer del turno es la misma id del chofer en la
+    iteración actual de la lista de choferes, renderiza este horario”.
     -->
-    {% for semana in lista_de_semanas %}
-        <br>
-        <h4>{{semana.nombre_de_la_semana}}</h4>
-        <br>
+    {% for chofer in lista_de_choferes %}
+        <h4>Chofer</h4>
+        <p>{{chofer.nombre}} {{chofer.apellidos}}</p>
 
-        <!-- Tabla con los horarios del chofer.
+        <h4>Horario</h4>
 
-        RECUERDA HACER LA TABLA DEL HORARIO USANDO EL GRID DE BOOTSTRAP (para que así se pueda ver bien en móviles).
+        <!-- Esto renderiza cada semana dentro de la tabla "Semana"
 
-        Voy a ir imprimiendo la fecha de ese día al lado del título de cada día.
+        Cada semana tendrá su propio horario.
 
-        Mira las tablas responsive de bootstrap: https://getbootstrap.com/docs/5.3/content/tables/ . La bordered tables,
-        y la de horizontal scroll me llaman la atención para móviles.
-
-        Usare la de horizontal scroll: meter todos los 7 días de la semana en una pantallita chiquita haría que los
-        horarios sean difíciles de leer.
-
+        Necesito esto para evitar conflictos entre las fechas y los horarios que puede que no hayan sido editados. Además,
+        esto me dejará fácilmente agarrar la fecha de cada dia de la semana para el horario.
         -->
-        <!-- Tabla con todos los horarios.
+        {% for semana in lista_de_semanas %}
+            <br>
+            <h5>{{semana.nombre_de_la_semana}}</h5>
+            <br>
 
-        Crearé un grid de bootstrap de 1 fila y 7 columnas, donde cada columna será una tabla de cada día.
+            <!-- Tabla con los horarios del chofer.
 
-        Cada día de la semana debe estar dentro de una columna del Grid.
+            RECUERDA HACER LA TABLA DEL HORARIO USANDO EL GRID DE BOOTSTRAP (para que así se pueda ver bien en móviles).
 
-        "date: d M" cambia el formato de la fecha para que salga como "09 Ene".
+            Voy a ir imprimiendo la fecha de ese día al lado del título de cada día.
 
-        Para el <td> que mostrará los turnos del lunes, haré un bucle “for” que imprimirá todos los turnos
-        del lunes. Sin embargo, quiero asegurarme que me imprima los turnos del lunes DE ESA SEMANA. Tengo
-        que comparar la semana de los turnos del lunes, y esa semana debe ser la misma que la semana de esa
-        iteración de la lista de semanas.
+            Mira las tablas responsive de bootstrap: https://getbootstrap.com/docs/5.3/content/tables/ . La bordered tables,
+            y la de horizontal scroll me llaman la atención para móviles.
 
-        Para hacer la comparación, la cual haré usando Jinja en el archivo HTML, compararé el campo
-        “semana_del_turno” de la tabla “HorariosLunes” (el cual es una ID, el cual es un integer) con el
-        campo “id” de la tabla “Semana”. Sin son iguales, debe imprimirme el turno del lunes de esa semana.
+            Usare la de horizontal scroll: meter todos los 7 días de la semana en una pantallita chiquita haría que los
+            horarios sean difíciles de leer.
 
-        Una forma improvisada sería crear 7 tablas (7 atributos <table>), en donde con un Bootstrap grid de 1 fila
-        por 7 columnas. Así, cada tabla saldría una la lado de la otra si la pantalla es grande, o una debajo del a
-        otra si la pantalla es pequeña. Esto no es lo ideal, pero debería funcionar.
+            -->
+            <!-- Tabla con todos los horarios.
 
-         Lo que tuve que hacer es poner un <tr> (table row) por cada fila que quiero debajo de “lunes”, y
-         dentro de cada <tr>, pongo un <td> (table descriptor) con cada registro de la bbdd que quiero
-         imprimir.
+            Crearé un grid de bootstrap de 1 fila y 7 columnas, donde cada columna será una tabla de cada día.
 
-         Tengo que usar “h” para mostrar formato de 12 horas con 0s, “g” para mostrar en formato de 12 horas sin ceros
-         a la izquierda, “i” para los minutos, y “a” para mostrar si es “am” o “pm”.
+            Cada día de la semana debe estar dentro de una columna del Grid.
 
-        Esto es para todos los choferes. Esto no es para un chofer individual.
-        -->
-        <div class="row justify-content-md-center">
-            <table class="col"> <!-- Tabla del lunes -->
-                <tbody>
-                    <!-- El <th> le agregará los títulos a las tablas -->
-                    <th>
-                        Lunes {{semana.fecha_del_lunes|date:"d M "}}
-                    </th>
-                    <!-- Turnos del lunes -->
-                    {% for turno in turnos_lunes  %}
+            "date: d M" cambia el formato de la fecha para que salga como "09 Ene".
 
-                        {% if turno.semana_del_turno_id == semana.id %}
-                            <tr>
-                                <td>
-                                    <!-- Estudiante del turno -->
-                                    {% for estudiante in estudiantes %}
-                                        {% if turno.id_del_estudiante_id == estudiante.id %}
-                                            <!-- Nombre --->
-                                            {{estudiante.nombre}} {{estudiante.apellidos}}
+            Para el <td> que mostrará los turnos del lunes, haré un bucle “for” que imprimirá todos los turnos
+            del lunes. Sin embargo, quiero asegurarme que me imprima los turnos del lunes DE ESA SEMANA. Tengo
+            que comparar la semana de los turnos del lunes, y esa semana debe ser la misma que la semana de esa
+            iteración de la lista de semanas.
+
+            Para hacer la comparación, la cual haré usando Jinja en el archivo HTML, compararé el campo
+            “semana_del_turno” de la tabla “HorariosLunes” (el cual es una ID, el cual es un integer) con el
+            campo “id” de la tabla “Semana”. Sin son iguales, debe imprimirme el turno del lunes de esa semana.
+
+            Una forma improvisada sería crear 7 tablas (7 atributos <table>), en donde con un Bootstrap grid de 1 fila
+            por 7 columnas. Así, cada tabla saldría una la lado de la otra si la pantalla es grande, o una debajo del a
+            otra si la pantalla es pequeña. Esto no es lo ideal, pero debería funcionar.
+
+             Lo que tuve que hacer es poner un <tr> (table row) por cada fila que quiero debajo de “lunes”, y
+             dentro de cada <tr>, pongo un <td> (table descriptor) con cada registro de la bbdd que quiero
+             imprimir.
+
+             Tengo que usar “h” para mostrar formato de 12 horas con 0s, “g” para mostrar en formato de 12 horas sin ceros
+             a la izquierda, “i” para los minutos, y “a” para mostrar si es “am” o “pm”.
+
+            Esto es para todos los choferes. Esto no es para un chofer individual.
+            -->
+            <div class="row justify-content-md-center">
+                <table class="col"> <!-- Tabla del lunes -->
+                    <tbody>
+                        <!-- El <th> le agregará los títulos a las tablas -->
+                        <th>
+                            Lunes {{semana.fecha_del_lunes|date:"d M "}}
+                        </th>
+                        <!-- Turnos del lunes -->
+                        {% for turno in turnos_lunes  %}
+
+                            {% if turno.semana_del_turno_id == semana.id %}
+                                <tr>
+                                    <td>
+                                        <!-- Estudiante del turno -->
+                                        {% for estudiante in estudiantes %}
+                                            {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                <!-- Nombre --->
+                                                {{estudiante.nombre}} {{estudiante.apellidos}}
+
+                                                <br>
+
+                                                <!-- Telefono -->
+                                                {{estudiante.telefono}}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
+
+                                        <!-- Si se usará carro automático o sincrónico -->
+                                        {{turno.usara_carro_automatico_o_sincronico}}
+
+                                        <br>
+
+                                        <!-- Oficina del turno -->
+                                        {% for oficina in oficinas %}
+                                            {% if turno.id_de_oficina_id == oficina.id %}
+
+                                                <!-- Nombre de oficina --->
+                                                {{oficina.nombre_de_oficina}}
+
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
+
+
+                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                        <br>
+                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+
+                        {% endfor %}
+                    </tbody>
+                </table>    <!-- Fin de tabla del lunes -->
+
+                <table class="col"> <!-- Tabla del martes-->
+                    <tbody>
+                        <!-- El <th> le agregará los títulos a las tablas -->
+                        <th>
+                            Martes {{semana.fecha_del_martes|date:"d M "}}
+                        </th>
+                        <!-- Turnos del martes -->
+                        {% for turno in turnos_martes  %}
+                            <!-- Esto agarra solo los horarios del chofer de la iteración actual de lista de choferes
+                            -->
+                            {% if turno.id_del_chofer_id == chofer.id %}
+                                {% if turno.semana_del_turno_id == semana.id %}
+                                    <tr>
+                                        <td>
+                                            <!-- Estudiante del turno -->
+                                            {% for estudiante in estudiantes %}
+                                                {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                    <!-- Nombre --->
+                                                    {{estudiante.nombre}} {{estudiante.apellidos}}
+
+                                                    <br>
+
+                                                    <!-- Telefono -->
+                                                    {{estudiante.telefono}}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
+
+                                            <!-- Si se usará carro automático o sincrónico -->
+                                            {{turno.usara_carro_automatico_o_sincronico}}
 
                                             <br>
 
-                                            <!-- Telefono -->
-                                            {{estudiante.telefono}}
-                                        {% endif %}
-                                    {% endfor %}
-                                    <br>
+                                            <!-- Oficina del turno -->
+                                            {% for oficina in oficinas %}
+                                                {% if turno.id_de_oficina_id == oficina.id %}
 
-                                    <!-- Si se usará carro automático o sincrónico -->
-                                    {{turno.usara_carro_automatico_o_sincronico}}
+                                                    <!-- Nombre de oficina --->
+                                                    {{oficina.nombre_de_oficina}}
 
-                                    <br>
-
-                                    <!-- Oficina del turno -->
-                                    {% for oficina in oficinas %}
-                                        {% if turno.id_de_oficina_id == oficina.id %}
-
-                                            <!-- Nombre de oficina --->
-                                            {{oficina.nombre_de_oficina}}
-
-                                        {% endif %}
-                                    {% endfor %}
-                                    <br>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
 
-                                    <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                    <br>
-                                    <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                            <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                            <br>
+                                            <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                </td>
-                            </tr>
+                                        </td>
+                                    </tr>
 
-                        {% endif %}
-
-                    {% endfor %}
-                </tbody>
-            </table>    <!-- Fin de tabla del lunes -->
-
-            <table class="col"> <!-- Tabla del martes-->
-                <tbody>
-                    <!-- El <th> le agregará los títulos a las tablas -->
-                    <th>
-                        Martes {{semana.fecha_del_martes|date:"d M "}}
-                    </th>
-                    <!-- Turnos del martes -->
-                    {% for turno in turnos_martes  %}
-                        <!-- Esto agarra solo los horarios del chofer logueado -->
-                        {% if turno.id_del_chofer_id == chofer_logueado.id %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <!-- Estudiante del turno -->
-                                        {% for estudiante in estudiantes %}
-                                            {% if turno.id_del_estudiante_id == estudiante.id %}
-                                                <!-- Nombre --->
-                                                {{estudiante.nombre}} {{estudiante.apellidos}}
-
-                                                <br>
-
-                                                <!-- Telefono -->
-                                                {{estudiante.telefono}}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-
-                                        <!-- Si se usará carro automático o sincrónico -->
-                                        {{turno.usara_carro_automatico_o_sincronico}}
-
-                                        <br>
-
-                                        <!-- Oficina del turno -->
-                                        {% for oficina in oficinas %}
-                                            {% if turno.id_de_oficina_id == oficina.id %}
-
-                                                <!-- Nombre de oficina --->
-                                                {{oficina.nombre_de_oficina}}
-
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-
-
-                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                        <br>
-                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
-
-                                    </td>
-                                </tr>
-
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>    <!-- Fin de tabla del martes -->
+                        {% endfor %}
+                    </tbody>
+                </table>    <!-- Fin de tabla del martes -->
 
-            <table class="col"> <!-- Tabla del miércoles -->
-                <tbody>
-                    <!-- El <th> le agregará los títulos a las tablas -->
-                    <th>
-                        Miércoles {{semana.fecha_del_miercoles|date:"d M "}}
-                    </th>
-                    <!-- Turnos del miércoles -->
-                    {% for turno in turnos_miercoles  %}
-                        <!-- Esto agarra solo los horarios del chofer logueado -->
-                        {% if turno.id_del_chofer_id == chofer_logueado.id %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <!-- Estudiante del turno -->
-                                        {% for estudiante in estudiantes %}
-                                            {% if turno.id_del_estudiante_id == estudiante.id %}
-                                                <!-- Nombre --->
-                                                {{estudiante.nombre}} {{estudiante.apellidos}}
+                <table class="col"> <!-- Tabla del miércoles -->
+                    <tbody>
+                        <!-- El <th> le agregará los títulos a las tablas -->
+                        <th>
+                            Miércoles {{semana.fecha_del_miercoles|date:"d M "}}
+                        </th>
+                        <!-- Turnos del miércoles -->
+                        {% for turno in turnos_miercoles  %}
+                            <!-- Esto agarra solo los horarios del chofer logueado -->
+                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                                {% if turno.semana_del_turno_id == semana.id %}
+                                    <tr>
+                                        <td>
+                                            <!-- Estudiante del turno -->
+                                            {% for estudiante in estudiantes %}
+                                                {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                    <!-- Nombre --->
+                                                    {{estudiante.nombre}} {{estudiante.apellidos}}
 
-                                                <br>
+                                                    <br>
 
-                                                <!-- Telefono -->
-                                                {{estudiante.telefono}}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
+                                                    <!-- Telefono -->
+                                                    {{estudiante.telefono}}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
-                                        <!-- Si se usará carro automático o sincrónico -->
-                                        {{turno.usara_carro_automatico_o_sincronico}}
+                                            <!-- Si se usará carro automático o sincrónico -->
+                                            {{turno.usara_carro_automatico_o_sincronico}}
 
-                                        <br>
+                                            <br>
 
-                                        <!-- Oficina del turno -->
-                                        {% for oficina in oficinas %}
-                                            {% if turno.id_de_oficina_id == oficina.id %}
+                                            <!-- Oficina del turno -->
+                                            {% for oficina in oficinas %}
+                                                {% if turno.id_de_oficina_id == oficina.id %}
 
-                                                <!-- Nombre de oficina --->
-                                                {{oficina.nombre_de_oficina}}
+                                                    <!-- Nombre de oficina --->
+                                                    {{oficina.nombre_de_oficina}}
 
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                        <br>
-                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
+                                            <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                            <br>
+                                            <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>    <!-- Fin de tabla del miércoles -->
+                        {% endfor %}
+                    </tbody>
+                </table>    <!-- Fin de tabla del miércoles -->
 
-            <table class="col"> <!-- Tabla del jueves -->
-                <tbody>
-                    <!-- El <th> le agregará los títulos a las tablas -->
-                    <th>
-                        Jueves {{semana.fecha_del_jueves|date:"d M "}}
-                    </th>
-                    <!-- Turnos del jueves -->
-                    {% for turno in turnos_jueves  %}
-                        <!-- Esto agarra solo los horarios del chofer logueado -->
-                        {% if turno.id_del_chofer_id == chofer_logueado.id %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <!-- Estudiante del turno -->
-                                        {% for estudiante in estudiantes %}
-                                            {% if turno.id_del_estudiante_id == estudiante.id %}
-                                                <!-- Nombre --->
-                                                {{estudiante.nombre}} {{estudiante.apellidos}}
+                <table class="col"> <!-- Tabla del jueves -->
+                    <tbody>
+                        <!-- El <th> le agregará los títulos a las tablas -->
+                        <th>
+                            Jueves {{semana.fecha_del_jueves|date:"d M "}}
+                        </th>
+                        <!-- Turnos del jueves -->
+                        {% for turno in turnos_jueves  %}
+                            <!-- Esto agarra solo los horarios del chofer logueado -->
+                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                                {% if turno.semana_del_turno_id == semana.id %}
+                                    <tr>
+                                        <td>
+                                            <!-- Estudiante del turno -->
+                                            {% for estudiante in estudiantes %}
+                                                {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                    <!-- Nombre --->
+                                                    {{estudiante.nombre}} {{estudiante.apellidos}}
 
-                                                <br>
+                                                    <br>
 
-                                                <!-- Telefono -->
-                                                {{estudiante.telefono}}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
+                                                    <!-- Telefono -->
+                                                    {{estudiante.telefono}}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
-                                        <!-- Si se usará carro automático o sincrónico -->
-                                        {{turno.usara_carro_automatico_o_sincronico}}
+                                            <!-- Si se usará carro automático o sincrónico -->
+                                            {{turno.usara_carro_automatico_o_sincronico}}
 
-                                        <br>
+                                            <br>
 
-                                        <!-- Oficina del turno -->
-                                        {% for oficina in oficinas %}
-                                            {% if turno.id_de_oficina_id == oficina.id %}
+                                            <!-- Oficina del turno -->
+                                            {% for oficina in oficinas %}
+                                                {% if turno.id_de_oficina_id == oficina.id %}
 
-                                                <!-- Nombre de oficina --->
-                                                {{oficina.nombre_de_oficina}}
+                                                    <!-- Nombre de oficina --->
+                                                    {{oficina.nombre_de_oficina}}
 
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                        <br>
-                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
+                                            <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                            <br>
+                                            <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>    <!-- Fin de tabla del jueves -->
+                        {% endfor %}
+                    </tbody>
+                </table>    <!-- Fin de tabla del jueves -->
 
-            <table class="col"> <!-- Tabla del viernes -->
-                <tbody>
-                    <!-- El <th> le agregará los títulos a las tablas -->
-                    <th>
-                        Viernes {{semana.fecha_del_viernes|date:"d M "}}
-                    </th>
-                    <!-- Turnos del viernes -->
-                    {% for turno in turnos_viernes  %}
-                        <!-- Esto agarra solo los horarios del chofer logueado -->
-                        {% if turno.id_del_chofer_id == chofer_logueado.id %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <!-- Estudiante del turno -->
-                                        {% for estudiante in estudiantes %}
-                                            {% if turno.id_del_estudiante_id == estudiante.id %}
-                                                <!-- Nombre --->
-                                                {{estudiante.nombre}} {{estudiante.apellidos}}
+                <table class="col"> <!-- Tabla del viernes -->
+                    <tbody>
+                        <!-- El <th> le agregará los títulos a las tablas -->
+                        <th>
+                            Viernes {{semana.fecha_del_viernes|date:"d M "}}
+                        </th>
+                        <!-- Turnos del viernes -->
+                        {% for turno in turnos_viernes  %}
+                            <!-- Esto agarra solo los horarios del chofer logueado -->
+                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                                {% if turno.semana_del_turno_id == semana.id %}
+                                    <tr>
+                                        <td>
+                                            <!-- Estudiante del turno -->
+                                            {% for estudiante in estudiantes %}
+                                                {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                    <!-- Nombre --->
+                                                    {{estudiante.nombre}} {{estudiante.apellidos}}
 
-                                                <br>
+                                                    <br>
 
-                                                <!-- Telefono -->
-                                                {{estudiante.telefono}}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
+                                                    <!-- Telefono -->
+                                                    {{estudiante.telefono}}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
-                                        <!-- Si se usará carro automático o sincrónico -->
-                                        {{turno.usara_carro_automatico_o_sincronico}}
+                                            <!-- Si se usará carro automático o sincrónico -->
+                                            {{turno.usara_carro_automatico_o_sincronico}}
 
-                                        <br>
+                                            <br>
 
-                                        <!-- Oficina del turno -->
-                                        {% for oficina in oficinas %}
-                                            {% if turno.id_de_oficina_id == oficina.id %}
+                                            <!-- Oficina del turno -->
+                                            {% for oficina in oficinas %}
+                                                {% if turno.id_de_oficina_id == oficina.id %}
 
-                                                <!-- Nombre de oficina --->
-                                                {{oficina.nombre_de_oficina}}
+                                                    <!-- Nombre de oficina --->
+                                                    {{oficina.nombre_de_oficina}}
 
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                        <br>
-                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
+                                            <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                            <br>
+                                            <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>    <!-- Fin de tabla del viernes -->
+                        {% endfor %}
+                    </tbody>
+                </table>    <!-- Fin de tabla del viernes -->
 
-            <table class="col"> <!-- Tabla del sabado -->
-                <tbody>
-                    <!-- El <th> le agregará los títulos a las tablas -->
-                    <th>
-                        Sábado {{semana.fecha_del_sabado|date:"d M "}}
-                    </th>
-                    <!-- Turnos del sabado -->
-                    {% for turno in turnos_sabado  %}
-                        <!-- Esto agarra solo los horarios del chofer logueado -->
-                        {% if turno.id_del_chofer_id == chofer_logueado.id %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <!-- Estudiante del turno -->
-                                        {% for estudiante in estudiantes %}
-                                            {% if turno.id_del_estudiante_id == estudiante.id %}
-                                                <!-- Nombre --->
-                                                {{estudiante.nombre}} {{estudiante.apellidos}}
+                <table class="col"> <!-- Tabla del sabado -->
+                    <tbody>
+                        <!-- El <th> le agregará los títulos a las tablas -->
+                        <th>
+                            Sábado {{semana.fecha_del_sabado|date:"d M "}}
+                        </th>
+                        <!-- Turnos del sabado -->
+                        {% for turno in turnos_sabado  %}
+                            <!-- Esto agarra solo los horarios del chofer logueado -->
+                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                                {% if turno.semana_del_turno_id == semana.id %}
+                                    <tr>
+                                        <td>
+                                            <!-- Estudiante del turno -->
+                                            {% for estudiante in estudiantes %}
+                                                {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                    <!-- Nombre --->
+                                                    {{estudiante.nombre}} {{estudiante.apellidos}}
 
-                                                <br>
+                                                    <br>
 
-                                                <!-- Telefono -->
-                                                {{estudiante.telefono}}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
+                                                    <!-- Telefono -->
+                                                    {{estudiante.telefono}}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
-                                        <!-- Si se usará carro automático o sincrónico -->
-                                        {{turno.usara_carro_automatico_o_sincronico}}
+                                            <!-- Si se usará carro automático o sincrónico -->
+                                            {{turno.usara_carro_automatico_o_sincronico}}
 
-                                        <br>
+                                            <br>
 
-                                        <!-- Oficina del turno -->
-                                        {% for oficina in oficinas %}
-                                            {% if turno.id_de_oficina_id == oficina.id %}
+                                            <!-- Oficina del turno -->
+                                            {% for oficina in oficinas %}
+                                                {% if turno.id_de_oficina_id == oficina.id %}
 
-                                                <!-- Nombre de oficina --->
-                                                {{oficina.nombre_de_oficina}}
+                                                    <!-- Nombre de oficina --->
+                                                    {{oficina.nombre_de_oficina}}
 
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                        <br>
-                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
+                                            <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                            <br>
+                                            <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>    <!-- Fin de tabla del sabado -->
+                        {% endfor %}
+                    </tbody>
+                </table>    <!-- Fin de tabla del sabado -->
 
-            <table class="col"> <!-- Tabla del domingo -->
-                <tbody>
-                    <!-- El <th> le agregará los títulos a las tablas -->
-                    <th>
-                        Domingo {{semana.fecha_del_domingo|date:"d M "}}
-                    </th>
-                    <!-- Turnos del domingo -->
-                    {% for turno in turnos_domingo  %}
-                        <!-- Esto agarra solo los horarios del chofer logueado -->
-                        {% if turno.id_del_chofer_id == chofer_logueado.id %}
-                            {% if turno.semana_del_turno_id == semana.id %}
-                                <tr>
-                                    <td>
-                                        <!-- Estudiante del turno -->
-                                        {% for estudiante in estudiantes %}
-                                            {% if turno.id_del_estudiante_id == estudiante.id %}
-                                                <!-- Nombre --->
-                                                {{estudiante.nombre}} {{estudiante.apellidos}}
+                <table class="col"> <!-- Tabla del domingo -->
+                    <tbody>
+                        <!-- El <th> le agregará los títulos a las tablas -->
+                        <th>
+                            Domingo {{semana.fecha_del_domingo|date:"d M "}}
+                        </th>
+                        <!-- Turnos del domingo -->
+                        {% for turno in turnos_domingo  %}
+                            <!-- Esto agarra solo los horarios del chofer logueado -->
+                            {% if turno.id_del_chofer_id == chofer_logueado.id %}
+                                {% if turno.semana_del_turno_id == semana.id %}
+                                    <tr>
+                                        <td>
+                                            <!-- Estudiante del turno -->
+                                            {% for estudiante in estudiantes %}
+                                                {% if turno.id_del_estudiante_id == estudiante.id %}
+                                                    <!-- Nombre --->
+                                                    {{estudiante.nombre}} {{estudiante.apellidos}}
 
-                                                <br>
+                                                    <br>
 
-                                                <!-- Telefono -->
-                                                {{estudiante.telefono}}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
+                                                    <!-- Telefono -->
+                                                    {{estudiante.telefono}}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
 
-                                        <!-- Si se usará carro automático o sincrónico -->
-                                        {{turno.usara_carro_automatico_o_sincronico}}
+                                            <!-- Si se usará carro automático o sincrónico -->
+                                            {{turno.usara_carro_automatico_o_sincronico}}
 
-                                        <br>
+                                            <br>
 
-                                        <!-- Oficina del turno -->
-                                        {% for oficina in oficinas %}
-                                            {% if turno.id_de_oficina_id == oficina.id %}
+                                            <!-- Oficina del turno -->
+                                            {% for oficina in oficinas %}
+                                                {% if turno.id_de_oficina_id == oficina.id %}
 
-                                                <!-- Nombre de oficina --->
-                                                {{oficina.nombre_de_oficina}}
+                                                    <!-- Nombre de oficina --->
+                                                    {{oficina.nombre_de_oficina}}
 
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-                                        <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
-                                        <br>
-                                        <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br>
+                                            <b>{{turno.hora_de_inicio_del_turno |time:"g:i a"}} -</b>
+                                            <br>
+                                            <b>{{turno.hora_de_fin_del_turno |time:"g:i a"}}</b>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>    <!-- Fin de tabla del domingo -->
+                        {% endfor %}
+                    </tbody>
+                </table>    <!-- Fin de tabla del domingo -->
 
 
 
 
 
 
-        </div>  <!-- Fin de la fila con el grid 1x7 de Bootstrap (fin del as 7 tablas) -->
-        <br>
+            </div>  <!-- Fin de la fila con el grid 1x7 de Bootstrap (fin del as 7 tablas) -->
+            <br>
 
-    {% endfor %} <!-- Fin del bucle de las semanas -->
+        {% endfor %} <!-- Fin del bucle de las semanas -->
+
+    {% endfor %}    <!-- Fin del bucle de los choferes -->
 
     <br>
     <br>
