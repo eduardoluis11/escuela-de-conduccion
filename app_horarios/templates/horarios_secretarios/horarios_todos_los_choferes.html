@@ -24,10 +24,12 @@
 
         Necesito esto para evitar conflictos entre las fechas y los horarios que puede que no hayan sido editados. Además,
         esto me dejará fácilmente agarrar la fecha de cada dia de la semana para el horario.
+
+        Coloqué el nombre del chofer de manera redundante para saber que es ese chofer.
         -->
         {% for semana in lista_de_semanas %}
             <br>
-            <h5>{{semana.nombre_de_la_semana}}</h5>
+            <h5>{{semana.nombre_de_la_semana}} para {{chofer.nombre}} {{chofer.apellidos}}</h5>
             <br>
 
             <!-- Tabla con los horarios del chofer.
