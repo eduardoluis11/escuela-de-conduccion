@@ -3,9 +3,32 @@
 <!-- Lista de Oficinas -->
 {% block body %}
     <h1>Lista de Oficinas</h1>
-
     <br>
 
+    <!-- En principio, la tabla de la lista de Oficinas puede ser sin Bootstrap, ya que es relativamente pequeña. Si
+    la hago con Bootstrap, o me va a tomar todo el ancho de la pantalla en computadoras, o me va a tomar la mitad de
+    la pantalla en móviles, y no quiero ninguna de las 2 cosas.
 
+    crearé el bucle “for” para imprimir el nombre de la oficina, y su dirección. Luego agregaré el enlace a cada
+    oficina individual.
+    -->
+    <table>
+      <tbody>
+        <th>Oficina</th>
+        <th>Dirección</th>
+        <th>Ver Horarios</th>
+            <tr>    <!-- Fila con oficina, dirección, y fecha -->
+                <td>    <!-- Oficina -->
+
+                </td>
+                <td>    <!-- Dirección -->
+
+                </td>
+                <td>    <!-- Horarios -->
+                    <a href="#">Ver Horarios</a>
+                </td>
+            </tr>
+      </tbody>
+    </table>
 
 {% endblock %}
