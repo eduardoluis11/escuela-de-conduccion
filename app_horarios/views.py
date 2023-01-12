@@ -459,6 +459,19 @@ Si no se detecta un POST request, renderizaré como si nada la página con el fo
 
 Puedo redirigir al usuario al home page después de agregar un horario, y le mostraré un mensaje flash de confirmación, 
 para así mostrarle que se agregó un horario.
+
+Voy a meter los datos en la base de datos para agregar un horario. Recuerda que, dependiendo del día escogido (lunes, 
+martes, etc), lo meteré en la tabla correspondiente (HorariosLunes, HorariosMartes, etc).
+
+Dado a que usaré 7 casos (uno por cada día de la semana), prefiero usar un match/case, para que así sea más fácil.
+de leer. Dentro del “match” pondré la variable que quiero comparar, mientras que en “case” pondré si es lunes, o 
+martes, etc.
+
+Los campos del formulario de agregar horarios que están agarrando con un Query Set los distintos choferes, oficinas, 
+etc, están agarrando la ID de ese chofer u oficina seleccionados. Y la cosa es que los están agarrando como un string. 
+Entonces, lo bueno es que están agarrando la ID. Lo malo es que stán como un string. Entonces, para los campos que me 
+están agarrando los registros de tablas (como choferes u oficinas), primero voy a convertir esas variables a Integer. 
+LUEGO, las meteré en la base de datos.
 """
 @login_required
 def agregar_horarios(request):
@@ -484,17 +497,43 @@ def agregar_horarios(request):
 
                 # Voy primero a agarrar los datos de cada casilla del formulario
                 nombre_del_horario = request.POST["nombre_del_horario"]
-                chofer = request.POST["chofer"]
-                oficina = request.POST["oficina"]
-                estudiante = request.POST["estudiante"]
+                chofer = int(request.POST["chofer"])
+                oficina = int(request.POST["oficina"])
+                estudiante = int(request.POST["estudiante"])
                 dia_de_la_semana = request.POST["dia_de_la_semana"]
                 hora_de_inicio_del_turno = request.POST["hora_de_inicio_del_turno"]
                 hora_de_fin_del_turno = request.POST["hora_de_fin_del_turno"]
-                semana_del_turno = request.POST["semana_del_turno"]
+                semana_del_turno = int(request.POST["semana_del_turno"])
                 usara_carro_automatico_o_sincronico = request.POST["usara_carro_automatico_o_sincronico"]
 
                 # Esto agarra la fecha y hora actual
-                fecha_y_hora_en_que_se_agrego_horario = datetime.datetime.now()
+                fecha_y_hora_en_la_que_se_registro_turno = datetime.datetime.now()
+
+                # DEBUGGEO: Quiero ver que se está metiendo en los campos con los registros (choferes, oficinas, etc)
+                print("Esto es lo que contiene el campo 'chofer': ")
+                print(chofer)
+
+                # Dependiendo del día de la semana escogido, voy a meter los datos en una tabla u otra.
+                match dia_de_la_semana:
+
+                    # Si el día es lunes, lo meteré en los Horarios del Lunes
+                    case "Lunes":
+
+                        # Esto prepara los datos antes de meterlos a la base de datos
+                        nuevo_turno = HorariosLunes(nombre_del_horario=nombre_del_horario,
+                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                    id_del_estudiante_id=estudiante,
+                                                    semana_del_turno_id=semana_del_turno)
+
+                        # Esto termina de meter los datos en la base de datos
+                        nuevo_turno.save()
+
+
+
 
                 # Esto va a redirigir al usuario al home page
                 return HttpResponseRedirect(reverse("index"))
