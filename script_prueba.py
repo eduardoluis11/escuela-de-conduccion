@@ -24,7 +24,7 @@ def main():
 
 # Esto va a llamar a la funcion "main"
 if __name__ == "__main__":
-    import os, sys, pathlib
+    import os
     from django.core.wsgi import get_wsgi_application
     
     # No se si en "variable.settings" tiene que ir la carpeta "proyecto" o "app"
