@@ -5,8 +5,11 @@ poder entrar al panel del administrador.
 ## Para poder usar el programa web como el administrador:
 Agrega al administrador a la tabla Secretario para evitar errores. Necesitas al menos una entrada en la tabla "Secretario". 
 
-##Contraseñas:
-Las contraseñas no se pueden cambiar. Si al usuario se le olvida la contraseña, habrá que eliminarle la cuenta y crearle otra.
+## Crear Usuarios y Cambiar Contraseñas:
+
+Solo se pueden crear usuarios usando una ventana de comandos o terminal. 
+
+Las contraseñas solo se pueden cambiar usando una consola/terminal. Si al usuario se le olvida la contraseña, se le puede cambiar. Sin embargo, se necesita de un informático con conocimientos técnicos para hacer esto.
 
 ##Bloquear a los secretarios después de las 7 pm:
 Esto depende del hosting. Necesito configurar una herramienta llamada "cron" en el hosting para que, a las 7 pm de todos los días, bloquee a los 4 administradores con bajos privilegios (o "secretarios") para que no puedan agregar horarios.
