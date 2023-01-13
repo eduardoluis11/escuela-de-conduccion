@@ -476,6 +476,9 @@ LUEGO, las meteré en la base de datos.
 Ya vi como agregar los mensajes de confirmación usando “messages”. Primero, debo importar la biblioteca “messages” en 
 views.py. Luego, debo crear el mensaje flash de confirmación usando “messages”. Después, en el archivo HTML, uso un 
 bucle “for” para agarrar cada mensaje en “messages” (que es un tipo de array), e imprimo el mensaje de confirmación.
+
+Temporalmente desactivaré el match/case, ya que solo funciona con python 3.10, y pythonanywhere solo usa hasta 
+python 3.8. Heroku si usa python 3.10.
 """
 @login_required
 def agregar_horarios(request):
@@ -517,120 +520,121 @@ def agregar_horarios(request):
                 # print("Esto es lo que contiene el campo 'chofer': ")
                 # print(chofer)
 
-                # Dependiendo del día de la semana escogido, voy a meter los datos en una tabla u otra. ...
-                match dia_de_la_semana:
+                # # Dependiendo del día de la semana escogido, voy a meter los datos en una tabla u otra. ...
+                # match dia_de_la_semana:
+                #
+                #     # Si el día es lunes, lo meteré en los Horarios del Lunes
+                #     case "Lunes":
+                if dia_de_la_semana == "Lunes":
 
-                    # Si el día es lunes, lo meteré en los Horarios del Lunes
-                    case "Lunes":
+                    # Esto prepara los datos antes de meterlos a la base de datos
+                    nuevo_turno = HorariosLunes(nombre_del_horario=nombre_del_horario,
+                                                hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                id_del_estudiante_id=estudiante,
+                                                semana_del_turno_id=semana_del_turno)
 
-                        # Esto prepara los datos antes de meterlos a la base de datos
-                        nuevo_turno = HorariosLunes(nombre_del_horario=nombre_del_horario,
-                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
-                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
-                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
-                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
-                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
-                                                    id_del_estudiante_id=estudiante,
-                                                    semana_del_turno_id=semana_del_turno)
-
-                        # Esto termina de meter los datos en la base de datos
-                        nuevo_turno.save()
+                    # Esto termina de meter los datos en la base de datos
+                    nuevo_turno.save()
 
                     # Martes
-                    case "Martes":
+                elif dia_de_la_semana == "Martes":
 
-                        # Esto prepara los datos antes de meterlos a la base de datos
-                        nuevo_turno = HorariosMartes(nombre_del_horario=nombre_del_horario,
-                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
-                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
-                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
-                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
-                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
-                                                    id_del_estudiante_id=estudiante,
-                                                    semana_del_turno_id=semana_del_turno)
+                    # Esto prepara los datos antes de meterlos a la base de datos
+                    nuevo_turno = HorariosMartes(nombre_del_horario=nombre_del_horario,
+                                                hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                id_del_estudiante_id=estudiante,
+                                                semana_del_turno_id=semana_del_turno)
 
-                        # Esto termina de meter los datos en la base de datos
-                        nuevo_turno.save()
+                    # Esto termina de meter los datos en la base de datos
+                    nuevo_turno.save()
 
-                    # Miércoles
-                    case "Miércoles":
+                # Miércoles
+                elif dia_de_la_semana == "Miércoles":
 
-                        # Esto prepara los datos antes de meterlos a la base de datos
-                        nuevo_turno = HorariosMiercoles(nombre_del_horario=nombre_del_horario,
-                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
-                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
-                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
-                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
-                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
-                                                    id_del_estudiante_id=estudiante,
-                                                    semana_del_turno_id=semana_del_turno)
+                    # Esto prepara los datos antes de meterlos a la base de datos
+                    nuevo_turno = HorariosMiercoles(nombre_del_horario=nombre_del_horario,
+                                                hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                id_del_estudiante_id=estudiante,
+                                                semana_del_turno_id=semana_del_turno)
 
-                        # Esto termina de meter los datos en la base de datos
-                        nuevo_turno.save()
+                    # Esto termina de meter los datos en la base de datos
+                    nuevo_turno.save()
 
-                    # Jueves
-                    case "Jueves":
+                # Jueves
+                elif dia_de_la_semana == "Jueves":
 
-                        # Esto prepara los datos antes de meterlos a la base de datos
-                        nuevo_turno = HorariosJueves(nombre_del_horario=nombre_del_horario,
-                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
-                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
-                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
-                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
-                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
-                                                    id_del_estudiante_id=estudiante,
-                                                    semana_del_turno_id=semana_del_turno)
+                    # Esto prepara los datos antes de meterlos a la base de datos
+                    nuevo_turno = HorariosJueves(nombre_del_horario=nombre_del_horario,
+                                                hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                id_del_estudiante_id=estudiante,
+                                                semana_del_turno_id=semana_del_turno)
 
-                        # Esto termina de meter los datos en la base de datos
-                        nuevo_turno.save()
+                    # Esto termina de meter los datos en la base de datos
+                    nuevo_turno.save()
 
-                    # Viernes
-                    case "Viernes":
+                # Viernes
+                elif dia_de_la_semana == "Viernes":
 
-                        # Esto prepara los datos antes de meterlos a la base de datos
-                        nuevo_turno = HorariosViernes(nombre_del_horario=nombre_del_horario,
-                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
-                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
-                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
-                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
-                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
-                                                    id_del_estudiante_id=estudiante,
-                                                    semana_del_turno_id=semana_del_turno)
+                    # Esto prepara los datos antes de meterlos a la base de datos
+                    nuevo_turno = HorariosViernes(nombre_del_horario=nombre_del_horario,
+                                                hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                id_del_estudiante_id=estudiante,
+                                                semana_del_turno_id=semana_del_turno)
 
-                        # Esto termina de meter los datos en la base de datos
-                        nuevo_turno.save()
+                    # Esto termina de meter los datos en la base de datos
+                    nuevo_turno.save()
 
-                    # Sábado
-                    case "Sábado":
+                # Sábado
+                elif dia_de_la_semana == "Sábado":
 
-                        # Esto prepara los datos antes de meterlos a la base de datos
-                        nuevo_turno = HorariosSabados(nombre_del_horario=nombre_del_horario,
-                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
-                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
-                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
-                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
-                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
-                                                    id_del_estudiante_id=estudiante,
-                                                    semana_del_turno_id=semana_del_turno)
+                    # Esto prepara los datos antes de meterlos a la base de datos
+                    nuevo_turno = HorariosSabados(nombre_del_horario=nombre_del_horario,
+                                                hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                id_del_estudiante_id=estudiante,
+                                                semana_del_turno_id=semana_del_turno)
 
-                        # Esto termina de meter los datos en la base de datos
-                        nuevo_turno.save()
+                    # Esto termina de meter los datos en la base de datos
+                    nuevo_turno.save()
 
-                    # Domingo
-                    case "Domingo":
+                # Domingo
+                elif dia_de_la_semana == "Domingo":
 
-                        # Esto prepara los datos antes de meterlos a la base de datos
-                        nuevo_turno = HorariosDomingos(nombre_del_horario=nombre_del_horario,
-                                                    hora_de_inicio_del_turno=hora_de_inicio_del_turno,
-                                                    hora_de_fin_del_turno=hora_de_fin_del_turno,
-                                                    fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
-                                                    usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
-                                                    id_del_chofer_id=chofer, id_de_oficina_id=oficina,
-                                                    id_del_estudiante_id=estudiante,
-                                                    semana_del_turno_id=semana_del_turno)
+                    # Esto prepara los datos antes de meterlos a la base de datos
+                    nuevo_turno = HorariosDomingos(nombre_del_horario=nombre_del_horario,
+                                                hora_de_inicio_del_turno=hora_de_inicio_del_turno,
+                                                hora_de_fin_del_turno=hora_de_fin_del_turno,
+                                                fecha_y_hora_en_la_que_se_registro_turno=fecha_y_hora_en_la_que_se_registro_turno,
+                                                usara_carro_automatico_o_sincronico=usara_carro_automatico_o_sincronico,
+                                                id_del_chofer_id=chofer, id_de_oficina_id=oficina,
+                                                id_del_estudiante_id=estudiante,
+                                                semana_del_turno_id=semana_del_turno)
 
-                        # Esto termina de meter los datos en la base de datos
-                        nuevo_turno.save()
+                    # Esto termina de meter los datos en la base de datos
+                    nuevo_turno.save()
 
 
                 # Mensaje flash de confirmación
