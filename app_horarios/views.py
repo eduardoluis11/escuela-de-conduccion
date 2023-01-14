@@ -731,11 +731,13 @@ def horarios_de_todos_los_choferes(request):
 Necesito agarrar todas las oficinas de la base de datos. 
 
 """
+@login_required
 def lista_de_oficinas(request):
 
     # Esto almacena la ID del usuario logueado
     id_del_usuario_logueado = int(request.user.id)
 
+    # Esto agarra al
     instancia_usuario_logueado = User.objects.get(id=id_del_usuario_logueado)
 
     # Esto agarra todos los secretarios para revisar si esta logueado
@@ -767,6 +769,7 @@ def lista_de_oficinas(request):
 Tengo que agarrar una oficina en específico. Eso lo puedo hacer con el get(), el cual debo hacer, para que así el 
 usuario no pueda entrar en la página de la oficina si no está usando el ID correcto.
 """
+@login_required
 def horarios_oficina_seleccionada(request, oficina_id):
 
     # Esto almacena la ID del usuario logueado
