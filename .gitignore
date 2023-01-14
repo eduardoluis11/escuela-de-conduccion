@@ -65,7 +65,7 @@ package-lock.json
 
 # misc
 .DS_Store
-.env.local
+proyecto_conduccion/.env
 .env.development.local
 .env.test.local
 .env.production.local
@@ -84,3 +84,6 @@ node_modules
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/modules.xml
+
+# Environment variables (with the Django Secret Key)
+/proyecto_conduccion/.env
