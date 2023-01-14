@@ -737,7 +737,7 @@ def lista_de_oficinas(request):
     # Esto almacena la ID del usuario logueado
     id_del_usuario_logueado = int(request.user.id)
 
-    # Esto agarra al
+    # Esto agarra una instancia del usuario logueado por si es admin e intenta meterse a página
     instancia_usuario_logueado = User.objects.get(id=id_del_usuario_logueado)
 
     # Esto agarra todos los secretarios para revisar si esta logueado
@@ -774,6 +774,9 @@ def horarios_oficina_seleccionada(request, oficina_id):
 
     # Esto almacena la ID del usuario logueado
     id_del_usuario_logueado = int(request.user.id)
+
+    # Esto agarra una instancia del usuario logueado por si es admin e intenta meterse a página
+    instancia_usuario_logueado = User.objects.get(id=id_del_usuario_logueado)
 
     # Esto agarra todos los secretarios para revisar si esta logueado
     lista_de_secretarios = Secretario.objects.all()
