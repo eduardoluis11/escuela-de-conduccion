@@ -394,8 +394,11 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
                 "lista_reportes_semanales": lista_reportes_semanales,
                 "semana_seleccionada": semana_seleccionada,
                 "lista_de_choferes": lista_de_choferes,
+
+                # Estas 3 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
                 "lista_de_secretarios": lista_de_secretarios,
+                "instancia_usuario_logueado": instancia_usuario_logueado,
 
             })
 
@@ -437,9 +440,10 @@ def reporte_semanal(request, reporte_id):
                 "lista_de_choferes": lista_de_choferes,
                 "reporte_semanal_seleccionado": reporte_semanal_seleccionado,
 
-                # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                # Estas 3 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
                 "lista_de_secretarios": lista_de_secretarios,
+                "instancia_usuario_logueado": instancia_usuario_logueado,
 
             })
 
@@ -647,9 +651,10 @@ def agregar_horarios(request):
             else:
                 return render(request, './horarios_secretarios/formulario_agregar_horarios.html', {
                     "formulario": formulario,
-                    # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                    # Estas 3 lineas las necesito para renderizar enlaces en navbar y footer
                     "id_del_usuario_logueado": id_del_usuario_logueado,
                     "lista_de_secretarios": lista_de_secretarios,
+                    "instancia_usuario_logueado": instancia_usuario_logueado,
                 })
 
         # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
@@ -717,9 +722,10 @@ def horarios_de_todos_los_choferes(request):
                 "estudiantes": estudiantes,
                 "oficinas": oficinas,
 
-                # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                # Estas 3 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
                 "lista_de_secretarios": lista_de_secretarios,
+                "instancia_usuario_logueado": instancia_usuario_logueado,
             })
 
         # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
@@ -754,9 +760,10 @@ def lista_de_oficinas(request):
 
                 "lista_oficinas": lista_oficinas,
 
-                # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                # Estas 3 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
                 "lista_de_secretarios": lista_de_secretarios,
+                "instancia_usuario_logueado": instancia_usuario_logueado,
             })
 
         # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
@@ -819,9 +826,10 @@ def horarios_oficina_seleccionada(request, oficina_id):
                 "estudiantes": estudiantes,
                 "lista_de_choferes": lista_de_choferes,
 
-                # Estas 2 lineas las necesito para renderizar enlaces en navbar y footer
+                # Estas 3 lineas las necesito para renderizar enlaces en navbar y footer
                 "id_del_usuario_logueado": id_del_usuario_logueado,
                 "lista_de_secretarios": lista_de_secretarios,
+                "instancia_usuario_logueado": instancia_usuario_logueado,
             })
 
         # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
