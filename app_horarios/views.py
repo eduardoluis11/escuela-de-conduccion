@@ -729,11 +729,14 @@ def horarios_de_todos_los_choferes(request):
 """ Vista de Lista de Oficinas.
 
 Necesito agarrar todas las oficinas de la base de datos. 
+
 """
 def lista_de_oficinas(request):
 
     # Esto almacena la ID del usuario logueado
     id_del_usuario_logueado = int(request.user.id)
+
+    instancia_usuario_logueado = User.objects.get(id=id_del_usuario_logueado)
 
     # Esto agarra todos los secretarios para revisar si esta logueado
     lista_de_secretarios = Secretario.objects.all()
