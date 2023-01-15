@@ -16,6 +16,15 @@ Esto depende del hosting. Necesito configurar una herramienta llamada "cron" en 
 
 Si el hosting no me deja configurar el cron, no podré bloquear a los secretarios después de las 7 pm. Es decir, que podrán agregar horarios en cualquier momento del día, incluyendo después de las 7 pm, que no es lo deseable.
 
+En mi caso, en el hosting gratis de Pythonanyhwere, sí puedo bloquear a los secretarios a las 7 pm. Sin embargo, no puedo
+volverlos a activar en la mañana. 
+
+Esto se debe a que yo bloqueo a los usuarios en la noche usando un programa llamado "script", y necesito otro script para activarlos en la mañana. Pues, Pythonanywhere no me deja usar más de un script. Solo puedo ejecutar un solo programa en el hosting gratis. Entonces, solo puedo bloquear a los usuariso de noche, pero no puedo activarlos en la mañana.
+
+Si desea usar el hosting gratis, tendrá que pedirle al administrador que active manualmente a todos los secretarios.
+
+Alternativamente, la solución ideal sería usar un hosting pago como Heroku, el cual debería darle la opción de ejecutar más de un programa tipo "script" a la vez. Así, podría activar el programa que bloquea al usuario de noche, y lo desbloquea en la mañana.
+
 ## Marca de tiempo de registros:
 Vi el timestamp, y agarra bien los horarios, EXCEPTO si es el medio día, que por alguna razón lo agarra como “0:00”, en lugar de “12:00”. No se porqué, si está en formato de 24 horas. 
 
