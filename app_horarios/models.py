@@ -35,6 +35,9 @@ Los datos serán:
 
 Idealmente debería almacenar el DNI de los choferes. Voy a poner el DNI como opcional, tanto para los choferes como 
 para los estudiantes, en caso de que la compañía no quiera almacenar esos datos tan delicados.
+
+Para arreglar el nombre en plural de las tablas en el panel del admin, usaré "Meta" y "verbose name plural". Ahi, 
+pondré manualmente escribiré como quiero que se vea el nombre en plural.
 """
 
 
@@ -52,6 +55,10 @@ class Chofer(models.Model):
     # Esto le cambiara el titulo a cada registro de la tabla
     def __str__(self):
         return f"{self.nombre} {self.apellidos}"
+
+    # Nombre en plural arreglado en el panel del administrador
+    class Meta:
+        verbose_name_plural = "Choferes"
 
 
 """ Modelo de Secretarios/as 	
@@ -304,6 +311,9 @@ class ReporteSemanal(models.Model):
 
     def __str__(self):
         return f"{self.nombre_de_reporte_semanal}"
+
+    class Meta:
+        verbose_name_plural = "Reportes Semanales"
 
 
 """ Modelo del Horario de los turnos del Lunes.
