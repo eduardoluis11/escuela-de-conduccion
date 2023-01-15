@@ -222,7 +222,7 @@ def horario_chofer_logueado(request):
     # print(chofer_logueado)
 
     # Esto almacenará la ID del usuario si se loguea
-    id_del_usuario_logueado = ''
+    # id_del_usuario_logueado = ''
 
     # Esto almacena la ID del usuario logueado
     id_del_usuario_logueado = int(request.user.id)
@@ -284,9 +284,10 @@ def horario_chofer_logueado(request):
                 "oficinas": oficinas,
             })
 
-        # Si el usuario no es un chofer, le mostraré un mensaje de error
-        else:
-            return render(request, 'error.html')
+        # ESTO ME GENERABA UN BUG
+        # # Si el usuario no es un chofer, le mostraré un mensaje de error
+        # else:
+        #     return render(request, 'error.html')
 
 """ Vista con la Lista de Fechas en las que hay Reportes Semanales Registrados.
 
