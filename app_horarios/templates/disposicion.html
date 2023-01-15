@@ -88,18 +88,18 @@ horarios, y el de crear peticiones.
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'lista_de_oficinas' %}">Oficinas</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Asistencias</a>
-                        </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Asistencias</a>-->
+<!--                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'lista_fechas_reportes_semanales' %}">Reportes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'agregar_horarios' %}">Agregar Horario</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Crear Petición</a>
-                        </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Crear Petición</a>-->
+<!--                        </li>-->
                         <!-- Fin del navbar para Secretarios y el Administrador -->
                     {% endif %}
                 {% endfor %}
@@ -179,9 +179,9 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
                     <a href="{% url 'lista_de_oficinas' %}">Oficinas</a>
                 </div>
 
-                <div class="col">
-                    <a href="#">Asistencias</a>
-                </div>
+<!--                <div class="col">-->
+<!--                    <a href="#">Asistencias</a>-->
+<!--                </div>-->
 
                 <div class="col">
                     <a href="{% url 'lista_fechas_reportes_semanales' %}">Reportes</a>
@@ -191,9 +191,9 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
                     <a href="{% url 'agregar_horarios' %}">Agregar Horario</a>
                 </div>
 
-                <div class="col">
-                    <a href="#">Crear Petición</a>
-                </div>
+<!--                <div class="col">-->
+<!--                    <a href="#">Crear Petición</a>-->
+<!--                </div>-->
                 <!-- Fin del footer para Secretarios y el Administrador -->
             {% endif %}
 
