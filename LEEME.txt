@@ -9,6 +9,21 @@ Agrega al administrador a la tabla Secretario para evitar errores. Necesitas al 
 
 Solo se pueden crear usuarios usando una ventana de comandos o terminal. 
 
+Estos son los comandos para crear un usuario con la ventana de comandos:
+
+python manage.py shell 
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+user = User.objects.create_user
+
+('nombre_de_usuario','email','contraseña')
+
+user.save()
+
+
 Las contraseñas solo se pueden cambiar usando una consola/terminal. Si al usuario se le olvida la contraseña, se le puede cambiar. Sin embargo, se necesita de un informático con conocimientos técnicos para hacer esto.
 
 ## Bloquear a los secretarios después de las 7 pm:
