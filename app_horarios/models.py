@@ -383,6 +383,9 @@ class HorariosLunes(models.Model):
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
+    class Meta:
+        verbose_name_plural = "Horarios de los Lunes"
+
 
 """ Modelo de los Horarios de los Martes
 
@@ -431,6 +434,9 @@ class HorariosMartes(models.Model):
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
+    class Meta:
+        verbose_name_plural = "Horarios de los Martes"
+
 
 """ Modelo de los Horarios de los Miércoles.
 
@@ -477,6 +483,9 @@ class HorariosMiercoles(models.Model):
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
+    class Meta:
+        verbose_name_plural = "Horarios de los Miércoles"
+
 
 """ Modelo de los Horarios de los Jueves.
 
@@ -521,6 +530,9 @@ class HorariosJueves(models.Model):
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
         return f"{self.nombre_del_horario}"
+
+    class Meta:
+        verbose_name_plural = "Horarios de los Jueves"
 
 
 """ Modelo de los Horarios de los Viernes.
@@ -568,6 +580,10 @@ class HorariosViernes(models.Model):
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
+    class Meta:
+        verbose_name_plural = "Horarios de los Viernes"
+
+
 
 """ Modelo de los Horarios de los Sabados.
 
@@ -613,6 +629,9 @@ class HorariosSabados(models.Model):
     def __str__(self):
         return f"{self.nombre_del_horario}"
 
+    class Meta:
+        verbose_name_plural = "Horarios de los Sábados"
+
 
 """ Modelo de los Horarios de los Domingos.
 
@@ -656,6 +675,9 @@ class HorariosDomingos(models.Model):
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
         return f"{self.nombre_del_horario}"
+
+    class Meta:
+        verbose_name_plural = "Horarios de los Domingos"
 
 """ Modelo de Peticiones de cambiar horarios
 
@@ -733,6 +755,9 @@ class PeticionParaCambiarHorario(models.Model):
     # Esto le cambiara el titulo a cada registro de la tabla para que aparezca el nombre del chofer en el horario
     def __str__(self):
         return f"{self.nombre_del_chofer_y_fecha_y_hora_del_horario_que_deseas_modificar}"
+
+    class Meta:
+        verbose_name_plural = "Peticiones Para Cambiar Horarios"
 
 
 """ Modelo de Semanas.
@@ -817,6 +842,8 @@ class SemanaParaReportesSemanales(models.Model):
     def __str__(self):
         return f"{self.nombre_de_la_semana}"
 
+    class Meta:
+        verbose_name_plural = "Semanas Para Reportes Semanales"
 
 
 
