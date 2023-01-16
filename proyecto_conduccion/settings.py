@@ -30,7 +30,11 @@ DEBUG = False
 
 # DEBUG = True
 
-ALLOWED_HOSTS = []
+""" Tengo que poner algo en “ALLOWED_HOSTS” en Settings.py si quiero usar la web app con el debug desactivado. En mi 
+caso, con usar “ '*' ” basta (fuente: 
+https://stackoverflow.com/questions/24857158/commanderror-you-must-set-settings-allowed-hosts-if-debug-is-false  ).
+"""
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
