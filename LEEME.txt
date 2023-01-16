@@ -2,8 +2,10 @@
 Ve a "/admin" en la barra de URL. Por ejemplo, si el enlace a la página es "www.pagina.com", debes ir a "www.pagina.com/admin" para 
 poder entrar al panel del administrador.
 
-## Para poder usar el programa web como el administrador:
-Agrega al administrador a la tabla Secretario para evitar errores. Necesitas al menos una entrada en la tabla "Secretario". 
+## Para poder usar el programa web como el Administrador:
+Necesitas al menos una entrada en la tabla "Secretario". Es decir, debes tener mínimo a un usuario como secretario para poder usar el programa web como el Administrador.
+
+Aunque ciertamente se podría corregir esto registrando al Administrador como Secretario, NO debes meter al Administrador a la tabla de Secretarios, porque sino, se va a repetir el texto del index.html, el de la barra de navegación, y el del footer 2 veces.
 
 ## Crear Usuarios y Cambiar Contraseñas:
 
