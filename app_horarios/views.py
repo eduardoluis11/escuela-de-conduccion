@@ -371,9 +371,10 @@ def lista_fechas_reportes_semanales(request):
                 "lista_de_fechas_reportes_semanales": lista_de_fechas_reportes_semanales,
             })
 
-        # Si se loguea un chofer o un secretario despues de las 7 pm, saldrá un mensaje de error
-        else:
-            return render(request, 'error.html')
+        # Esto me generaba un bug que no me dejaba entrar a la pág
+        # # Si se loguea un chofer o un secretario despues de las 7 pm, saldrá un mensaje de error
+        # else:
+        #     return render(request, 'error.html')
 
 
 
@@ -446,9 +447,10 @@ def lista_reportes_semanales_semana_seleccionada(request, semana_id):
 
             })
 
-        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
-        else:
-            return render(request, 'error.html')
+        # Esto me generaba un bug que no me dejaba entrar a la pág
+        # # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        # else:
+        #     return render(request, 'error.html')
 
 
 """ Vista Detallada de un Reporte Semanal. 
@@ -491,9 +493,10 @@ def reporte_semanal(request, reporte_id):
 
             })
 
-        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
-        else:
-            return render(request, 'error.html')
+        # Esto me generaba un bug que no me dejaba entrar a la pag
+        # # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        # else:
+        #     return render(request, 'error.html')
 
 
 """ Vista de Formulario para que lso secretarios puedan Agregar Horarios.
@@ -701,9 +704,10 @@ def agregar_horarios(request):
                     "instancia_usuario_logueado": instancia_usuario_logueado,
                 })
 
-        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
-        else:
-            return render(request, 'error.html')
+        # Esto me generaba un bug que no me dejaba entrar a la pag
+        # # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        # else:
+        #     return render(request, 'error.html')
 
 
 """ Vista para ver los Horarios de todos los Choferes (PRIORITARIO). ...
@@ -772,9 +776,10 @@ def horarios_de_todos_los_choferes(request):
                 "instancia_usuario_logueado": instancia_usuario_logueado,
             })
 
-        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
-        else:
-            return render(request, 'error.html')
+        # Esto me generaba un bug que no me dejaba entrar a la pag
+        # # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        # else:
+        #     return render(request, 'error.html')
 
 """ Vista de Lista de Oficinas.
 
