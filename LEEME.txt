@@ -7,6 +7,18 @@ Necesitas al menos una entrada en la tabla "Secretario". Es decir, debes tener m
 
 Aunque ciertamente se podría corregir esto registrando al Administrador como Secretario, NO debes meter al Administrador a la tabla de Secretarios, porque sino, se va a repetir el texto del index.html, el de la barra de navegación, y el del footer 2 veces.
 
+## Como Ver Horarios en Tiempo Real:
+La web app no te deja ver los horarios 100% en tiempo real. Tienes que actualizar la página para poder ver los nuevos horarios si alguien agrega o modifica un horario.
+
+Para actualizar una pagina desde el celular en Google Chrome: 1) Puedes deslizar el dedo de arriba hacia abajo. 2) Tocando el icono de los 3 puntos, y luego tocando en "Actualizar" en el menu que se abre.
+
+Mientra tanto, para actualizar una página desde la computadora, simplemente haz clic sobre el icono de la flecha en forma de círculo que aparece en la esquina superior izquierda del navegador web.
+
+Alternativamente, para ver los cambios en tiempo real de los horarios agregados o modificados, puedes simplemente irte a otra página, y volver a la página de horarios. Por ejemplo, vuelve a la página de inicio, y luego devuélvete a la página de horarios.
+
+## Como regresar a la página de inicio o Home Page
+Para regresar a la página de inicio, simplemente toca o haz clic en el texto que dice "ESCUELA DE CONDUCCIÓN". 
+
 ## Crear Usuarios y Cambiar Contraseñas:
 
 Solo se pueden crear usuarios usando una ventana de comandos o terminal. 
