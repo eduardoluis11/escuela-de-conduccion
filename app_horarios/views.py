@@ -63,16 +63,8 @@ def index(request):
     # Esto almacenará todos los datos del usuario si se loguea
     instancia_usuario_logueado = ''
 
-    # Esto agarra a todos los choferes
-    lista_de_choferes = Chofer.objects.all()
-
-    # Esto agarra todos los secretarios
-    lista_de_secretarios = Secretario.objects.all()
-
-
     # Esto chequea si el usuario está logueado
     if request.user.is_authenticated:
-
         # Esto almacena la ID del usuario logueado como un integer
         id_del_usuario_logueado = int(request.user.id)
 
@@ -83,46 +75,97 @@ def index(request):
         # print("Esta es la ID del usuario logueado:")
         # print(id_del_usuario_logueado)
 
-        # Esto me va a renderizar la página para los choferes
-        for chofer in lista_de_choferes:
-            if id_del_usuario_logueado == chofer.id_de_usuario_id:
+    # Esto agarra a todos los choferes
+    lista_de_choferes = Chofer.objects.all()
 
-                # Aquí enviaré la lista de choferes, y cualquier otra ID que necesite
-                return render(request, 'index.html', {
-                    "id_del_usuario_logueado": id_del_usuario_logueado,
-                    "lista_de_choferes": lista_de_choferes,
+    # Esto agarra todos los secretarios
+    lista_de_secretarios = Secretario.objects.all()
 
-                    "instancia_usuario_logueado": instancia_usuario_logueado,
-                })
+    # Bucle de DEBUGGEO
+    # for chofer in lista_de_choferes:
+    #     print("ID del chofer:")
+    #     print(chofer.id_de_usuario_id)
 
-        # Esto me va a renderizar la página para el administrador y el secretario en horario de trabajo
-        for secretario in lista_de_secretarios:
-            if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
+    # Mensaje de debuggeo
+    # print(user.id)
 
-                # Aquí enviaré la lista de choferes, y cualquier otra ID que necesite
-                return render(request, 'index.html', {
-                    "id_del_usuario_logueado": id_del_usuario_logueado,
+    # Aquí enviaré la lista de choferes, y cualquier otra ID qeu necesite
+    return render(request, 'index.html', {
+        "id_del_usuario_logueado": id_del_usuario_logueado,
+        "lista_de_choferes": lista_de_choferes,
+        "lista_de_secretarios": lista_de_secretarios,
+        "instancia_usuario_logueado": instancia_usuario_logueado,
+    })
 
-                    "lista_de_secretarios": lista_de_secretarios,
-                    "instancia_usuario_logueado": instancia_usuario_logueado,
-                })
 
-        # Si el usuario no es ni chofer, ni administrador, ni secretario en horario de trabajo, le mostraré un error
-        return render(request, 'error.html')
 
-    # Si el usuario no está logueado, igual renderizaré la página de inicio
-    else:
 
-        # Bucle de DEBUGGEO
-        # for chofer in lista_de_choferes:
-        #     print("ID del chofer:")
-        #     print(chofer.id_de_usuario_id)
-
-        # Mensaje de debuggeo
-        # print(user.id)
-
-        # Esto renderiza la pág de inicio si el usuario no se ha logueado
-        return render(request, 'index.html')
+    # # Esto almacenará la ID del usuario si se loguea
+    # id_del_usuario_logueado = ''
+    #
+    # # Esto almacenará todos los datos del usuario si se loguea
+    # instancia_usuario_logueado = ''
+    #
+    # # Esto agarra a todos los choferes
+    # lista_de_choferes = Chofer.objects.all()
+    #
+    # # Esto agarra todos los secretarios
+    # lista_de_secretarios = Secretario.objects.all()
+    #
+    #
+    # # Esto chequea si el usuario está logueado
+    # if request.user.is_authenticated:
+    #
+    #     # Esto almacena la ID del usuario logueado como un integer
+    #     id_del_usuario_logueado = int(request.user.id)
+    #
+    #     # Esto agarra al usuario logueado
+    #     instancia_usuario_logueado = User.objects.get(id=id_del_usuario_logueado)
+    #
+    #     # MENSAJE DE DEBUGGEO
+    #     # print("Esta es la ID del usuario logueado:")
+    #     # print(id_del_usuario_logueado)
+    #
+    #     # Esto me va a renderizar la página para los choferes
+    #     for chofer in lista_de_choferes:
+    #         if id_del_usuario_logueado == chofer.id_de_usuario_id:
+    #
+    #             # Aquí enviaré la lista de choferes, y cualquier otra ID que necesite
+    #             return render(request, 'index.html', {
+    #                 "id_del_usuario_logueado": id_del_usuario_logueado,
+    #                 "lista_de_choferes": lista_de_choferes,
+    #
+    #                 "instancia_usuario_logueado": instancia_usuario_logueado,
+    #             })
+    #
+    #     # Esto me va a renderizar la página para el administrador y el secretario en horario de trabajo
+    #     for secretario in lista_de_secretarios:
+    #         if id_del_usuario_logueado == secretario.id_de_usuario_id and secretario.esta_dentro_del_horario_de_trabajo is True or instancia_usuario_logueado.is_superuser == 1:
+    #
+    #             # Aquí enviaré la lista de choferes, y cualquier otra ID que necesite
+    #             return render(request, 'index.html', {
+    #                 "id_del_usuario_logueado": id_del_usuario_logueado,
+    #
+    #                 "lista_de_secretarios": lista_de_secretarios,
+    #                 "instancia_usuario_logueado": instancia_usuario_logueado,
+    #             })
+    #
+    #     # Si el usuario no es ni chofer, ni administrador, ni secretario en horario de trabajo, le mostraré un error
+    #     return render(request, 'error.html')
+    #
+    # # Si el usuario no está logueado, igual renderizaré la página de inicio
+    # else:
+    #
+    #     # Bucle de DEBUGGEO
+    #     # for chofer in lista_de_choferes:
+    #     #     print("ID del chofer:")
+    #     #     print(chofer.id_de_usuario_id)
+    #
+    #     # Mensaje de debuggeo
+    #     # print(user.id)
+    #
+    #     # Esto renderiza la pág de inicio si el usuario no se ha logueado
+    #     return render(request, 'index.html')
 
 """ Vista para la página de Iniciar Sesión.
 

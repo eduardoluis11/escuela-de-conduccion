@@ -32,9 +32,9 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
             {% endif %}
         {% endfor %}    <!-- Fin de la página de inicio para Choferes -->
 
-        <!-- Si el usuario es un Secretario o es el Administrador, le aparecerá esta página -->
+        <!-- Si el usuario es un Secretario, le aparecerá esta página -->
         {% for secretario in lista_de_secretarios %}
-            {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
+            {% if id_del_usuario_logueado == secretario.id_de_usuario_id %}
                 <p>
                     Consulte aquí los <a href="{% url 'horarios_de_todos_los_choferes' %}">
                     Horarios de los todos los Choferes</a>.
@@ -53,7 +53,32 @@ llama al código de disposicion.html (para renderizar la barra de navegación y 
                     Si desea tomar <a href="#">Asistencias, haga clic aquí</a>.
                 </p>
             {% endif %}
-        {% endfor %}    <!-- Fin de la página de inicio para Secretarios y el Administrador -->
+        {% endfor %}    <!-- Fin de la página de inicio para Secretarios -->
+
+        <!-- Página para el Administrador.
+
+        Es exactamente lo mismo que para el Secretario, pero lo repito aquí
+        para evitar un bug que hacía que todo el texto se repitiera 2 veces. -->
+        {% if instancia_usuario_logueado.is_superuser == 1 %}
+            <p>
+                Consulte aquí los <a href="{% url 'horarios_de_todos_los_choferes' %}">
+                Horarios de los todos los Choferes</a>.
+            </p>
+            <p>
+                Aquí podrá ver todos los <a href="{% url 'lista_fechas_reportes_semanales' %}">
+                Reportes Semanales</a>.
+            </p>
+
+            <p>
+                Para consultar la <a href="{% url 'lista_de_oficinas' %}">Lista de Oficinas y sus horarios</a>,
+                entre aquí.
+            </p>
+
+            <p>
+                Si desea tomar <a href="#">Asistencias, haga clic aquí</a>.
+            </p>
+        {% endif %}
+
 
     <!-- Página de inicio que le aparece al usuario si no ha iniciado sesión  -->
     {% else %}
