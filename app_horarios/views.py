@@ -342,6 +342,8 @@ Solo debo poner las fechas de los reportes en orden descendiente (del mas nuevo 
 Entonces, pondré 3 restricciones para ver los reportes semanales: que el usuario sea secretario Y que esté dentro del 
 horario de trabajo, o que el usuario sea el administrador. Para que el usuario esté dentro de la hora de trabajo, solo 
 debo asegurarme de que el campo "esta dentro del horario" sea “true”.
+
+Voy a arreglar las fechas de los reportes en orden descendiente (de mas reciente a mas viejo).
 """
 @login_required
 def lista_fechas_reportes_semanales(request):
@@ -362,7 +364,8 @@ def lista_fechas_reportes_semanales(request):
             # La página funcionará como debe si un secretario se loguea
 
             # Esto agarra todas las fechas para los reportes semanales
-            lista_de_fechas_reportes_semanales = SemanaParaReportesSemanales.objects.all()
+            lista_de_fechas_reportes_semanales = SemanaParaReportesSemanales.objects.all()\
+                .order_by('-fecha_de_inicio_de_semana_a_evaluar')
 
             return render(request, './reportes_semanales/lista_fechas_reportes_semanales.html', {
                 "lista_de_secretarios": lista_de_secretarios,
