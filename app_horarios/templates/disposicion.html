@@ -79,8 +79,10 @@ horarios, y el de crear peticiones.
 
 
                 {% for secretario in lista_de_secretarios %}
-                    {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
-                        <!-- Si el usuario es un Secretario o el Administrador -->
+                    <!-- Voy a repetir este mismo código para el Administrador para evitar un bug que hacía que
+                    los enlaces se repitieran 2 veces si el usuario se loguea como Administrador -->
+                    {% if id_del_usuario_logueado == secretario.id_de_usuario_id %}
+                        <!-- Si el usuario es un Secretario -->
 
                         <li class="nav-item"> <!-- Todos los horarios de todos los choferes -->
                             <a class="nav-link" href="{% url 'horarios_de_todos_los_choferes' %}">Horarios</a>
@@ -103,6 +105,30 @@ horarios, y el de crear peticiones.
                         <!-- Fin del navbar para Secretarios y el Administrador -->
                     {% endif %}
                 {% endfor %}
+
+                {% if instancia_usuario_logueado.is_superuser == 1 %}
+                    <!-- Si el usuario es un Administrador -->
+
+                    <li class="nav-item"> <!-- Todos los horarios de todos los choferes -->
+                        <a class="nav-link" href="{% url 'horarios_de_todos_los_choferes' %}">Horarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lista_de_oficinas' %}">Oficinas</a>
+                    </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Asistencias</a>-->
+<!--                        </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lista_fechas_reportes_semanales' %}">Reportes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'agregar_horarios' %}">Agregar Horario</a>
+                    </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Crear Petición</a>-->
+<!--                        </li>-->
+                    <!-- Fin del navbar para Secretarios y el Administrador -->
+                {% endif %}
 
                 <!-- Nombre del usuario logueado -->
                 <li class="nav-item">
@@ -168,8 +194,10 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
 
 
         {% for secretario in lista_de_secretarios %}
-            {% if id_del_usuario_logueado == secretario.id_de_usuario_id or instancia_usuario_logueado.is_superuser == 1 %}
-                <!-- Si el usuario es un Secretario o el Administrador -->
+            <!-- Para arreglar un bug en el que hacía que todos los enlaces se repitiran 2 o más veces, tendré que
+            repetir todo el código si el usuario es un Administrador -->
+            {% if id_del_usuario_logueado == secretario.id_de_usuario_id %}
+                <!-- Si el usuario es un Secretario -->
 
 
                 <div class="col">   <!-- Horarios de todos los choferes -->
@@ -196,8 +224,35 @@ Con colocar todo el footer con un container fluid, se me quitaron los overflows.
 <!--                </div>-->
                 <!-- Fin del footer para Secretarios y el Administrador -->
             {% endif %}
-
         {% endfor %}
+
+        {% if instancia_usuario_logueado.is_superuser == 1%}
+            <!-- Si el usuario es un Administrador -->
+
+            <div class="col">   <!-- Horarios de todos los choferes -->
+                <a href="{% url 'horarios_de_todos_los_choferes' %}">Horarios</a>
+            </div>
+            <div class="col">
+                <a href="{% url 'lista_de_oficinas' %}">Oficinas</a>
+            </div>
+
+<!--                <div class="col">-->
+<!--                    <a href="#">Asistencias</a>-->
+<!--                </div>-->
+
+            <div class="col">
+                <a href="{% url 'lista_fechas_reportes_semanales' %}">Reportes</a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'agregar_horarios' %}">Agregar Horario</a>
+            </div>
+
+<!--                <div class="col">-->
+<!--                    <a href="#">Crear Petición</a>-->
+<!--                </div>-->
+            <!-- Fin del footer para Secretarios y el Administrador -->
+        {% endif %}
 
 
 
