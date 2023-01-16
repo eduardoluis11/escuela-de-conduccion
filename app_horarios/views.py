@@ -810,9 +810,10 @@ def lista_de_oficinas(request):
                 "instancia_usuario_logueado": instancia_usuario_logueado,
             })
 
+        # Esto me generaba un bug que no me dejaba entrar a la pag
         # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
-        else:
-            return render(request, 'error.html')
+        # else:
+        #     return render(request, 'error.html')
 
 
 """ Vista de Horarios para una Oficina Seleccionada.
@@ -876,9 +877,10 @@ def horarios_oficina_seleccionada(request, oficina_id):
                 "instancia_usuario_logueado": instancia_usuario_logueado,
             })
 
-        # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
-        else:
-            return render(request, 'error.html')
+        # ESTO ME GENERABA UN BUG que no le dejaba a los secretarios entrar a la pág
+        # # Si el usuario no es administrador ni un secretario en horario de trabajo, mostrarles un error
+        # else:
+        #     return render(request, 'error.html')
 
 
 
