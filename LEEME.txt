@@ -36,6 +36,9 @@ Si el hosting no me deja configurar el cron, no podré bloquear a los secretario
 En mi caso, en el hosting gratis de Pythonanyhwere, sí puedo bloquear a los secretarios a las 7 pm. Sin embargo, no puedo
 volverlos a activar en la mañana. 
 
+PERO, en Pythnanywhere, no puedo poner lo de que se desactiven los secretarios a las 7 pm, ya que no detecta la clave de Django, la cual escondi por razones de seguridad y porque así se debe hacer. Si quiere que los usuarios se desactiven a las 7 pm, tendremos que subir esto a Heroku.
+Yo prefiero mantener la clave de Django escondida y que no se desactiven los horarios a las 7 pm, que que sí se desactiven, pero que la clave de Django esté visible en Settings.py.
+
 Esto se debe a que yo bloqueo a los usuarios en la noche usando un programa llamado "script", y necesito otro script para activarlos en la mañana. Pues, Pythonanywhere no me deja usar más de un script. Solo puedo ejecutar un solo programa en el hosting gratis. Entonces, solo puedo bloquear a los usuariso de noche, pero no puedo activarlos en la mañana.
 
 Si desea usar el hosting gratis, tendrá que pedirle al administrador que active manualmente a todos los secretarios.
