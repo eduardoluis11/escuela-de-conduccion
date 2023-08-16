@@ -5,11 +5,20 @@ from .models import User, Chofer, Secretario, Oficina, Asistencia, ReporteSemana
     HorariosMartes, HorariosMiercoles, HorariosJueves, HorariosViernes, HorariosSabados, HorariosDomingos, \
     PeticionParaCambiarHorario, Semana, SemanaParaReportesSemanales
 
+
+# Esto agrega una función de búsqueda en el panel de admin de Django por nombre
+class CustomModelAdmin(admin.ModelAdmin):
+    search_fields = ['nombre']  # Agrega los campos por los que deseas buscar
+
+
 # Registra tus modelos aquí
 
 # Esto registra cada modelo de models.py. Deberia ponermelo visible en el panel de admin de Django
 admin.site.register(User)
-admin.site.register(Chofer)
+
+# Los choferes se podrán buscar por nombre en el panel de admin de Django
+admin.site.register(Chofer, CustomModelAdmin)
+
 admin.site.register(Secretario)
 admin.site.register(Oficina)
 admin.site.register(Asistencia)
@@ -25,5 +34,6 @@ admin.site.register(HorariosDomingos)
 admin.site.register(PeticionParaCambiarHorario)
 admin.site.register(Semana)
 admin.site.register(SemanaParaReportesSemanales)
+
 
 
